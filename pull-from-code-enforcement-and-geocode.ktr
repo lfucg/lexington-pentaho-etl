@@ -99,30 +99,6 @@
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
-  <connection>
-    <name>geocode_code_enforcement</name>
-    <server>localhost</server>
-    <type>POSTGRESQL</type>
-    <access>Native</access>
-    <database>geocode_code_enforcement</database>
-    <port>5432</port>
-    <username/>
-    <password>Encrypted </password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>5432</attribute></attribute>
-      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
   <order>
   <hop> <from>Geocode results</from><to>Parse geocoding</to><enabled>Y</enabled> </hop>
   <hop> <from>CE DB</from><to>Geocode results</to><enabled>Y</enabled> </hop>
@@ -167,7 +143,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <url>http&#x3a;&#x2f;&#x2f;localhost&#x3a;9393&#x2f;geocode</url>
+    <url>http&#x3a;&#x2f;&#x2f;&#x24;&#x7b;GEOCODER_HOST&#x7d;&#x3a;&#x24;&#x7b;GEOCODER_PORT&#x7d;&#x2f;geocode</url>
     <urlInField>N</urlInField>
     <urlField/>
     <encoding>UTF-8</encoding>
@@ -216,7 +192,7 @@
     <encoding>UTF-8</encoding>
     <addtoresult>N</addtoresult>
     <file>
-      <name>&#x2f;Users&#x2f;erik&#x2f;code&#x2f;citygram_data&#x2f;code-enforcement-geocoded-2014</name>
+      <name>code-enforcement-geocoded-2014</name>
       <extention>json</extention>
       <append>N</append>
       <split>N</split>
@@ -260,7 +236,7 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;var parcelId&#x3b;&#xa;&#xa;&#x2f;&#x2a;&#xa;	geocoderResponse example&#x3a; &#xa;	&#x7b;&#x22;type&#x22;&#x3a;&#x22;FeatureCollection&#x22;,&#xa;		&#x22;features&#x22;&#x3a;&#x5b;&#xa;			&#x7b;&#x22;type&#x22;&#x3a;&#x22;Feature&#x22;,&#xa;			&#x22;geometry&#x22;&#x3a;&#xa;				&#x7b;&#x22;type&#x22;&#x3a;&#x22;Point&#x22;,&#xa;				&#x22;coordinates&#x22;&#x3a;&#x5b;-84.50911715490088,38.03544404685683&#x5d;&#x7d;,&#xa;			&#x22;properties&#x22;&#x3a;&#xa;				&#x7b;&#x22;formatted_address&#x22;&#x3a;&#x22;123 VIRGINIA AVE&#x22;,&#xa;					&#x22;parcel_id&#x22;&#x3a;&#x22;16027700&#x22;&#x7d;&#x7d;&#xa;			....&#xa;			&#x5d;&#x7d;&#xa;&#x2a;&#x2f;&#xa;&#xa;var features &#x3d; JSON.parse&#x28;geocoderResponse&#x29;.features&#x3b;&#xa;&#xa;if &#x28;features.length &#x3e; 0&#x29; &#x7b;&#xa;	var feature &#x3d; features&#x5b;0&#x5d;&#x3b;&#xa;	parcelId &#x3d; feature.properties.parcel_id&#x3b;&#xa;	var lat &#x3d; feature.geometry.coordinates&#x5b;0&#x5d;&#x3b;&#xa;	var lng &#x3d; feature.geometry.coordinates&#x5b;1&#x5d;&#x3b;&#xa;&#x7d;&#xa;&#xa;</jsScript_script>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;var parcelId&#x3b;&#xa;&#xa;&#x2f;&#x2a;&#xa;	geocoderResponse example&#x3a; &#xa;	&#x7b;&#x22;type&#x22;&#x3a;&#x22;FeatureCollection&#x22;,&#xa;		&#x22;features&#x22;&#x3a;&#x5b;&#xa;			&#x7b;&#x22;type&#x22;&#x3a;&#x22;Feature&#x22;,&#xa;			&#x22;geometry&#x22;&#x3a;&#xa;				&#x7b;&#x22;type&#x22;&#x3a;&#x22;Point&#x22;,&#xa;				&#x22;coordinates&#x22;&#x3a;&#x5b;-84.50911715490088,38.03544404685683&#x5d;&#x7d;,&#xa;			&#x22;properties&#x22;&#x3a;&#xa;				&#x7b;&#x22;formatted_address&#x22;&#x3a;&#x22;123 VIRGINIA AVE&#x22;,&#xa;					&#x22;parcel_id&#x22;&#x3a;&#x22;16027700&#x22;&#x7d;&#x7d;&#xa;			....&#xa;			&#x5d;&#x7d;&#xa;&#x2a;&#x2f;&#xa;&#xa;var features &#x3d; JSON.parse&#x28;geocoderResponse&#x29;.features&#x3b;&#xa;&#xa;if &#x28;features.length &#x3e; 0&#x29; &#x7b;&#xa;	var feature &#x3d; features&#x5b;0&#x5d;&#x3b;&#xa;	print&#x28;feature&#x29;&#x3b;&#xa;	parcelId &#x3d; feature.properties.parcel_id&#x3b;&#xa;	var lat &#x3d; feature.geometry.coordinates&#x5b;0&#x5d;&#x3b;&#xa;	var lng &#x3d; feature.geometry.coordinates&#x5b;1&#x5d;&#x3b;&#xa;&#x7d;&#xa;&#xa;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>parcelId</name>
         <rename>parcelId</rename>
         <type>String</type>

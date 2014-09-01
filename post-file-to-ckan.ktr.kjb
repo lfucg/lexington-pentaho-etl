@@ -58,7 +58,7 @@
       <name>uploadToCKAN.sh</name>
       <description/>
       <type>SHELL</type>
-      <filename>&#x2f;Users&#x2f;erik&#x2f;code&#x2f;citygram_data&#x2f;uploadToCKAN-working.sh</filename>
+      <filename>&#x24;&#x7b;Internal.Job.Filename.Directory&#x7d;&#x5c;ckan_upsert.sh</filename>
       <work_directory/>
       <arg_from_previous>N</arg_from_previous>
       <exec_per_row>N</exec_per_row>
@@ -126,7 +126,7 @@
       <to>uploadToCKAN.sh</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>Y</unconditional>
     </hop>
