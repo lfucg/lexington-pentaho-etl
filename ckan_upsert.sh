@@ -8,6 +8,6 @@ CKAN_INSTANCE=$CKAN_BASE_URL/api/3/action
 curl -v $CKAN_INSTANCE/datastore_upsert \
    -d '{"resource_id": "'$RESOURCE_ID'",
     "force":"true",
-    "records":'"`jq .records code-enforcement-geocoded-2014.json`"'
+    "records":'"`jq .records $CURR_PATH/code-enforcement-geocoded-2014.json`"'
   }' \
   -H "Authorization: $CKAN_APIKEY"
