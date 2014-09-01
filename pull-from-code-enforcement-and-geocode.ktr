@@ -118,7 +118,7 @@
            <schema_name/>
            </partitioning>
     <connection>Code_Enforcement</connection>
-    <sql>select top 1 &#x2a; from vw_OpenData_CodeEnf_Cases where CaseYr &#x3e;&#x3d; 2014&#x3b;</sql>
+    <sql>select top 1 &#x2a; from vw_OpenData_CodeEnf_Cases where CaseYr &#x3e;&#x3d; 2014 ORDER BY Cast&#x28;StatusDate as datetime&#x29; DESC&#x3b;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -192,7 +192,7 @@
     <encoding>UTF-8</encoding>
     <addtoresult>N</addtoresult>
     <file>
-      <name>code-enforcement-geocoded-2014</name>
+      <name>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x5c;code-enforcement-geocoded-2014</name>
       <extention>json</extention>
       <append>N</append>
       <split>N</split>
@@ -211,6 +211,42 @@
       <field>
         <name>CaseYr</name>
         <element>CaseYr</element>
+    </field>
+      <field>
+        <name>Address</name>
+        <element>Address</element>
+    </field>
+      <field>
+        <name>DateOpened</name>
+        <element>DateOpened</element>
+    </field>
+      <field>
+        <name>CaseType</name>
+        <element>CaseType</element>
+    </field>
+      <field>
+        <name>Status</name>
+        <element>Status</element>
+    </field>
+      <field>
+        <name>StatusDate</name>
+        <element>StatusDate</element>
+    </field>
+      <field>
+        <name>Closed</name>
+        <element>Closed</element>
+    </field>
+      <field>
+        <name>parcelId</name>
+        <element>parcelId</element>
+    </field>
+      <field>
+        <name>lat</name>
+        <element>lat</element>
+    </field>
+      <field>
+        <name>lng</name>
+        <element>lng</element>
     </field>
     </fields>
      <cluster_schema/>
