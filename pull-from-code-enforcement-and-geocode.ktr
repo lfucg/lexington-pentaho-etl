@@ -101,7 +101,7 @@
   </connection>
   <order>
   <hop> <from>Geocode results</from><to>Parse geocoding</to><enabled>Y</enabled> </hop>
-  <hop> <from>CE DB</from><to>Geocode results</to><enabled>Y</enabled> </hop>
+  <hop> <from>Last Day&#x27;s Code Enforcement</from><to>Geocode results</to><enabled>Y</enabled> </hop>
   <hop> <from>Parse geocoding</from><to>output csv</to><enabled>N</enabled> </hop>
   <hop> <from>Parse geocoding</from><to>Json output</to><enabled>Y</enabled> </hop>
   <hop> <from>Json output</from><to>Create POST body</to><enabled>Y</enabled> </hop>
@@ -109,7 +109,7 @@
   <hop> <from>Create POST body</from><to>REST Client</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>CE DB</name>
+    <name>Last Day&#x27;s Code Enforcement</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -120,7 +120,7 @@
            <schema_name/>
            </partitioning>
     <connection>Code_Enforcement</connection>
-    <sql>SELECT &#x2a; FROM &#x28; &#xa;	select &#x2a;, ROW_NUMBER&#x28;&#x29; OVER &#x28;ORDER BY Cast&#x28;StatusDate as datetime&#x29; DESC&#x29; as row from vw_OpenData_CodeEnf_Cases where CaseYr &#x3e;&#x3d; 2014&#xa;&#x29; t 	where row &#x3e;  0 AND row &#x3c;&#x3d; 1</sql>
+    <sql>SELECT &#x2a; from vw_OpenData_CodeEnf_Cases &#xa;WHERE Cast&#x28;StatusDate as datetime&#x29; &#x3e;&#x3d; dateadd&#x28;day,-1,getdate&#x28;&#x29;&#x29;&#xa;ORDER BY Cast&#x28;StatusDate as datetime&#x29; DESC&#x3b;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -253,8 +253,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>224</xloc>
-      <yloc>314</yloc>
+      <xloc>278</xloc>
+      <yloc>292</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -527,8 +527,8 @@
         <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>366</xloc>
-      <yloc>311</yloc>
+      <xloc>437</xloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
