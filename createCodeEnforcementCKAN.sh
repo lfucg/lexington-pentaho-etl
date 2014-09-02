@@ -4,7 +4,7 @@ source .env.ckan
 
 curl -v $CKAN_INSTANCE/resource_create \
   --form name="Complaints" \
-  --form id="complaints" \
+  --form id="$RESOURCE_ID" \
   --form package_id="code-enforcement" \
   --form format="csv" \
   --form url="code-enforcement-complaints.csv" \
