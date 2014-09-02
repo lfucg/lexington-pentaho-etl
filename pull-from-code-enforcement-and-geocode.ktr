@@ -105,6 +105,7 @@
   <hop> <from>Parse geocoding</from><to>output csv</to><enabled>N</enabled> </hop>
   <hop> <from>Parse geocoding</from><to>Json output</to><enabled>Y</enabled> </hop>
   <hop> <from>Parse geocoding</from><to>Serialize to file</to><enabled>N</enabled> </hop>
+  <hop> <from>Json output</from><to>HTTP Post</to><enabled>N</enabled> </hop>
   </order>
   <step>
     <name>CE DB</name>
@@ -118,7 +119,7 @@
            <schema_name/>
            </partitioning>
     <connection>Code_Enforcement</connection>
-    <sql>select top 1 &#x2a; from vw_OpenData_CodeEnf_Cases where CaseYr &#x3e;&#x3d; 2014 ORDER BY Cast&#x28;StatusDate as datetime&#x29; DESC&#x3b;</sql>
+    <sql>SELECT &#x2a; FROM &#x28; &#xa;	select &#x2a;, ROW_NUMBER&#x28;&#x29; OVER &#x28;ORDER BY Cast&#x28;StatusDate as datetime&#x29; DESC&#x29; as row from vw_OpenData_CodeEnf_Cases where CaseYr &#x3e;&#x3d; 2014&#xa;&#x29; t 	where row &#x3e;  100 AND row &#x3c;&#x3d; 200</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -251,8 +252,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>240</xloc>
-      <yloc>328</yloc>
+      <xloc>224</xloc>
+      <yloc>314</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -268,11 +269,11 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <compatible>Y</compatible>
+    <compatible>N</compatible>
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;var parcelId&#x3b;&#xa;&#xa;&#x2f;&#x2a;&#xa;	geocoderResponse example&#x3a; &#xa;	&#x7b;&#x22;type&#x22;&#x3a;&#x22;FeatureCollection&#x22;,&#xa;		&#x22;features&#x22;&#x3a;&#x5b;&#xa;			&#x7b;&#x22;type&#x22;&#x3a;&#x22;Feature&#x22;,&#xa;			&#x22;geometry&#x22;&#x3a;&#xa;				&#x7b;&#x22;type&#x22;&#x3a;&#x22;Point&#x22;,&#xa;				&#x22;coordinates&#x22;&#x3a;&#x5b;-84.50911715490088,38.03544404685683&#x5d;&#x7d;,&#xa;			&#x22;properties&#x22;&#x3a;&#xa;				&#x7b;&#x22;formatted_address&#x22;&#x3a;&#x22;123 VIRGINIA AVE&#x22;,&#xa;					&#x22;parcel_id&#x22;&#x3a;&#x22;16027700&#x22;&#x7d;&#x7d;&#xa;			....&#xa;			&#x5d;&#x7d;&#xa;&#x2a;&#x2f;&#xa;&#xa;var features &#x3d; JSON.parse&#x28;geocoderResponse&#x29;.features&#x3b;&#xa;&#xa;if &#x28;features.length &#x3e; 0&#x29; &#x7b;&#xa;	var feature &#x3d; features&#x5b;0&#x5d;&#x3b;&#xa;	print&#x28;feature&#x29;&#x3b;&#xa;	parcelId &#x3d; feature.properties.parcel_id&#x3b;&#xa;	var lat &#x3d; feature.geometry.coordinates&#x5b;0&#x5d;&#x3b;&#xa;	var lng &#x3d; feature.geometry.coordinates&#x5b;1&#x5d;&#x3b;&#xa;&#x7d;&#xa;&#xa;</jsScript_script>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;var parcelId&#x3b;&#xa;&#xa;&#x2f;&#x2a;&#xa;	geocoderResponse example&#x3a; &#xa;	&#x7b;&#x22;type&#x22;&#x3a;&#x22;FeatureCollection&#x22;,&#xa;		&#x22;features&#x22;&#x3a;&#x5b;&#xa;			&#x7b;&#x22;type&#x22;&#x3a;&#x22;Feature&#x22;,&#xa;			&#x22;geometry&#x22;&#x3a;&#xa;				&#x7b;&#x22;type&#x22;&#x3a;&#x22;Point&#x22;,&#xa;				&#x22;coordinates&#x22;&#x3a;&#x5b;-84.50911715490088,38.03544404685683&#x5d;&#x7d;,&#xa;			&#x22;properties&#x22;&#x3a;&#xa;				&#x7b;&#x22;formatted_address&#x22;&#x3a;&#x22;123 VIRGINIA AVE&#x22;,&#xa;					&#x22;parcel_id&#x22;&#x3a;&#x22;16027700&#x22;&#x7d;&#x7d;&#xa;			....&#xa;			&#x5d;&#x7d;&#xa;&#x2a;&#x2f;&#xa;&#xa;&#xa;var features &#x3d; JSON.parse&#x28;geocoderResponse&#x29;.features&#xa;&#xa;if &#x28;features.length &#x3e; 0&#x29; &#x7b;&#xa;	var feature &#x3d; features&#x5b;0&#x5d;&#x3b;&#xa;	parcelId &#x3d; feature.properties.parcel_id&#x3b;&#xa;	var lat &#x3d; feature.geometry.coordinates&#x5b;0&#x5d;&#x3b;&#xa;	var lng &#x3d; feature.geometry.coordinates&#x5b;1&#x5d;&#x3b;&#xa;&#x7d;&#xa;&#xa;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>parcelId</name>
         <rename>parcelId</rename>
         <type>String</type>
@@ -503,6 +504,45 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>142</xloc>
       <yloc>313</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>HTTP Post</name>
+    <type>HTTPPOST</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <postafile>N</postafile>
+    <encoding/>
+    <url/>
+    <urlInField>N</urlInField>
+    <urlField/>
+    <requestEntity/>
+    <httpLogin/>
+    <httpPassword>Encrypted </httpPassword>
+    <proxyHost/>
+    <proxyPort/>
+    <socketTimeout>10000</socketTimeout>
+    <connectionTimeout>10000</connectionTimeout>
+    <closeIdleConnectionsTime>-1</closeIdleConnectionsTime>
+    <lookup>
+      </lookup>
+    <result>
+      <name>result</name>
+      <code/>
+      <response_time/>
+      </result>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>386</xloc>
+      <yloc>399</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

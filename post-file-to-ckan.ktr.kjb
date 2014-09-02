@@ -74,8 +74,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>408</xloc>
-      <yloc>100</yloc>
+      <xloc>418</xloc>
+      <yloc>91</yloc>
       </entry>
     <entry>
       <name>pull-code-enforcement</name>
@@ -110,6 +110,17 @@
       <xloc>236</xloc>
       <yloc>96</yloc>
       </entry>
+    <entry>
+      <name>JavaScript</name>
+      <description/>
+      <type>EVAL</type>
+      <script/>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>243</xloc>
+      <yloc>189</yloc>
+      </entry>
   </entries>
   <hops>
     <hop>
@@ -127,6 +138,15 @@
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>START</from>
+      <to>JavaScript</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>N</enabled>
       <evaluation>Y</evaluation>
       <unconditional>Y</unconditional>
     </hop>
