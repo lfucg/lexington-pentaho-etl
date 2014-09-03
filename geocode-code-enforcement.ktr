@@ -74,15 +74,15 @@
   <notepads>
   </notepads>
   <order>
-  <hop> <from>Generate Rows</from><to>HTTP Client</to><enabled>Y</enabled> </hop>
-  <hop> <from>HTTP Client</from><to>Extract records from JSON</to><enabled>Y</enabled> </hop>
+  <hop> <from>CKAN Request Params</from><to>Get records from CKAN</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get records from CKAN</from><to>Extract records from JSON</to><enabled>Y</enabled> </hop>
   <hop> <from>Geocode records</from><to>Parse geocoding</to><enabled>Y</enabled> </hop>
   <hop> <from>Extract records from JSON</from><to>Geocode records</to><enabled>Y</enabled> </hop>
   <hop> <from>Parse geocoding</from><to>format records as JSON</to><enabled>Y</enabled> </hop>
   <hop> <from>format records as JSON</from><to>Upsert records to CKAN</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Generate Rows</name>
+    <name>CKAN Request Params</name>
     <type>RowGenerator</type>
     <description/>
     <distribute>Y</distribute>
@@ -94,13 +94,37 @@
            </partitioning>
     <fields>
       <field>
-        <name>ckanUrl</name>
+        <name>limit</name>
         <type>String</type>
         <format/>
         <currency/>
         <decimal/>
         <group/>
-        <nullif>http&#x3a;&#x2f;&#x2f;104.131.23.252&#x2f;api&#x2f;action&#x2f;datastore_search&#x3f;resource_id&#x3d;complaints-2&#x26;limit&#x3d;1</nullif>
+        <nullif>10</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <name>resourceId</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>complaints-2</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <name>ckanSqlQuery</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>select &#x2a; from &#x22;complaints-2&#x22; where &#x22;parcelId&#x22; IS NULL</nullif>
         <length>-1</length>
         <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
@@ -113,14 +137,14 @@
     <last_time_field>FiveSecondsAgo</last_time_field>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>167</xloc>
-      <yloc>30</yloc>
+      <xloc>168</xloc>
+      <yloc>29</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>HTTP Client</name>
+    <name>Get records from CKAN</name>
     <type>HTTP</type>
     <description/>
     <distribute>N</distribute>
@@ -130,9 +154,9 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <url/>
-    <urlInField>Y</urlInField>
-    <urlField>ckanUrl</urlField>
+    <url>&#x24;&#x7b;CKAN_BASE_URL&#x7d;&#x2f;api&#x2f;3&#x2f;action&#x2f;datastore_search</url>
+    <urlInField>N</urlInField>
+    <urlField/>
     <encoding>UTF-8</encoding>
     <httpLogin/>
     <httpPassword>Encrypted </httpPassword>
@@ -142,6 +166,14 @@
     <connectionTimeout>10000</connectionTimeout>
     <closeIdleConnectionsTime>-1</closeIdleConnectionsTime>
     <lookup>
+      <arg>
+        <name>limit</name>
+        <parameter>limit</parameter>
+      </arg>
+      <arg>
+        <name>resourceId</name>
+        <parameter>resource_id</parameter>
+      </arg>
     </lookup>
     <result>
       <name>recordsToGeocode</name>
@@ -226,7 +258,7 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>166</xloc>
-      <yloc>242</yloc>
+      <yloc>239</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
