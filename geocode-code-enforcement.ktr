@@ -125,7 +125,7 @@
         <currency/>
         <decimal/>
         <group/>
-        <nullif>select &#x2a; from &#x22;complaints-2&#x22; where &#x22;parcelId&#x22; IS NULL</nullif>
+        <nullif>select &#x2a; from &#x22;complaints-2&#x22; where &#x22;parcelId&#x22; IS NULL&#xa;</nullif>
         <length>-1</length>
         <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
@@ -155,7 +155,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <url>&#x24;&#x7b;CKAN_BASE_URL&#x7d;&#x2f;api&#x2f;3&#x2f;action&#x2f;datastore_search</url>
+    <url>&#x24;&#x7b;CKAN_BASE_URL&#x7d;&#x2f;api&#x2f;3&#x2f;action&#x2f;datastore_search_sql</url>
     <urlInField>N</urlInField>
     <urlField/>
     <encoding>UTF-8</encoding>
@@ -174,6 +174,10 @@
       <arg>
         <name>resourceId</name>
         <parameter>resource_id</parameter>
+      </arg>
+      <arg>
+        <name>ckanSqlQuery</name>
+        <parameter>sql</parameter>
       </arg>
     </lookup>
     <result>
