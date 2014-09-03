@@ -215,7 +215,7 @@
     <specification_method>filename</specification_method>
     <trans_object_id/>
     <trans_name/>
-    <filename>&#x2f;&#x2f;&#x2f;Users&#x2f;erik&#x2f;code&#x2f;pentaho&#x2f;upsert-records-to-ckan.ktr</filename>
+    <filename>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x5c;upsert-records-to-ckan.ktr</filename>
     <directory_path/>
     <mappings>
       <input>
