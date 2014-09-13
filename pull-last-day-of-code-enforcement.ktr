@@ -119,7 +119,7 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;ckanResourceId &#x3d; &#x27;complaints-3&#x27;&#x3b;</jsScript_script>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;ckanResourceId &#x3d; &#x27;complaints-4&#x27;&#x3b;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>ckanResourceId</name>
         <rename>ckanResourceId</rename>
         <type>String</type>
