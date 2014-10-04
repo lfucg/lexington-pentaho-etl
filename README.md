@@ -2,11 +2,11 @@
 
 * Pentaho Data Integration [5.1.0 stable](http://sourceforge.net/projects/pentaho/files/Data%20Integration/5.1/pdi-ce-5.1.0.0-752.zip/download)
 * Java 1.6+
-* git ([Windows install instructions](http://www.google.com/url?q=http%3A%2F%2Fmsysgit.github.io%2F&sa=D&sntz=1&usg=AFQjCNH_WuJHsz90vgCYyjsBf4Jy_hYSfA))
+* git ([Windows install instructions](http://msysgit.github.io/))
 
 ### Installation and configuration
 
-In the git terminal (todo, translate these instructions to Windows):
+In the terminal (todo, translate these instructions to Windows):
 
 ```
 git clone https://github.com/codeforamerica/lexington-pentaho-etl
