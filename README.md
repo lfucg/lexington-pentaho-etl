@@ -10,7 +10,7 @@ In the git terminal (todo, translate these instructions to Windows):
 
 ```
 git clone https://github.com/codeforamerica/lexington-pentaho-etl
-cd pentaho-etl
+cd lexington-pentaho-etl
 cp ~/Downloads/pdi-ce-5.1.0.0-752.zip .
 unzip pdi-ce-5.1.0.0-752.zip
 mv data-integration data-integration-5.1.0
