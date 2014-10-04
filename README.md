@@ -9,7 +9,7 @@
 In the git terminal (todo, translate these instructions to Windows):
 
 ```
-git clone https://github.com/eeeschwartz/pentaho-etl
+git clone https://github.com/codeforamerica/lexington-pentaho-etl
 cd pentaho-etl
 cp ~/Downloads/pdi-ce-5.1.0.0-752.zip .
 unzip pdi-ce-5.1.0.0-752.zip
