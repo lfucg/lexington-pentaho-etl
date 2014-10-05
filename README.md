@@ -1,3 +1,7 @@
+### Pentaho Data Integration ETL files for Lexington-Fayette Urban County Government's open data efforts.
+
+These scripts Extract, Transform, and Load (ETL) information from internal city services to the open data portal.
+
 ### Requirements
 
 * Pentaho Data Integration [5.1.0 stable](http://sourceforge.net/projects/pentaho/files/Data%20Integration/5.1/pdi-ce-5.1.0.0-752.zip/download)
