@@ -37,22 +37,32 @@ Once spoon launches, selected Edit > Edit the kettle.properties file:
 Right-click to insert new lines for each:
 
 ```
-CODE_ENFORCEMENT_DB=
-BUILDING_PERMITS_DB=
-DB_USER=
-DB_PASSWORD=
-DB_HOST=foo.bar.com
-DB_PORT=
-DB_DOMAIN=
-GEOCODER_HOST=localhost
-GEOCODER_PORT=
-CKAN_BASE_URL=http://data.foo.com
-CKAN_API_KEY=
+CODE_ENFORCEMENT_DB <lfucg code enforcement db name>
+BUILDING_PERMITS_DB <lfucg code enforcement db name>
+DB_USER <lfucg db user>
+DB_PASSWORD <lfucg db pass>
+DB_HOST <lfucg db host>
+DB_PORT <lfucg db port>
+DB_DOMAIN <lfucg domain>
+PROXY_HOST <my.proxy>
+PROXY_PORT <8080>
+GEOCODER_HOST <streetscope.net>
+GEOCODER_PORT <80>
+CKAN_BASE_URL <http://my-open-data-portal.com	>
+CKAN_API_KEY <something like: 120398jl-sdlf-2123-23sf-kfj9ujfd8>
 ```
 
 ### Test the install
 
-In spoon, open a transformation: "pull-last-day-of-code-enforcement.ktr". Click the play button in the transformation. If the configuration works then each step in the transformation shows a green checkmark to indicate success.
+* In spoon, File > Open: "pull-last-day-of-code-enforcement.ktr"
+* Click the play button in the transformation. If the configuration works then each step in the transformation shows a green checkmark to indicate success.
+
+### Debugging
+
+* To start it's good to idea to try the DB connection.
+	* Double click on `Last Days Code Enforcement`
+	* Connection > Edit > `Test` will give you feedback
+* In the transformation launch dialogue set the Log level to 'Rowlevel (very detailed)'
 
 ### Credits
 
