@@ -41,6 +41,8 @@ Once spoon launches, selected Edit > Edit the kettle.properties file:
 Right-click to insert new lines for each:
 
 ```
+SMTP_SERVER=
+SMTP_PORT=
 PROXY_HOST=
 PROXY_PORT=
 CODE_ENFORCEMENT_DB=
