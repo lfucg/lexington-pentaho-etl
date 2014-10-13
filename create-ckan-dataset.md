@@ -16,11 +16,15 @@
 * Step 3
 	* Add dataset metadata
 
+* Custom Step 4	
+	* At this point we've created a CKAN resource. Visit that resource and find the resource id. It's in the url like so: `http://www.civicdata.com/en/dataset/lexington-code-enforcement-complaints/resource/<resource-id>`
+	* For the example code enforcement dataset it ends up being `ad346da7-ce88-4c77-a0e1-10ff09bb0622`
+	* Edit the resource and in the `link to file` input, change the value to `http://www.civicdata.com/datastore/dump/<resource-id>`
+
+
 ### Configure datastore for newly created resource
 
-* At this point we've created a CKAN resource. Visit that resource and find the resource id. It's in the url like so: `http://www.civicdata.com/en/dataset/lexington-code-enforcement-complaints/resource/<resource-id>`
-* For the example code enforcement dataset it ends up being `ad346da7-ce88-4c77-a0e1-10ff09bb0622`
-* Edit the following script to add the fields, their datatypes, and the primary key https://gist.github.com/eeeschwartz/b3b0cb7769bcee479eca
+* Edit the [config script](https://github.com/lfucg/lexington-pentaho-etl/blob/master/configDatasetsInDatastore.sh) to add the fields, their datatypes, and the primary key
 
 Down the road we hope to automate the datastore field creation and make it easier to specify the primary key.
 
