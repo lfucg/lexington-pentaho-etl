@@ -52,9 +52,9 @@ DB_PASSWORD=
 DB_HOST=foo.bar.com
 DB_PORT=
 DB_DOMAIN=
-GEOCODER_HOST=localhost
-GEOCODER_PORT=
-CKAN_BASE_URL=http://data.foo.com
+GEOCODER_HOST=streetscope.net
+GEOCODER_PORT=80
+CKAN_BASE_URL=http://www.civicdata.com
 CKAN_API_KEY=
 ```
 
