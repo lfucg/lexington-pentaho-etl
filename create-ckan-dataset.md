@@ -28,6 +28,6 @@
 
 Down the road we hope to automate the datastore field creation and make it easier to specify the primary key.
 
-### Now the resource is ready to be automatically upserted to in the transformation!
+### Now the resource is ready to be automatically upserted to the transformation!
 
 

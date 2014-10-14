@@ -10,7 +10,7 @@ These scripts Extract, Transform, and Load (ETL) information from internal city 
 
 ### Installation and configuration
 
-In the terminal (todo, translate these instructions to Windows):
+#### *nix systems:
 
 ```
 git clone https://github.com/codeforamerica/lexington-pentaho-etl
@@ -34,6 +34,17 @@ cd data-integration
 ./spoon.sh
 ```
 
+#### Windows install
+
+
+On command line
+
+```
+git clone https://github.com/codeforamerica/lexington-pentaho-etl
+```
+
+Move the Pentaho Data Integration `data-integration` directory inside of lexington-pentaho-etl.
+
 ### Set environment variables for Pentaho Data Integration
 
 Once spoon launches, selected Edit > Edit the kettle.properties file:
@@ -52,9 +63,9 @@ DB_PASSWORD=
 DB_HOST=foo.bar.com
 DB_PORT=
 DB_DOMAIN=
-GEOCODER_HOST=localhost
-GEOCODER_PORT=
-CKAN_BASE_URL=http://data.foo.com
+GEOCODER_HOST=streetscope.net
+GEOCODER_PORT=80
+CKAN_BASE_URL=http://www.civicdata.com
 CKAN_API_KEY=
 ```
 
