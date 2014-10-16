@@ -75,8 +75,8 @@
       <note>This is a sub-transformation that upserts jsonRecords to CKAN.&#xa;&#xa;TODO&#x3a; add instructions for usage from another transformation</note>
       <xloc>437</xloc>
       <yloc>32</yloc>
-      <width>414</width>
-      <heigth>58</heigth>
+      <width>469</width>
+      <heigth>67</heigth>
       <fontname>Lucida Grande</fontname>
       <fontsize>13</fontsize>
       <fontbold>N</fontbold>
@@ -204,8 +204,8 @@
     <bodyField>upsertBody</bodyField>
     <httpLogin/>
     <httpPassword>Encrypted </httpPassword>
-    <proxyHost/>
-    <proxyPort/>
+    <proxyHost>&#x24;&#x7b;PROXY_HOST&#x7d;</proxyHost>
+    <proxyPort>&#x24;&#x7b;PROXY_PORT&#x7d;</proxyPort>
     <preemptive>N</preemptive>
     <trustStoreFile/>
     <trustStorePassword>Encrypted </trustStorePassword>
