@@ -169,7 +169,7 @@
            <schema_name/>
            </partitioning>
     <connection>PVA</connection>
-    <sql>SELECT SALEKEY, PARID, SALEDT, PRICE, SALEVAL &#xa;FROM SALES &#xa;WHERE &#x28;SALEVAL &#x3d; 12 OR SALEVAL &#x3d; 14&#x29; &#xa;AND SALEDT &#x3e; &#x27;2011-11-01&#x27;&#xa;-- AND SALEDT &#x3e;&#x3d; dateadd&#x28;day,-10,getdate&#x28;&#x29;&#x29;&#x3b;&#xa;</sql>
+    <sql>SELECT SALEKEY, PARID, SALEDT, PRICE, SALEVAL &#xa;FROM SALES &#xa;WHERE &#x28;SALEVAL &#x3d; 12 OR SALEVAL &#x3d; 14&#x29; &#xa;AND SALEDT &#x3e; &#x27;2011-11-01&#x27;&#xa;AND SALEDT &#x3e;&#x3d; dateadd&#x28;day,-1,getdate&#x28;&#x29;&#x29;&#x3b;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
