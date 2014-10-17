@@ -23,7 +23,7 @@ config_building_permits() {
 
 # http://www.civicdata.com/dataset/lexington-foreclosure-sales/resource/56780a5f-45e6-45dc-bcaf-b200efc15787
 config_foreclosure_sales() {
-  resource_id='56780a5f-45e6-45dc-bcaf-b200efc15787'
+  resource_id='291ffa8e-0a00-4120-8bb4-e90e5d8544ad'
   fields='[{"id":"SALEKEY","type":"integer"},{"id":"SALEDT","type":"date"},{"id":"ADDRESS","type":"text"},{"id":"PRICE","type":"float"},{"id":"SALEVAL","type":"integer"},{"id":"parcelId","type":"text"},{"id":"lat","type":"float"},{"id":"lng","type":"float"}]'
 
   curl -v $CKAN_BASE_URL/api/3/action/datastore_create \
