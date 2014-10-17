@@ -303,7 +303,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <url>http&#x3a;&#x2f;&#x2f;lexington--parcels-herokuapp-com-d3akpxbf3pcn.runscope.net&#x2f;parcel</url>
+    <url>http&#x3a;&#x2f;&#x2f;lexington-parcels.herokuapp.com&#x2f;parcel</url>
     <urlInField>N</urlInField>
     <urlField/>
     <encoding>UTF-8</encoding>

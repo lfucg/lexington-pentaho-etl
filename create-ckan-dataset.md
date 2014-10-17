@@ -20,6 +20,7 @@
 	* At this point we've created a CKAN resource. Visit that resource and find the resource id. It's in the url like so: `http://www.civicdata.com/en/dataset/lexington-code-enforcement-complaints/resource/<resource-id>`
 	* For the example code enforcement dataset it ends up being `ad346da7-ce88-4c77-a0e1-10ff09bb0622`
 	* Edit the resource and in the `link to file` input, change the value to `http://www.civicdata.com/datastore/dump/<resource-id>`
+	* This is the url that will appear on the resource page that links to the full csv dump of the dataset.
 
 
 ### Configure datastore for newly created resource
