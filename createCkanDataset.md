@@ -6,7 +6,7 @@
 
 * [Step 1](http://www.civicdata.com/en/dataset/new?group=cfa5553f-c91e-49bc-b10e-34288f23a60b): Create dataset
 	* Title: Lexington <dataset>. An example would be 'Lexington Code Enforcement Complaints'
-	* Add a description 
+	* Add a description
 	* Add license: 'Open Data Commons Public Domain Dedication and Licence (PDDL)'
 	* Visibility: public
 * Step 2: Add specific data resource to the dataset
@@ -16,7 +16,7 @@
 * Step 3
 	* Add dataset metadata
 
-* Custom Step 4	
+* Custom Step 4
 	* At this point we've created a CKAN resource. Visit that resource and find the resource id. It's in the url like so: `http://www.civicdata.com/en/dataset/lexington-code-enforcement-complaints/resource/<resource-id>`
 	* For the example code enforcement dataset it ends up being `ad346da7-ce88-4c77-a0e1-10ff09bb0622`
 	* Edit the resource and in the `link to file` input, change the value to `http://www.civicdata.com/datastore/dump/<resource-id>`
@@ -31,4 +31,11 @@ Down the road we hope to automate the datastore field creation and make it easie
 
 ### Now the resource is ready to be automatically upserted to the transformation!
 
+### Debugging tips
+
+* It can be difficult to understand why/how/when requests to civicdata are failing. 
+* An API Traffic Inspector called [runscope](https://www.runscope.com/) records HTTP requests and responses so that you can view, compare, and replay them. 
+* An HTTP request goes through runscope like so: Pentaho -> Runscope -> civicdata -> Runscope -> Pentaho
+* It's highly recommended!
+	
 
