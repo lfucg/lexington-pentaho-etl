@@ -142,7 +142,7 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;ckanResourceId &#x3d; &#x27;291ffa8e-0a00-4120-8bb4-e90e5d8544ad&#x27;&#x3b;</jsScript_script>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;ckanResourceId &#x3d; &#x27;197e1770-3877-4668-8858-1bb1c54754e9&#x27;&#x3b;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>ckanResourceId</name>
         <rename>ckanResourceId</rename>
         <type>String</type>
@@ -169,7 +169,7 @@
            <schema_name/>
            </partitioning>
     <connection>PVA</connection>
-    <sql>SELECT SALEKEY, PARID, SALEDT, PRICE, SALEVAL &#xa;FROM SALES &#xa;WHERE &#x28;SALEVAL &#x3d; 12 OR SALEVAL &#x3d; 14&#x29; &#xa;AND SALEDT &#x3e; &#x27;2011-11-01&#x27;&#xa;AND SALEDT &#x3e;&#x3d; dateadd&#x28;day,-1,getdate&#x28;&#x29;&#x29;&#x3b;&#xa;</sql>
+    <sql>SELECT SALEKEY, PARID, SALEDT, PRICE, SALEVAL &#xa;FROM SALES &#xa;WHERE &#x28;SALEVAL &#x3d; 12 OR SALEVAL &#x3d; 14&#x29; &#xa;AND SALEDT &#x3e; &#x27;2011-11-01&#x27;&#xa;AND SALEDT &#x3e;&#x3d; dateadd&#x28;day,-30,getdate&#x28;&#x29;&#x29;&#x3b;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
