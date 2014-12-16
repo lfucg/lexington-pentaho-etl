@@ -76,8 +76,8 @@
       <note>Todo&#x3a; figure out how to handle an empty records array so that the &#x22;Extract rwo records from JSON does not fail&#x22;</note>
       <xloc>41</xloc>
       <yloc>328</yloc>
-      <width>718</width>
-      <heigth>26</heigth>
+      <width>824</width>
+      <heigth>29</heigth>
       <fontname>Lucida Grande</fontname>
       <fontsize>13</fontsize>
       <fontbold>N</fontbold>
@@ -124,7 +124,7 @@
         <currency/>
         <decimal/>
         <group/>
-        <nullif>291ffa8e-0a00-4120-8bb4-e90e5d8544ad</nullif>
+        <nullif>197e1770-3877-4668-8858-1bb1c54754e9</nullif>
         <length>-1</length>
         <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
@@ -136,7 +136,7 @@
         <currency/>
         <decimal/>
         <group/>
-        <nullif>select &#x2a; from &#x22;291ffa8e-0a00-4120-8bb4-e90e5d8544ad&#x22; where &#x22;lat&#x22; IS NULL LIMIT 100</nullif>
+        <nullif>select &#x2a; from &#x22;197e1770-3877-4668-8858-1bb1c54754e9&#x22; where &#x22;ADDRESS&#x22; IS NULL limit 50</nullif>
         <length>-1</length>
         <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
@@ -149,8 +149,8 @@
     <last_time_field>FiveSecondsAgo</last_time_field>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>86</xloc>
-      <yloc>41</yloc>
+      <xloc>85</xloc>
+      <yloc>39</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -393,7 +393,7 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;ckanResourceId &#x3d; &#x27;291ffa8e-0a00-4120-8bb4-e90e5d8544ad&#x27;&#x3b;</jsScript_script>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;ckanResourceId &#x3d; &#x27;197e1770-3877-4668-8858-1bb1c54754e9&#x27;&#x3b;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>ckanResourceId</name>
         <rename>ckanResourceId</rename>
         <type>String</type>
