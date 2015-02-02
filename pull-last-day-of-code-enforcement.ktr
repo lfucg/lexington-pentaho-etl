@@ -146,7 +146,7 @@
            <schema_name/>
            </partitioning>
     <connection>Code_Enforcement</connection>
-    <sql>SELECT &#x2a; from vw_OpenData_CodeEnf_Cases &#xa;WHERE Cast&#x28;StatusDate as datetime&#x29; &#x3e;&#x3d; dateadd&#x28;day,-1,getdate&#x28;&#x29;&#x29;&#xa;ORDER BY Cast&#x28;StatusDate as datetime&#x29; DESC&#x3b;&#xa;</sql>
+    <sql>SELECT &#x2a; from vw_OpenData_CodeEnf_Cases &#xa;WHERE Cast&#x28;StatusDate as datetime&#x29; &#x3e;&#x3d; dateadd&#x28;day,-10,getdate&#x28;&#x29;&#x29;&#xa;ORDER BY Cast&#x28;StatusDate as datetime&#x29; DESC&#x3b;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>

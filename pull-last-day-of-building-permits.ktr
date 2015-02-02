@@ -172,7 +172,7 @@
            <schema_name/>
            </partitioning>
     <connection>Building_Permits</connection>
-    <sql>SELECT &#x2a; &#xa;FROM vw_OpenData_BI_Permits &#xa;WHERE Date &#x3e;&#x3d; dateadd&#x28;day,-1,getdate&#x28;&#x29;&#x29;&#x3b;</sql>
+    <sql>SELECT &#x2a; &#xa;FROM vw_OpenData_BI_Permits &#xa;WHERE Date &#x3e;&#x3d; dateadd&#x28;day,-10,getdate&#x28;&#x29;&#x29;&#x3b;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
