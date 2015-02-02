@@ -142,7 +142,7 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;ckanResourceId &#x3d; &#x27;197e1770-3877-4668-8858-1bb1c54754e9&#x27;&#x3b;</jsScript_script>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;ckanResourceId &#x3d; &#x27;0e2f75bd-7cfd-4e3b-8770-cb7119c623ed&#x27;&#x3b;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>ckanResourceId</name>
         <rename>ckanResourceId</rename>
         <type>String</type>
