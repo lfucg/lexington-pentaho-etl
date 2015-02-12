@@ -1,5 +1,6 @@
 CKAN_BASE_URL=http://www.civicdata.com
 CKAN_API_KEY=from-ckan-users-profile-page
+PROXY='--proxy http://localhost:8080'
 
 # http://www.civicdata.com/en/dataset/lexington-code-enforcement-complaints/resource/ad346da7-ce88-4c77-a0e1-10ff09bb0622
 config_code_enforcement() {
@@ -21,12 +22,18 @@ config_building_permits() {
     -H "Authorization: $CKAN_API_KEY"
 }
 
-# http://www.civicdata.com/dataset/lexington-foreclosure-sales/resource/56780a5f-45e6-45dc-bcaf-b200efc15787
+# http://www.civicdata.com/dataset/lexington-foreclosure-sales/resource/0e2f75bd-7cfd-4e3b-8770-cb7119c623ed
 config_foreclosure_sales() {
-  resource_id='291ffa8e-0a00-4120-8bb4-e90e5d8544ad'
+  resource_id='0e2f75bd-7cfd-4e3b-8770-cb7119c623ed'
   fields='[{"id":"SALEKEY","type":"integer"},{"id":"SALEDT","type":"date"},{"id":"ADDRESS","type":"text"},{"id":"PRICE","type":"float"},{"id":"SALEVAL","type":"integer"},{"id":"parcelId","type":"text"},{"id":"lat","type":"float"},{"id":"lng","type":"float"}]'
 
-  curl -v $CKAN_BASE_URL/api/3/action/datastore_create \
+  curl -v $PROXY $CKAN_BASE_URL/api/3/action/datastore_create \
     -d '{"resource_id": "'$resource_id'", "fields": '$fields', "primary_key":"SALEKEY", "force":"true"}' \
+    -H "Authorization: $CKAN_API_KEY"
+}
+
+upsert_example() {
+  curl -v $PROXY $CKAN_BASE_URL/api/3/action/datastore_upsert \
+    -d '{"resource_id": "'$resource_id'", "records": [{"ID":"186844", "parcelId":"123"}], "force":"true"}' \
     -H "Authorization: $CKAN_API_KEY"
 }
