@@ -75,8 +75,8 @@
       <note>Todo&#x3a; figure out how to handle an empty records array so that the &#x22;Extract rwo records from JSON does not fail&#x22;</note>
       <xloc>41</xloc>
       <yloc>328</yloc>
-      <width>718</width>
-      <heigth>26</heigth>
+      <width>824</width>
+      <heigth>29</heigth>
       <fontname>Lucida Grande</fontname>
       <fontsize>13</fontsize>
       <fontbold>N</fontbold>
@@ -135,7 +135,7 @@
         <currency/>
         <decimal/>
         <group/>
-        <nullif>select &#x2a; from &#x22;2691aff1-e555-48d3-9188-aebf1fa8323e&#x22; where &#x22;parcelId&#x22; IS NULL LIMIT 100</nullif>
+        <nullif>select &#x2a; from &#x22;2691aff1-e555-48d3-9188-aebf1fa8323e&#x22; where &#x22;parcelId&#x22; IS NULL  LIMIT 100</nullif>
         <length>-1</length>
         <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
@@ -285,8 +285,8 @@
     <sizeFieldName/>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>305</xloc>
-      <yloc>249</yloc>
+      <xloc>306</xloc>
+      <yloc>248</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -308,8 +308,8 @@
     <encoding>UTF-8</encoding>
     <httpLogin/>
     <httpPassword>Encrypted </httpPassword>
-    <proxyHost/>
-    <proxyPort/>
+    <proxyHost>&#x24;&#x7b;PROXY_HOST&#x7d;</proxyHost>
+    <proxyPort>&#x24;&#x7b;PROXY_PORT&#x7d;</proxyPort>
     <socketTimeout>10000</socketTimeout>
     <connectionTimeout>10000</connectionTimeout>
     <closeIdleConnectionsTime>-1</closeIdleConnectionsTime>
@@ -349,8 +349,8 @@
     <encoding>UTF-8</encoding>
     <httpLogin/>
     <httpPassword>Encrypted </httpPassword>
-    <proxyHost/>
-    <proxyPort/>
+    <proxyHost>&#x24;&#x7b;PROXY_HOST&#x7d;</proxyHost>
+    <proxyPort>&#x24;&#x7b;PROXY_PORT&#x7d;</proxyPort>
     <socketTimeout>10000</socketTimeout>
     <connectionTimeout>10000</connectionTimeout>
     <closeIdleConnectionsTime>-1</closeIdleConnectionsTime>
