@@ -152,8 +152,8 @@
         <replace>Y</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>526</xloc>
-      <yloc>57</yloc>
+      <xloc>518</xloc>
+      <yloc>197</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -173,7 +173,7 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var MatchType &#x3d; match&#x28;MatchAddress&#x29;&#xa;&#xa;function match&#x28;m_address&#x29;&#x7b;&#xa;if &#x28;m_address &#x3d;&#x3d; null&#x29; &#x7b;&#xa;return &#x22;&#x22;&#xa;&#x7d; else &#x7b;return &#x22;Approximate Parcel&#x22;&#x7d;&#xa;&#x7d;&#xa;</jsScript_script>
+        <jsScript_script>var MatchType &#x3d; match&#x28;MatchAddress&#x29;&#xa;&#xa;function match&#x28;m_address&#x29;&#x7b;&#xa;if &#x28;m_address &#x3d;&#x3d; null&#x29; &#x7b;&#xa;return &#x22;&#x22;&#xa;&#x7d; else &#x7b;return &#x22;Approximate Parcel&#x22;&#x7d;&#xa;&#x7d;&#xa;&#xd;&#xa;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>MatchType</name>
         <rename>MatchType</rename>
         <type>String</type>
@@ -182,8 +182,8 @@
         <replace>Y</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>998</xloc>
-      <yloc>464</yloc>
+      <xloc>990</xloc>
+      <yloc>604</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -201,8 +201,8 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>282</xloc>
-      <yloc>205</yloc>
+      <xloc>274</xloc>
+      <yloc>345</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -250,8 +250,8 @@
     </result>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>858</xloc>
-      <yloc>381</yloc>
+      <xloc>850</xloc>
+      <yloc>521</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -286,8 +286,8 @@
         <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>172</xloc>
-      <yloc>57</yloc>
+      <xloc>164</xloc>
+      <yloc>197</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -316,8 +316,8 @@
         <replace>Y</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>642</xloc>
-      <yloc>142</yloc>
+      <xloc>634</xloc>
+      <yloc>282</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -334,7 +334,7 @@
            <schema_name/>
            </partitioning>
     <connection>Code Enforcement</connection>
-    <sql>SELECT&#xd;&#xa;C.CaseNo,&#xd;&#xa;C.CaseYr,&#xd;&#xa;C.Address,&#xd;&#xa;C.DateOpened,&#xd;&#xa;S.CaseType,&#xd;&#xa;S.Description as Status,&#xd;&#xa;C.StatusDate,&#xd;&#xa;S.Closed&#xd;&#xa;FROM &#xd;&#xa;Cases as C&#xd;&#xa;JOIN&#xd;&#xa;StatusCodes as S ON C.StatusCode &#x3d; S.StatusCode&#xd;&#xa;WHERE&#xd;&#xa;C.StatusDate &#x3e;&#x3d; &#x27;2015-02-01&#x27;</sql>
+    <sql>SELECT&#xd;&#xa;C.CaseNo,&#xd;&#xa;C.CaseYr,&#xd;&#xa;C.Address,&#xd;&#xa;C.DateOpened,&#xd;&#xa;S.CaseType,&#xd;&#xa;S.Description as Status,&#xd;&#xa;C.StatusDate,&#xd;&#xa;S.Closed&#xd;&#xa;FROM &#xd;&#xa;Cases as C&#xd;&#xa;JOIN&#xd;&#xa;StatusCodes as S ON C.StatusCode &#x3d; S.StatusCode&#xd;&#xa;WHERE&#xd;&#xa;C.StatusDate &#x3e;&#x3d; &#x27;2015-02-18&#x27;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -342,8 +342,8 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>38</xloc>
-      <yloc>57</yloc>
+      <xloc>30</xloc>
+      <yloc>197</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -363,7 +363,7 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var MatchType &#x3d; match_copy_t&#x28;MatchAddress_1&#x29;&#xa;var MatchAddress &#x3d; match_copy_a&#x28;MatchAddress_1&#x29;&#xa;var PVANUM &#x3d; match_copy_p&#x28;MatchAddress_1&#x29;&#xa;var X &#x3d; match_copy_x&#x28;MatchAddress_1&#x29;&#xa;var Y &#x3d; match_copy_y&#x28;MatchAddress_1&#x29;&#xa;&#xa;function match_copy_t&#x28;m_address&#x29;&#x7b;&#xa;if &#x28;m_address &#x3d;&#x3d; null&#x29; &#x7b;return &#x22;&#x22;&#x7d; else &#x7b;return &#x22;Exact Parcel&#x22;&#x7d;&#xa;&#x7d;&#xa;&#xa;function match_copy_a&#x28;m_address&#x29;&#x7b;&#xa;if &#x28;m_address &#x3d;&#x3d; null&#x29; &#x7b;return &#x22;&#x22;&#x7d; else &#x7b;return MatchAddress_1&#x7d;&#xa;&#x7d;&#xa;&#xa;function match_copy_p&#x28;m_address&#x29;&#x7b;&#xa;if &#x28;m_address &#x3d;&#x3d; null&#x29; &#x7b;return &#x22;&#x22;&#x7d; else &#x7b;return ParcelId_1&#x7d;&#xa;&#x7d;&#xa;&#xa;function match_copy_x&#x28;m_address&#x29;&#x7b;&#xa;if &#x28;m_address &#x3d;&#x3d; null&#x29; &#x7b;return &#x22;&#x22;&#x7d; else &#x7b;return lat_1&#x7d;&#xa;&#x7d;&#xa;&#xa;function match_copy_y&#x28;m_address&#x29;&#x7b;&#xa;if &#x28;m_address &#x3d;&#x3d; null&#x29; &#x7b;return &#x22;&#x22;&#x7d; else &#x7b;return lng_1&#x7d;&#xa;&#x7d;</jsScript_script>
+        <jsScript_script>var MatchType &#x3d; match_copy_t&#x28;MatchAddress_1&#x29;&#xa;var MatchAddress &#x3d; match_copy_a&#x28;MatchAddress_1&#x29;&#xa;var parcelId &#x3d; match_copy_p&#x28;MatchAddress_1&#x29;&#xa;var lat &#x3d; match_copy_x&#x28;MatchAddress_1&#x29;&#xa;var lng &#x3d; match_copy_y&#x28;MatchAddress_1&#x29;&#xa;&#xa;function match_copy_t&#x28;m_address&#x29;&#x7b;&#xa;if &#x28;m_address &#x3d;&#x3d; null&#x29; &#x7b;return &#x22;&#x22;&#x7d; else &#x7b;return &#x22;Exact Parcel&#x22;&#x7d;&#xa;&#x7d;&#xa;&#xa;function match_copy_a&#x28;m_address&#x29;&#x7b;&#xa;if &#x28;m_address &#x3d;&#x3d; null&#x29; &#x7b;return &#x22;&#x22;&#x7d; else &#x7b;return MatchAddress_1&#x7d;&#xa;&#x7d;&#xa;&#xa;function match_copy_p&#x28;m_address&#x29;&#x7b;&#xa;if &#x28;m_address &#x3d;&#x3d; null&#x29; &#x7b;return &#x22;&#x22;&#x7d; else &#x7b;return parcelId_1&#x7d;&#xa;&#x7d;&#xa;&#xa;function match_copy_x&#x28;m_address&#x29;&#x7b;&#xa;if &#x28;m_address &#x3d;&#x3d; null&#x29; &#x7b;return &#x22;&#x22;&#x7d; else &#x7b;return lat_1&#x7d;&#xa;&#x7d;&#xa;&#xa;function match_copy_y&#x28;m_address&#x29;&#x7b;&#xa;if &#x28;m_address &#x3d;&#x3d; null&#x29; &#x7b;return &#x22;&#x22;&#x7d; else &#x7b;return lng_1&#x7d;&#xa;&#x7d;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>MatchType</name>
         <rename>MatchType</rename>
         <type>String</type>
@@ -396,8 +396,38 @@
         <replace>Y</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>750</xloc>
-      <yloc>204</yloc>
+      <xloc>742</xloc>
+      <yloc>344</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Create POST body</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#x2f;&#x2a;&#xa; jsonRecords comes as string&#x3a; &#x27;&#x7b;&#x22;records&#x22;&#x3a; &#x5b;&#x7b;&#x22;CaseNo&#x22;&#x3a;&#x22;123&#x22;...&#x7d;&#x5d;&#x7d;&#x27;&#xa; we add resource_id and other params to the end of the JSON string&#xa; to create CKAN upsert body&#x3a;&#xa; &#x7b;&#x22;records&#x22;&#x3a; &#x5b;&#x7b;&#x22;CaseNo&#x22;&#x3a;&#x22;123&#x22;...&#x7d;&#x5d;, &#x22;resource_id&#x22;&#x3a;&#x22;foo&#x22;...&#x7d;&#xa;&#x2a;&#x2f;&#xa;&#xa;upsertBody &#x3d; jsonRecords.substring&#x28;0,jsonRecords.length-1&#x29; &#x2b; &#xa;	&#x27;,&#x22;resource_id&#x22;&#x3a;&#x22;&#x27; &#x2b; ckanResourceId &#x2b; &#x27;&#x22;,&#x22;force&#x22;&#x3a;&#x22;true&#x22;&#x7d;&#x27;&#x3b;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>upsertBody</name>
+        <rename>upsertBody</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>955</xloc>
+      <yloc>50</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -415,8 +445,71 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>921</xloc>
-      <yloc>57</yloc>
+      <xloc>913</xloc>
+      <yloc>197</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get CKAN API variables</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ckanApiKey</name>
+        <variable>&#x24;&#x7b;CKAN_API_KEY&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>842</xloc>
+      <yloc>50</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insert ckanResourceId</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;ckanResourceId &#x3d; &#x27;ad346da7-ce88-4c77-a0e1-10ff09bb0622&#x27;&#x3b;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>ckanResourceId</name>
+        <rename>ckanResourceId</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>843</xloc>
+      <yloc>119</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -434,8 +527,8 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1092</xloc>
-      <yloc>59</yloc>
+      <xloc>1084</xloc>
+      <yloc>199</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -578,8 +671,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>424</xloc>
-      <yloc>205</yloc>
+      <xloc>416</xloc>
+      <yloc>345</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -632,8 +725,8 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>424</xloc>
-      <yloc>57</yloc>
+      <xloc>416</xloc>
+      <yloc>197</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -653,7 +746,7 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xa;var MatchAddress &#x3d; address&#x28;Tiger_Response&#x29;&#xa;var X &#x3d; X&#x28;Tiger_Response&#x29;&#xa;var Y &#x3d; Y&#x28;Tiger_Response&#x29;&#xa; &#xa;function address &#x28;input&#x29; &#x7b;&#xa;if &#x28;JSON.parse&#x28;Tiger_Response&#x29;.result.addressMatches.length &#x3d;&#x3d; 0&#x29;&#xa;&#x7b;return null&#x7d;&#xa;else &#x7b; &#xa;var parser &#x3d; JSON.parse&#x28;Tiger_Response&#x29;.result.addressMatches&#x5b;0&#x5d;&#xa;return parser.matchedAddress.split&#x28;&#x22;,&#x22;,1&#x29; &#x7d;&#xa;&#x7d;&#xa;&#xa;function X &#x28;input&#x29; &#x7b;&#xa;if &#x28;JSON.parse&#x28;Tiger_Response&#x29;.result.addressMatches.length &#x3d;&#x3d; 0&#x29;&#xa;&#x7b;return null&#x7d;&#xa;else &#x7b; &#xa;var parser &#x3d; JSON.parse&#x28;Tiger_Response&#x29;.result.addressMatches&#x5b;0&#x5d;&#xa;return parser.coordinates.x &#x7d;&#xa;&#x7d;&#xa;&#xa;function Y &#x28;input&#x29; &#x7b;&#xa;if &#x28;JSON.parse&#x28;Tiger_Response&#x29;.result.addressMatches.length &#x3d;&#x3d; 0&#x29;&#xa;&#x7b;return null&#x7d;&#xa;else &#x7b; &#xa;var parser &#x3d; JSON.parse&#x28;Tiger_Response&#x29;.result.addressMatches&#x5b;0&#x5d;&#xa;return parser.coordinates.y &#x7d;&#xa;&#x7d;</jsScript_script>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xa;var MatchAddress &#x3d; address&#x28;Tiger_Response&#x29;&#xa;var lat &#x3d; X&#x28;Tiger_Response&#x29;&#xa;var lng &#x3d; Y&#x28;Tiger_Response&#x29;&#xa; &#xa;function address &#x28;input&#x29; &#x7b;&#xa;if &#x28;JSON.parse&#x28;Tiger_Response&#x29;.result.addressMatches.length &#x3d;&#x3d; 0&#x29;&#xa;&#x7b;return null&#x7d;&#xa;else &#x7b; &#xa;var parser &#x3d; JSON.parse&#x28;Tiger_Response&#x29;.result.addressMatches&#x5b;0&#x5d;&#xa;return parser.matchedAddress.split&#x28;&#x22;,&#x22;,1&#x29; &#x7d;&#xa;&#x7d;&#xa;&#xa;function X &#x28;input&#x29; &#x7b;&#xa;if &#x28;JSON.parse&#x28;Tiger_Response&#x29;.result.addressMatches.length &#x3d;&#x3d; 0&#x29;&#xa;&#x7b;return null&#x7d;&#xa;else &#x7b; &#xa;var parser &#x3d; JSON.parse&#x28;Tiger_Response&#x29;.result.addressMatches&#x5b;0&#x5d;&#xa;return parser.coordinates.x &#x7d;&#xa;&#x7d;&#xa;&#xa;function Y &#x28;input&#x29; &#x7b;&#xa;if &#x28;JSON.parse&#x28;Tiger_Response&#x29;.result.addressMatches.length &#x3d;&#x3d; 0&#x29;&#xa;&#x7b;return null&#x7d;&#xa;else &#x7b; &#xa;var parser &#x3d; JSON.parse&#x28;Tiger_Response&#x29;.result.addressMatches&#x5b;0&#x5d;&#xa;return parser.coordinates.y &#x7d;&#xa;&#x7d;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>MatchAddress</name>
         <rename>MatchAddress</rename>
         <type>String</type>
@@ -674,8 +767,8 @@
         <replace>Y</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>858</xloc>
-      <yloc>464</yloc>
+      <xloc>850</xloc>
+      <yloc>604</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -693,8 +786,8 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>752</xloc>
-      <yloc>58</yloc>
+      <xloc>744</xloc>
+      <yloc>198</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -712,8 +805,8 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>852</xloc>
-      <yloc>126</yloc>
+      <xloc>844</xloc>
+      <yloc>266</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -754,8 +847,8 @@
         <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>858</xloc>
-      <yloc>300</yloc>
+      <xloc>850</xloc>
+      <yloc>440</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -782,8 +875,8 @@
 <target_step>Clean Addresses 2</target_step>
 </case></cases>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>643</xloc>
-      <yloc>58</yloc>
+      <xloc>635</xloc>
+      <yloc>198</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -810,8 +903,8 @@
 <target_step>Set Geocoder Parameters</target_step>
 </case></cases>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>854</xloc>
-      <yloc>205</yloc>
+      <xloc>846</xloc>
+      <yloc>345</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -838,8 +931,8 @@
 <target_step>No Match</target_step>
 </case></cases>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>997</xloc>
-      <yloc>59</yloc>
+      <xloc>989</xloc>
+      <yloc>199</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -868,8 +961,8 @@
 <target_step>Parcel Lookup</target_step>
 </case></cases>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>282</xloc>
-      <yloc>57</yloc>
+      <xloc>274</xloc>
+      <yloc>197</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -903,7 +996,7 @@
       </value>
       <value>
         <name>PVANUM</name>
-        <rename>ParcelId</rename>
+        <rename>parcelId</rename>
         <default/>
         <type>None</type>
       </value>
@@ -922,8 +1015,55 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>642</xloc>
-      <yloc>203</yloc>
+      <xloc>634</xloc>
+      <yloc>343</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Upsert records to CKAN</name>
+    <type>Rest</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <applicationType>TEXT PLAIN</applicationType>
+    <method>POST</method>
+    <url>&#x24;&#x7b;CKAN_BASE_URL&#x7d;&#x2f;api&#x2f;3&#x2f;action&#x2f;datastore_upsert</url>
+    <urlInField>N</urlInField>
+    <dynamicMethod>N</dynamicMethod>
+    <methodFieldName/>
+    <urlField/>
+    <bodyField>upsertBody</bodyField>
+    <httpLogin/>
+    <httpPassword>Encrypted </httpPassword>
+    <proxyHost/>
+    <proxyPort/>
+    <preemptive>N</preemptive>
+    <trustStoreFile/>
+    <trustStorePassword>Encrypted </trustStorePassword>
+    <headers>
+      <header>
+        <field>ckanApiKey</field>
+        <name>Authorization</name>
+        </header>
+      </headers>
+    <parameters>
+      </parameters>
+    <result>
+      <name>result</name>
+      <code/>
+      <response_time/>
+      </result>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1070</xloc>
+      <yloc>50</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1018,148 +1158,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>851</xloc>
-      <yloc>57</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Insert ckanResourceId</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;ckanResourceId &#x3d; &#x27;ad346da7-ce88-4c77-a0e1-10ff09bb0622&#x27;&#x3b;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>ckanResourceId</name>
-        <rename>ckanResourceId</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>849</xloc>
-      <yloc>1</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Create POST body</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2a;&#xa; jsonRecords comes as string&#x3a; &#x27;&#x7b;&#x22;records&#x22;&#x3a; &#x5b;&#x7b;&#x22;CaseNo&#x22;&#x3a;&#x22;123&#x22;...&#x7d;&#x5d;&#x7d;&#x27;&#xa; we add resource_id and other params to the end of the JSON string&#xa; to create CKAN upsert body&#x3a;&#xa; &#x7b;&#x22;records&#x22;&#x3a; &#x5b;&#x7b;&#x22;CaseNo&#x22;&#x3a;&#x22;123&#x22;...&#x7d;&#x5d;, &#x22;resource_id&#x22;&#x3a;&#x22;foo&#x22;...&#x7d;&#xa;&#x2a;&#x2f;&#xa;&#xa;upsertBody &#x3d; jsonRecords.substring&#x28;0,jsonRecords.length-1&#x29; &#x2b; &#xa;	&#x27;,&#x22;resource_id&#x22;&#x3a;&#x22;&#x27; &#x2b; ckanResourceId &#x2b; &#x27;&#x22;,&#x22;force&#x22;&#x3a;&#x22;true&#x22;&#x7d;&#x27;&#x3b;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>upsertBody</name>
-        <rename>upsertBody</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>411</xloc>
-      <yloc>0</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Get CKAN API variables</name>
-    <type>GetVariable</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>ckanApiKey</name>
-        <variable>&#x24;&#x7b;CKAN_API_KEY&#x7d;</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>634</xloc>
-      <yloc>0</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Upsert records to CKAN</name>
-    <type>Rest</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <applicationType>TEXT PLAIN</applicationType>
-    <method>POST</method>
-    <url>&#x24;&#x7b;CKAN_BASE_URL&#x7d;&#x2f;api&#x2f;3&#x2f;action&#x2f;datastore_upsert</url>
-    <urlInField>N</urlInField>
-    <dynamicMethod>N</dynamicMethod>
-    <methodFieldName/>
-    <urlField/>
-    <bodyField>upsertBody</bodyField>
-    <httpLogin/>
-    <httpPassword>Encrypted </httpPassword>
-    <proxyHost>&#x24;&#x7b;PROXY_HOST&#x7d;</proxyHost>
-    <proxyPort>&#x24;&#x7b;PROXY_PORT&#x7d;</proxyPort>
-    <preemptive>N</preemptive>
-    <trustStoreFile/>
-    <trustStorePassword>Encrypted </trustStorePassword>
-    <headers>
-      <header>
-        <field>ckanApiKey</field>
-        <name>Authorization</name>
-        </header>
-      </headers>
-    <parameters>
-      </parameters>
-    <result>
-      <name>result</name>
-      <code/>
-      <response_time/>
-      </result>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>288</xloc>
-      <yloc>1</yloc>
+      <xloc>843</xloc>
+      <yloc>197</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
