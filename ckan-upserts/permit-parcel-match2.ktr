@@ -157,7 +157,7 @@
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>518</xloc>
-      <yloc>197</yloc>
+      <yloc>196</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -207,6 +207,32 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>274</xloc>
       <yloc>345</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>BI Database</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Building Inspection</connection>
+    <sql>SELECT&#xd;&#xa;Permits.ID,&#xd;&#xa;Permits.PermitID, &#xd;&#xa;Permits.Date, &#xd;&#xa;Permits.Address as &#x5b;Address&#x5d;, &#xd;&#xa;Permits.Suite as &#x5b;Suite&#x5d;, &#xd;&#xa;Permits.PropertyType As &#x5b;PermitType&#x5d;, &#xd;&#xa;Sum&#x28;PFees.ConstCost&#x29; As &#x5b;ConstructionCost&#x5d;, &#xd;&#xa;Permits.OwnerName as &#x5b;OwnerName&#x5d;,&#xd;&#xa;Permits.Contractor as &#x5b;Contractor&#x5d;&#xd;&#xa;FROM Permits JOIN PFees ON Permits.ID&#x3d;PFees.PermitID&#xd;&#xa;WHERE Permits.Date &#x3e;&#x3d; &#x27;2011-01-01&#x27; AND Permits.Date &#x3c;&#x3d; GETDATE&#x28;&#x29; &#xd;&#xa;GROUP BY Permits.ID, Permits.PermitID, Permits.Date, Permits.Address, Permits.Suite, Permits.PropertyType, Permits.OwnerName, Permits.Contractor&#x3b;&#xd;&#xa;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>24</xloc>
+      <yloc>197</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -423,8 +449,8 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>913</xloc>
-      <yloc>197</yloc>
+      <xloc>916</xloc>
+      <yloc>201</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -745,7 +771,7 @@
         <replace>Y</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>850</xloc>
+      <xloc>851</xloc>
       <yloc>603</yloc>
       <draw>Y</draw>
       </GUI>
@@ -1000,175 +1026,6 @@
     </step>
 
   <step>
-    <name>Upsert records to CKAN</name>
-    <type>Rest</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <applicationType>TEXT PLAIN</applicationType>
-    <method>POST</method>
-    <url>&#x24;&#x7b;CKAN_BASE_URL&#x7d;&#x2f;api&#x2f;3&#x2f;action&#x2f;datastore_upsert</url>
-    <urlInField>N</urlInField>
-    <dynamicMethod>N</dynamicMethod>
-    <methodFieldName/>
-    <urlField/>
-    <bodyField>upsertBody</bodyField>
-    <httpLogin/>
-    <httpPassword>Encrypted </httpPassword>
-    <proxyHost/>
-    <proxyPort/>
-    <preemptive>N</preemptive>
-    <trustStoreFile/>
-    <trustStorePassword>Encrypted </trustStorePassword>
-    <headers>
-      <header>
-        <field>ckanApiKey</field>
-        <name>Authorization</name>
-        </header>
-      </headers>
-    <parameters>
-      </parameters>
-    <result>
-      <name>result</name>
-      <code/>
-      <response_time/>
-      </result>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1070</xloc>
-      <yloc>50</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>format records as JSON</name>
-    <type>JsonOutput</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <outputValue>jsonRecords</outputValue>
-    <jsonBloc>records</jsonBloc>
-    <nrRowsInBloc/>
-    <operation_type>outputvalue</operation_type>
-    <compatibility_mode>N</compatibility_mode>
-    <encoding>UTF-8</encoding>
-    <addtoresult>N</addtoresult>
-    <file>
-      <name/>
-      <extention>js</extention>
-      <append>N</append>
-      <split>N</split>
-      <haspartno>N</haspartno>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <create_parent_folder>N</create_parent_folder>
-      <DoNotOpenNewFileInit>N</DoNotOpenNewFileInit>
-      <servlet_output>N</servlet_output>
-      </file>
-    <fields>
-      <field>
-        <name>ID</name>
-        <element>ID</element>
-    </field>
-      <field>
-        <name>Date</name>
-        <element>Date</element>
-    </field>
-      <field>
-        <name>Address</name>
-        <element>Address</element>
-    </field>
-      <field>
-        <name>Suite</name>
-        <element>Suite</element>
-    </field>
-      <field>
-        <name>PermitType</name>
-        <element>PermitType</element>
-    </field>
-      <field>
-        <name>ConstructionCost</name>
-        <element>ConstructionCost</element>
-    </field>
-      <field>
-        <name>OwnerName</name>
-        <element>OwnerName</element>
-    </field>
-      <field>
-        <name>Contractor</name>
-        <element>Contractor</element>
-    </field>
-      <field>
-        <name>CleanAddress</name>
-        <element>CleanAddress</element>
-    </field>
-      <field>
-        <name>MatchType</name>
-        <element>MatchType</element>
-    </field>
-      <field>
-        <name>MatchAddress</name>
-        <element>MatchAddress</element>
-    </field>
-      <field>
-        <name>parcelId</name>
-        <element>parcelId</element>
-    </field>
-      <field>
-        <name>lat</name>
-        <element>lat</element>
-    </field>
-      <field>
-        <name>lng</name>
-        <element>lng</element>
-    </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>843</xloc>
-      <yloc>197</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>BI Database</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Building Inspection</connection>
-    <sql>SELECT Permits.ID, &#xd;&#xa;Permits.Date, &#xd;&#xa;Permits.Address as &#x5b;Address&#x5d;, &#xd;&#xa;Permits.Suite as &#x5b;Suite&#x5d;, &#xd;&#xa;Permits.PropertyType As &#x5b;PermitType&#x5d;, &#xd;&#xa;Sum&#x28;PFees.ConstCost&#x29; As &#x5b;ConstructionCost&#x5d;, &#xd;&#xa;Permits.OwnerName as &#x5b;OwnerName&#x5d;,&#xd;&#xa;Permits.Contractor as &#x5b;Contractor&#x5d;&#xd;&#xa;FROM Permits JOIN PFees ON Permits.ID&#x3d;PFees.PermitID&#xd;&#xa;WHERE Permits.Date &#x3e;&#x3d; &#x27;2011-01-01&#x27; AND Permits.Date &#x3c;&#x3d; GETDATE&#x28;&#x29; &#xd;&#xa;GROUP BY Permits.ID, Permits.Date, Permits.Address, Permits.Suite, Permits.PropertyType, Permits.OwnerName, Permits.Contractor&#x3b;&#xd;&#xa;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>24</xloc>
-      <yloc>197</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
     <name>Text file output</name>
     <type>TextFileOutput</type>
     <description/>
@@ -1214,14 +1071,14 @@
       <field>
         <name>ID</name>
         <type>Integer</type>
-        <format>&#x23;&#x3b;-&#x23;</format>
+        <format/>
         <currency/>
-        <decimal>.</decimal>
-        <group>,</group>
+        <decimal/>
+        <group/>
         <nullif/>
         <trim_type>none</trim_type>
-        <length>9</length>
-        <precision>0</precision>
+        <length>-1</length>
+        <precision>-1</precision>
       </field>
       <field>
         <name>Date</name>
@@ -1433,6 +1290,18 @@
     <fields>
       <field>
         <name>ID</name>
+        <type>Integer</type>
+        <format>&#x23;&#x3b;-&#x23;</format>
+        <currency/>
+        <decimal>.</decimal>
+        <group>,</group>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>9</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>PermitID</name>
         <type>Integer</type>
         <format>&#x23;&#x3b;-&#x23;</format>
         <currency/>
@@ -1686,8 +1555,151 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>710</xloc>
-      <yloc>545</yloc>
+      <xloc>679</xloc>
+      <yloc>439</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Upsert records to CKAN</name>
+    <type>Rest</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <applicationType>TEXT PLAIN</applicationType>
+    <method>POST</method>
+    <url>&#x24;&#x7b;CKAN_BASE_URL&#x7d;&#x2f;api&#x2f;3&#x2f;action&#x2f;datastore_upsert</url>
+    <urlInField>N</urlInField>
+    <dynamicMethod>N</dynamicMethod>
+    <methodFieldName/>
+    <urlField/>
+    <bodyField>upsertBody</bodyField>
+    <httpLogin/>
+    <httpPassword>Encrypted </httpPassword>
+    <proxyHost/>
+    <proxyPort/>
+    <preemptive>N</preemptive>
+    <trustStoreFile/>
+    <trustStorePassword>Encrypted </trustStorePassword>
+    <headers>
+      <header>
+        <field>ckanApiKey</field>
+        <name>Authorization</name>
+        </header>
+      </headers>
+    <parameters>
+      </parameters>
+    <result>
+      <name>result</name>
+      <code/>
+      <response_time/>
+      </result>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1070</xloc>
+      <yloc>50</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>format records as JSON</name>
+    <type>JsonOutput</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <outputValue>jsonRecords</outputValue>
+    <jsonBloc>records</jsonBloc>
+    <nrRowsInBloc/>
+    <operation_type>outputvalue</operation_type>
+    <compatibility_mode>N</compatibility_mode>
+    <encoding>UTF-8</encoding>
+    <addtoresult>N</addtoresult>
+    <file>
+      <name/>
+      <extention>js</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <create_parent_folder>N</create_parent_folder>
+      <DoNotOpenNewFileInit>N</DoNotOpenNewFileInit>
+      <servlet_output>N</servlet_output>
+      </file>
+    <fields>
+      <field>
+        <name>ID</name>
+        <element>ID</element>
+    </field>
+      <field>
+        <name>Date</name>
+        <element>Date</element>
+    </field>
+      <field>
+        <name>Address</name>
+        <element>Address</element>
+    </field>
+      <field>
+        <name>Suite</name>
+        <element>Suite</element>
+    </field>
+      <field>
+        <name>PermitType</name>
+        <element>PermitType</element>
+    </field>
+      <field>
+        <name>ConstructionCost</name>
+        <element>ConstructionCost</element>
+    </field>
+      <field>
+        <name>OwnerName</name>
+        <element>OwnerName</element>
+    </field>
+      <field>
+        <name>Contractor</name>
+        <element>Contractor</element>
+    </field>
+      <field>
+        <name>CleanAddress</name>
+        <element>CleanAddress</element>
+    </field>
+      <field>
+        <name>MatchType</name>
+        <element>MatchType</element>
+    </field>
+      <field>
+        <name>MatchAddress</name>
+        <element>MatchAddress</element>
+    </field>
+      <field>
+        <name>parcelId</name>
+        <element>parcelId</element>
+    </field>
+      <field>
+        <name>lat</name>
+        <element>lat</element>
+    </field>
+      <field>
+        <name>lng</name>
+        <element>lng</element>
+    </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>843</xloc>
+      <yloc>197</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
