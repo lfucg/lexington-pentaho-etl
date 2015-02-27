@@ -25,9 +25,7 @@
 
 ### Configure datastore for newly created resource
 
-* Edit the [config script](https://github.com/lfucg/lexington-pentaho-etl/blob/master/configDatasetsInDatastore.sh) to add the fields, their datatypes, and the primary key
-
-Down the road we hope to automate the datastore field creation and make it easier to specify the primary key.
+* https://github.com/lfucg/ckan-datapackages
 
 ### Now the resource is ready to be automatically upserted to the transformation!
 
@@ -37,5 +35,3 @@ Down the road we hope to automate the datastore field creation and make it easie
 * An API Traffic Inspector called [runscope](https://www.runscope.com/) records HTTP requests and responses so that you can view, compare, and replay them. 
 * An HTTP request goes through runscope like so: Pentaho -> Runscope -> civicdata -> Runscope -> Pentaho
 * It's highly recommended!
-	
-
