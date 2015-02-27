@@ -1,4 +1,10 @@
+##
+##
+##
 ## This script is deprecated in favor of using https://github.com/lfucg/ckan-datapackages
+##
+##
+##
 
 CKAN_BASE_URL=http://www.civicdata.com
 CKAN_API_KEY=from-ckan-users-profile-page
