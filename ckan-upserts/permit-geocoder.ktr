@@ -871,6 +871,25 @@
     </step>
 
   <step>
+    <name>Dummy &#x28;do nothing&#x29;</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>289</xloc>
+      <yloc>161</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Dynamic SQL row</name>
     <type>DynamicSQLRow</type>
     <description/>
@@ -923,6 +942,35 @@
     </step>
 
   <step>
+    <name>Filter rows</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Dummy &#x28;do nothing&#x29;</send_true_to>
+<send_false_to>Dynamic SQL row</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>JustStreet</leftvalue>
+ <function>&#x3d;</function>
+ <rightvalue/>
+ <value><name>constant</name><type>String</type><text>Yes</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>289</xloc>
+      <yloc>27</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Matched CSV</name>
     <type>TextFileOutput</type>
     <description/>
@@ -947,12 +995,12 @@
     <fileNameField/>
     <create_parent_folder>Y</create_parent_folder>
     <file>
-      <name>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x5c;csv-data&#x5c;permits-geocoded</name>
+      <name>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x5c;csv-data&#x5c;permits-matched</name>
       <is_command>N</is_command>
       <servlet_output>N</servlet_output>
       <do_not_open_new_file_init>N</do_not_open_new_file_init>
       <extention>csv</extention>
-      <append>N</append>
+      <append>Y</append>
       <split>N</split>
       <haspartno>N</haspartno>
       <add_date>N</add_date>
@@ -1157,7 +1205,7 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var StreetNum &#x3d; GetNumber&#x28;CleanAddress&#x29;&#xd;&#xa;var StreetName &#x3d; GetStreet&#x28;CleanAddress&#x29;&#xd;&#xa;var JustStreet &#x3d; Validate&#x28;CleanAddress&#x29;&#xd;&#xa;var SQL &#x3d; WriteQuery&#x28;&#x29;&#xd;&#xa;&#xd;&#xa;function GetNumber&#x28;inputaddress&#x29;&#x7b;&#xd;&#xa;if &#x28;inputaddress.match&#x28;&#x2f;&#x5b;0-9&#x5d;&#x2b;&#x28;&#x5c;s&#x7c;-&#x7c;,&#x7c;&#x5c;&#x2f;&#x29;&#x2f;i&#x29; &#x3d;&#x3d; null&#x29;&#x7b;return null&#x7d;&#xd;&#xa;else &#x7b;return inputaddress.match&#x28;&#x2f;&#x5b;0-9&#x5d;&#x2b;&#x28;&#x5c;s&#x7c;-&#x7c;,&#x7c;&#x5c;&#x2f;&#x29;&#x2f;i&#x29;&#x5b;0&#x5d;.replace&#x28;&#x2f;&#x5c;D&#x2f;,&#x22;&#x22;&#x29;.trim&#x28;&#x29;&#x7d;  &#xd;&#xa;&#x7d;&#xd;&#xa;&#xd;&#xa;function GetStreet &#x28;inputaddress&#x29; &#x7b;&#xd;&#xa;return inputaddress.replace&#x28;&#x2f;&#x5b;0-9&#x5d;&#x2b;&#x7c;&#x5b;&#x5e;&#x5c;w&#x5c;s&#x5d;&#x2f;ig,&#x22;&#x22;&#x29;.trim&#x28;&#x29;  &#xd;&#xa;&#x7d;&#xd;&#xa;&#xd;&#xa;function WriteQuery&#x28;&#x29; &#x7b;&#xd;&#xa;return &#x22;SELECT SCLINK,ROADNAME,LFROM,LTO,RFROM,RTO FROM SDE_GIS_FULL &#x22; &#x2b;&#xd;&#xa;&#x22;WHERE ROADNAME LIKE &#x27;&#x25;&#x22; &#x2b; StreetName &#x2b;  &#x22;&#x25;&#x27; AND &#x22; &#x2b;&#xd;&#xa;&#x22;&#x28;LFROM &#x3c;&#x3d; &#x22; &#x2b; StreetNum &#x2b; &#x22; AND LTO &#x3e;&#x3d; &#x22; &#x2b; StreetNum &#x2b; &#x22; OR RFROM &#x3c;&#x3d; &#x22; &#x2b; StreetNum &#x2b; &#x22; AND RTO &#x3e;&#x3d; &#x22; &#x2b; StreetNum &#x2b; &#xd;&#xa;&#x22;&#x29;&#x22;&#x7d;&#xd;&#xa;&#xd;&#xa;function Validate &#x28;input&#x29; &#x7b;&#xd;&#xa;var test &#x3d; input.match&#x28;&#x2f;&#x5e;&#x5b;0-9&#x5d;&#x2a;&#x24;&#x2f;&#x29;&#xd;&#xa;if&#x28;test &#x3d;&#x3d;&#x3d; null&#x29; &#x7b;return &#x22;No&#x22;&#x7d; &#xd;&#xa;else &#x7b;return &#x22;Yes&#x22;&#x7d;&#xd;&#xa;&#x7d;</jsScript_script>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var StreetNum &#x3d; GetNumber&#x28;CleanAddress&#x29;&#xd;&#xa;var StreetName &#x3d; GetStreet&#x28;CleanAddress&#x29;&#xd;&#xa;var JustStreet &#x3d; Validate&#x28;CleanAddress&#x29;&#xd;&#xa;var SQL &#x3d; WriteQuery&#x28;&#x29;&#xd;&#xa;&#xd;&#xa;function GetNumber&#x28;inputaddress&#x29;&#x7b;&#xd;&#xa;if &#x28;inputaddress.match&#x28;&#x2f;&#x5b;0-9&#x5d;&#x2b;&#x28;&#x5c;s&#x7c;-&#x7c;,&#x7c;&#x5c;&#x2f;&#x29;&#x2f;i&#x29; &#x3d;&#x3d; null&#x29;&#x7b;return null&#x7d;&#xd;&#xa;else &#x7b;return inputaddress.match&#x28;&#x2f;&#x5b;0-9&#x5d;&#x2b;&#x28;&#x5c;s&#x7c;-&#x7c;,&#x7c;&#x5c;&#x2f;&#x29;&#x2f;i&#x29;&#x5b;0&#x5d;.replace&#x28;&#x2f;&#x5c;D&#x2f;,&#x22;&#x22;&#x29;.trim&#x28;&#x29;&#x7d;  &#xd;&#xa;&#x7d;&#xd;&#xa;&#xd;&#xa;function GetStreet &#x28;inputaddress&#x29; &#x7b;&#xd;&#xa;return inputaddress.replace&#x28;&#x2f;&#x5b;0-9&#x5d;&#x2b;&#x7c;&#x5b;&#x5e;&#x5c;w&#x5c;s&#x5d;&#x2f;ig,&#x22;&#x22;&#x29;.trim&#x28;&#x29;  &#xd;&#xa;&#x7d;&#xd;&#xa;&#xd;&#xa;function WriteQuery&#x28;&#x29; &#x7b;&#xd;&#xa;return &#x22;SELECT TOP 1 SCLINK,ROADNAME,LFROM,LTO,RFROM,RTO FROM SDE_GIS_FULL &#x22; &#x2b;&#xd;&#xa;&#x22;WHERE ROADNAME LIKE &#x27;&#x22; &#x2b; StreetName &#x2b;  &#x22;&#x27; AND &#x22; &#x2b;&#xd;&#xa;&#x22;&#x28;LFROM &#x3c;&#x3d; &#x22; &#x2b; StreetNum &#x2b; &#x22; AND LTO &#x3e;&#x3d; &#x22; &#x2b; StreetNum &#x2b; &#x22; OR RFROM &#x3c;&#x3d; &#x22; &#x2b; StreetNum &#x2b; &#x22; AND RTO &#x3e;&#x3d; &#x22; &#x2b; StreetNum &#x2b; &#xd;&#xa;&#x22;&#x29;&#x22;&#x7d;&#xd;&#xa;&#xd;&#xa;function Validate &#x28;input&#x29; &#x7b;&#xd;&#xa;var test &#x3d; input.match&#x28;&#x2f;&#x5e;&#x5b;0-9&#x5d;&#x2a;&#x24;&#x2f;&#x29;&#xd;&#xa;if&#x28;test &#x3d;&#x3d;&#x3d; null&#x29; &#x7b;return &#x22;No&#x22;&#x7d; &#xd;&#xa;else &#x7b;return &#x22;Yes&#x22;&#x7d;&#xd;&#xa;&#x7d;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>StreetNum</name>
         <rename>StreetNum</rename>
         <type>String</type>
@@ -1205,7 +1253,7 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var SQL &#x3d;&#x22;SELECT TOP 1&#x22; &#x2b;&#xd;&#xa;&#x22;T.SCLINK, T.ROADNAME, CASE WHEN ABS&#x28;SCSUM.LOW - &#x22; &#x2b; StreetNum &#x2b; &#x22;&#x29; &#x3c;&#x3d; ABS&#x28;SCSUM.HIGH - &#x22; &#x2b; StreetNum &#x2b; &#x22;&#x29; THEN ABS&#x28;SCSUM.LOW - &#x22; &#x2b; StreetNum &#x2b; &#x22;&#x29; ELSE ABS&#x28;SCSUM.HIGH - &#x22; &#x2b; StreetNum &#x2b; &#x22;&#x29; END as CLOSENESS FROM SDE_GIS_FULL AS T &#x22; &#x2b;&#xd;&#xa;&#x22;JOIN &#x28;SELECT s.SCLINK, MIN&#x28;a.Numbers&#x29; AS LOW, MAX&#x28;a.Numbers&#x29; AS HIGH FROM SDE_GIS_FULL as s &#x22; &#x2b;&#xd;&#xa;&#x22;JOIN &#x28;SELECT SCLINK, CASE WHEN LFROM &#x3d; 0 THEN null ELSE LFROM END as Numbers FROM SDE_GIS_FULL UNION &#x22; &#x2b;&#xd;&#xa;&#x22;SELECT SCLINK,CASE WHEN LTO &#x3d; 0 THEN null ELSE LTO END as Numbers FROM SDE_GIS_FULL UNION &#x22; &#x2b;&#xd;&#xa;&#x22;SELECT SCLINK, CASE WHEN RFROM &#x3d; 0 THEN null ELSE RFROM END as Numbers FROM SDE_GIS_FULL UNION &#x22; &#x2b;&#xd;&#xa;&#x22;SELECT SCLINK, CASE WHEN RTO &#x3d; 0 THEN null ELSE RTO END as Numbers FROM SDE_GIS_FULL&#x29; a ON a.SCLINK &#x3d; s.SCLINK &#x22; &#x2b;&#xd;&#xa;&#x22;WHERE LFROM &#x2b; LTO &#x2b; RFROM &#x2b; RTO &#x3c;&#x3e; 0 &#x22; &#x2b;&#xd;&#xa;&#x22;GROUP BY s.SCLINK&#x29; SCSUM ON SCSUM.SCLINK &#x3d; T.SCLINK &#x22; &#x2b;&#xd;&#xa;&#x22;WHERE ROADNAME LIKE &#x27;&#x25;&#x22; &#x2b; StreetName &#x2b; &#x22;&#x25;&#x27; &#x22; &#x2b;&#xd;&#xa;&#x22;ORDER BY CLOSENESS ASC&#x22;</jsScript_script>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var SQL &#x3d;&#x22;SELECT TOP 1&#x22; &#x2b;&#xd;&#xa;&#x22;T.SCLINK, T.ROADNAME, CASE WHEN ABS&#x28;SCSUM.LOW - &#x22; &#x2b; StreetNum &#x2b; &#x22;&#x29; &#x3c;&#x3d; ABS&#x28;SCSUM.HIGH - &#x22; &#x2b; StreetNum &#x2b; &#x22;&#x29; THEN ABS&#x28;SCSUM.LOW - &#x22; &#x2b; StreetNum &#x2b; &#x22;&#x29; ELSE ABS&#x28;SCSUM.HIGH - &#x22; &#x2b; StreetNum &#x2b; &#x22;&#x29; END as CLOSENESS FROM SDE_GIS_FULL AS T &#x22; &#x2b;&#xd;&#xa;&#x22;JOIN &#x28;SELECT s.SCLINK, MIN&#x28;a.Numbers&#x29; AS LOW, MAX&#x28;a.Numbers&#x29; AS HIGH FROM SDE_GIS_FULL as s &#x22; &#x2b;&#xd;&#xa;&#x22;JOIN &#x28;SELECT SCLINK, CASE WHEN LFROM &#x3d; 0 THEN null ELSE LFROM END as Numbers FROM SDE_GIS_FULL UNION &#x22; &#x2b;&#xd;&#xa;&#x22;SELECT SCLINK,CASE WHEN LTO &#x3d; 0 THEN null ELSE LTO END as Numbers FROM SDE_GIS_FULL UNION &#x22; &#x2b;&#xd;&#xa;&#x22;SELECT SCLINK, CASE WHEN RFROM &#x3d; 0 THEN null ELSE RFROM END as Numbers FROM SDE_GIS_FULL UNION &#x22; &#x2b;&#xd;&#xa;&#x22;SELECT SCLINK, CASE WHEN RTO &#x3d; 0 THEN null ELSE RTO END as Numbers FROM SDE_GIS_FULL&#x29; a ON a.SCLINK &#x3d; s.SCLINK &#x22; &#x2b;&#xd;&#xa;&#x22;WHERE LFROM &#x2b; LTO &#x2b; RFROM &#x2b; RTO &#x3c;&#x3e; 0 &#x22; &#x2b;&#xd;&#xa;&#x22;GROUP BY s.SCLINK&#x29; SCSUM ON SCSUM.SCLINK &#x3d; T.SCLINK &#x22; &#x2b;&#xd;&#xa;&#x22;WHERE ROADNAME LIKE &#x27;&#x22; &#x2b; StreetName &#x2b; &#x22;&#x27; &#x22; &#x2b;&#xd;&#xa;&#x22;ORDER BY CLOSENESS ASC&#x22;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>SQL</name>
         <rename>SQL</rename>
         <type>String</type>
@@ -1270,6 +1318,60 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>851</xloc>
       <yloc>27</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Modified Java Script Value 3 2</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var MatchType &#x3d; &#x22;Block Level&#x22;&#xd;&#xa;var MatchAddress &#x3d; A_ROADNAME&#xd;&#xa;var parcelId &#x3d; null&#xd;&#xa;var lat &#x3d; lat_1&#xd;&#xa;var lng &#x3d; lng_1</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>MatchType</name>
+        <rename>MatchType</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>MatchAddress</name>
+        <rename>MatchAddress</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>parcelId</name>
+        <rename>parcelId</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>lat</name>
+        <rename>lat</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>lng</name>
+        <rename>lng</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>849</xloc>
+      <yloc>182</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1818,108 +1920,6 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>55</xloc>
       <yloc>28</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Modified Java Script Value 3 2</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var MatchType &#x3d; &#x22;Block Level&#x22;&#xd;&#xa;var MatchAddress &#x3d; A_ROADNAME&#xd;&#xa;var parcelId &#x3d; null&#xd;&#xa;var lat &#x3d; lat_1&#xd;&#xa;var lng &#x3d; lng_1</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>MatchType</name>
-        <rename>MatchType</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>      <field>        <name>MatchAddress</name>
-        <rename>MatchAddress</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>      <field>        <name>parcelId</name>
-        <rename>parcelId</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>      <field>        <name>lat</name>
-        <rename>lat</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>      <field>        <name>lng</name>
-        <rename>lng</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>849</xloc>
-      <yloc>182</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Filter rows</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<send_true_to>Dummy &#x28;do nothing&#x29;</send_true_to>
-<send_false_to>Dynamic SQL row</send_false_to>
-    <compare>
-<condition>
- <negated>N</negated>
- <leftvalue>JustStreet</leftvalue>
- <function>&#x3d;</function>
- <rightvalue/>
- <value><name>constant</name><type>String</type><text>Yes</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
-    </compare>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>289</xloc>
-      <yloc>27</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Dummy &#x28;do nothing&#x29;</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>289</xloc>
-      <yloc>161</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
