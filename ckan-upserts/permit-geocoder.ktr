@@ -993,9 +993,9 @@
     <endedLine/>
     <fileNameInField>N</fileNameInField>
     <fileNameField/>
-    <create_parent_folder>Y</create_parent_folder>
+    <create_parent_folder>N</create_parent_folder>
     <file>
-      <name>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x5c;csv-data&#x5c;permits-matched</name>
+      <name>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x5c;csv-data&#x5c;upsert-ready&#x5c;permits-matched</name>
       <is_command>N</is_command>
       <servlet_output>N</servlet_output>
       <do_not_open_new_file_init>N</do_not_open_new_file_init>
@@ -1184,7 +1184,7 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>976</xloc>
+      <xloc>975</xloc>
       <yloc>27</yloc>
       <draw>Y</draw>
       </GUI>
