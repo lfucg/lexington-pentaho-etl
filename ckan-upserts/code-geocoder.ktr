@@ -914,8 +914,8 @@
     <query_only_on_change>N</query_only_on_change>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>528</xloc>
-      <yloc>181</yloc>
+      <xloc>450</xloc>
+      <yloc>305</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1197,7 +1197,7 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var SQL &#x3d;&#x22;SELECT TOP 1&#x22; &#x2b;&#xd;&#xa;&#x22;T.SCLINK, T.ROADNAME, CASE WHEN ABS&#x28;SCSUM.LOW - &#x22; &#x2b; StreetNum &#x2b; &#x22;&#x29; &#x3c;&#x3d; ABS&#x28;SCSUM.HIGH - &#x22; &#x2b; StreetNum &#x2b; &#x22;&#x29; THEN ABS&#x28;SCSUM.LOW - &#x22; &#x2b; StreetNum &#x2b; &#x22;&#x29; ELSE ABS&#x28;SCSUM.HIGH - &#x22; &#x2b; StreetNum &#x2b; &#x22;&#x29; END as CLOSENESS FROM SDE_GIS_FULL AS T &#x22; &#x2b;&#xd;&#xa;&#x22;JOIN &#x28;SELECT s.SCLINK, MIN&#x28;a.Numbers&#x29; AS LOW, MAX&#x28;a.Numbers&#x29; AS HIGH FROM SDE_GIS_FULL as s &#x22; &#x2b;&#xd;&#xa;&#x22;JOIN &#x28;SELECT SCLINK, CASE WHEN LFROM &#x3d; 0 THEN null ELSE LFROM END as Numbers FROM SDE_GIS_FULL UNION &#x22; &#x2b;&#xd;&#xa;&#x22;SELECT SCLINK,CASE WHEN LTO &#x3d; 0 THEN null ELSE LTO END as Numbers FROM SDE_GIS_FULL UNION &#x22; &#x2b;&#xd;&#xa;&#x22;SELECT SCLINK, CASE WHEN RFROM &#x3d; 0 THEN null ELSE RFROM END as Numbers FROM SDE_GIS_FULL UNION &#x22; &#x2b;&#xd;&#xa;&#x22;SELECT SCLINK, CASE WHEN RTO &#x3d; 0 THEN null ELSE RTO END as Numbers FROM SDE_GIS_FULL&#x29; a ON a.SCLINK &#x3d; s.SCLINK &#x22; &#x2b;&#xd;&#xa;&#x22;WHERE LFROM &#x2b; LTO &#x2b; RFROM &#x2b; RTO &#x3c;&#x3e; 0 &#x22; &#x2b;&#xd;&#xa;&#x22;GROUP BY s.SCLINK&#x29; SCSUM ON SCSUM.SCLINK &#x3d; T.SCLINK &#x22; &#x2b;&#xd;&#xa;&#x22;WHERE ROADNAME LIKE &#x27;&#x22; &#x2b; StreetName &#x2b; &#x22;&#x27; &#x22; &#x2b;&#xd;&#xa;&#x22;ORDER BY CLOSENESS ASC&#x22;</jsScript_script>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var SQL &#x3d;&#x22;SELECT TOP 1 &#x22; &#x2b;&#xd;&#xa;&#x22;T.SCLINK, T.ROADNAME, CASE WHEN ABS&#x28;SCSUM.LOW - &#x22; &#x2b; StreetNum &#x2b; &#x22;&#x29; &#x3c;&#x3d; ABS&#x28;SCSUM.HIGH - &#x22; &#x2b; StreetNum &#x2b; &#x22;&#x29; THEN ABS&#x28;SCSUM.LOW - &#x22; &#x2b; StreetNum &#x2b; &#x22;&#x29; ELSE ABS&#x28;SCSUM.HIGH - &#x22; &#x2b; StreetNum &#x2b; &#x22;&#x29; END as CLOSENESS FROM SDE_GIS_FULL AS T &#x22; &#x2b;&#xd;&#xa;&#x22;JOIN &#x28;SELECT s.SCLINK, MIN&#x28;a.Numbers&#x29; AS LOW, MAX&#x28;a.Numbers&#x29; AS HIGH FROM SDE_GIS_FULL as s &#x22; &#x2b;&#xd;&#xa;&#x22;JOIN &#x28;SELECT SCLINK, CASE WHEN LFROM &#x3d; 0 THEN null ELSE LFROM END as Numbers FROM SDE_GIS_FULL UNION &#x22; &#x2b;&#xd;&#xa;&#x22;SELECT SCLINK,CASE WHEN LTO &#x3d; 0 THEN null ELSE LTO END as Numbers FROM SDE_GIS_FULL UNION &#x22; &#x2b;&#xd;&#xa;&#x22;SELECT SCLINK, CASE WHEN RFROM &#x3d; 0 THEN null ELSE RFROM END as Numbers FROM SDE_GIS_FULL UNION &#x22; &#x2b;&#xd;&#xa;&#x22;SELECT SCLINK, CASE WHEN RTO &#x3d; 0 THEN null ELSE RTO END as Numbers FROM SDE_GIS_FULL&#x29; a ON a.SCLINK &#x3d; s.SCLINK &#x22; &#x2b;&#xd;&#xa;&#x22;WHERE LFROM &#x2b; LTO &#x2b; RFROM &#x2b; RTO &#x3c;&#x3e; 0 &#x22; &#x2b;&#xd;&#xa;&#x22;GROUP BY s.SCLINK&#x29; SCSUM ON SCSUM.SCLINK &#x3d; T.SCLINK &#x22; &#x2b;&#xd;&#xa;&#x22;WHERE ROADNAME LIKE &#x27;&#x22; &#x2b; StreetName &#x2b; &#x22;&#x27; &#x22; &#x2b;&#xd;&#xa;&#x22;ORDER BY CLOSENESS ASC&#x22;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>SQL</name>
         <rename>SQL</rename>
         <type>String</type>
@@ -1281,7 +1281,7 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var MatchType &#x3d; &#x22;Block Level&#x22;&#xd;&#xa;var MatchAddress &#x3d; A_ROADNAME&#xd;&#xa;var parcelId &#x3d; null&#xd;&#xa;var lat &#x3d; lat_1&#xd;&#xa;var lng &#x3d; lng_1</jsScript_script>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var MatchType &#x3d; &#x22;Approximate Block Level&#x22;&#xd;&#xa;var MatchAddress &#x3d; A_ROADNAME&#xd;&#xa;var parcelId &#x3d; null&#xd;&#xa;var lat &#x3d; lat_1&#xd;&#xa;var lng &#x3d; lng_1</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>MatchType</name>
         <rename>MatchType</rename>
         <type>String</type>

@@ -73,6 +73,31 @@
   <notepads>
   </notepads>
   <connection>
+    <name>BI</name>
+    <server>&#x24;&#x7b;PERMIT_SERVER&#x7d;</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>&#x24;&#x7b;PERMIT_DB&#x7d;</database>
+    <port>&#x24;&#x7b;PERMIT_PORT&#x7d;</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;PERMIT_PORT&#x7d;</attribute></attribute>
+      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
     <name>GIS</name>
     <server>&#x24;&#x7b;GIS_SERVER&#x7d;</server>
     <type>MSSQL</type>
@@ -98,15 +123,14 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Write Query</from><to>Dynamic SQL row</to><enabled>Y</enabled> </hop>
-  <hop> <from>Input</from><to>Write Query</to><enabled>Y</enabled> </hop>
-  <hop> <from>Dynamic SQL row</from><to>Sort Maches</to><enabled>Y</enabled> </hop>
-  <hop> <from>Sort Maches</from><to>No Match</to><enabled>Y</enabled> </hop>
   <hop> <from>Street Points CSV</from><to>Stream lookup</to><enabled>Y</enabled> </hop>
-  <hop> <from>Sort Maches</from><to>Stream lookup</to><enabled>Y</enabled> </hop>
   <hop> <from>Stream lookup</from><to>Set MatchType&#x2f;Address</to><enabled>Y</enabled> </hop>
   <hop> <from>Set MatchType&#x2f;Address</from><to>Output</to><enabled>Y</enabled> </hop>
-  <hop> <from>No Match</from><to>Set MatchType&#x2f;Address 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>Write Query</from><to>Geocoder SQL</to><enabled>Y</enabled> </hop>
+  <hop> <from>Input</from><to>Write Query</to><enabled>Y</enabled> </hop>
+  <hop> <from>Geocoder SQL</from><to>Filter rows</to><enabled>Y</enabled> </hop>
+  <hop> <from>Filter rows</from><to>Stream lookup</to><enabled>Y</enabled> </hop>
+  <hop> <from>Filter rows</from><to>Set MatchType&#x2f;Address 2</to><enabled>Y</enabled> </hop>
   <hop> <from>Set MatchType&#x2f;Address 2</from><to>Output</to><enabled>Y</enabled> </hop>
   </order>
   <step>
@@ -143,64 +167,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>91</xloc>
-      <yloc>48</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Dynamic SQL row</name>
-    <type>DynamicSQLRow</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>GIS</connection>
-    <rowlimit>0</rowlimit>
-    <sql>SELECT&#xd;&#xa;SCLINK&#xd;&#xa;FROM&#xd;&#xa;SDE_GIS_FULL</sql>
-    <outer_join>Y</outer_join>
-    <replace_vars>N</replace_vars>
-    <sql_fieldname>SQL</sql_fieldname>
-    <query_only_on_change>N</query_only_on_change>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>266</xloc>
-      <yloc>47</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Write Query</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;&#xd;&#xa;var SQL &#x3d; WriteQuery&#x28;&#x29;&#xd;&#xa;&#xd;&#xa;function WriteQuery&#x28;&#x29; &#x7b;&#xd;&#xa;return &#x22;SELECT TOP 1 SCLINK FROM SDE_GIS_FULL &#x22; &#x2b;&#xd;&#xa;&#x22;WHERE ROADNAME LIKE &#x27;&#x22; &#x2b; ROADNAME &#x2b;  &#x22;&#x27; AND &#x22; &#x2b;&#xd;&#xa;&#x22;&#x28;LFROM &#x3c;&#x3d; &#x22; &#x2b; Num1 &#x2b; &#x22; AND LTO &#x3e;&#x3d; &#x22; &#x2b; Num1 &#x2b; &#x22; OR RFROM &#x3c;&#x3d; &#x22; &#x2b; Num1 &#x2b; &#x22; AND RTO &#x3e;&#x3d; &#x22; &#x2b; Num1 &#x2b; &#xd;&#xa;&#x22;&#x29;&#x22;&#x7d;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>SQL</name>
-        <rename>SQL</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>168</xloc>
-      <yloc>48</yloc>
+      <xloc>57</xloc>
+      <yloc>49</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -218,15 +186,63 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>880</xloc>
+      <xloc>757</xloc>
+      <yloc>258</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set MatchType&#x2f;Address</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var MatchType &#x3d; &#x27;Block Level&#x27;&#xd;&#xa;var MatchAddress &#x3d; CleanAddress&#xd;&#xa;var lat &#x3d; X&#xd;&#xa;var lng &#x3d; Y</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>MatchType</name>
+        <rename>MatchType</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>MatchAddress</name>
+        <rename>MatchAddress</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>lat</name>
+        <rename>lat</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>lng</name>
+        <rename>lng</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>753</xloc>
       <yloc>47</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>No Match</name>
-    <type>Dummy</type>
+    <name>Stream lookup</name>
+    <type>StreamLookup</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -235,38 +251,32 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
+    <from>Street Points CSV</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>A_SCLINK</name>
+        <field>SCLINK</field>
+      </key>
+      <value>
+        <name>X</name>
+        <rename>X</rename>
+        <default/>
+        <type>None</type>
+      </value>
+      <value>
+        <name>Y</name>
+        <rename>Y</rename>
+        <default/>
+        <type>None</type>
+      </value>
+    </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>643</xloc>
-      <yloc>263</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Sort Maches</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<send_true_to>Stream lookup</send_true_to>
-<send_false_to>No Match</send_false_to>
-    <compare>
-<condition>
- <negated>N</negated>
- <leftvalue>SCLINK</leftvalue>
- <function>IS NOT NULL</function>
- <rightvalue/>
- </condition>
-    </compare>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>370</xloc>
+      <xloc>638</xloc>
       <yloc>48</yloc>
       <draw>Y</draw>
       </GUI>
@@ -351,8 +361,8 @@
     </step>
 
   <step>
-    <name>Stream lookup</name>
-    <type>StreamLookup</type>
+    <name>Geocoder SQL</name>
+    <type>DynamicSQLRow</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -361,39 +371,23 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <from>Street Points CSV</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
-    <lookup>
-      <key>
-        <name>SCLINK</name>
-        <field>SCLINK</field>
-      </key>
-      <value>
-        <name>X</name>
-        <rename>X</rename>
-        <default/>
-        <type>None</type>
-      </value>
-      <value>
-        <name>Y</name>
-        <rename>Y</rename>
-        <default/>
-        <type>None</type>
-      </value>
-    </lookup>
+    <connection>GIS</connection>
+    <rowlimit>0</rowlimit>
+    <sql>SELECT TOP 1&#xd;&#xa;T.SCLINK as A_SCLINK,&#xd;&#xa;T.ROADNAME AS A_ROADNAME,&#xd;&#xa;CASE&#xd;&#xa;WHEN ABS&#x28;SCSUM.LOW - 0&#x29; &#x3c;&#x3d; ABS&#x28;SCSUM.HIGH - 0&#x29; THEN ABS&#x28;SCSUM.LOW - 0&#x29;&#xd;&#xa;ELSE ABS&#x28;SCSUM.HIGH - 0&#x29;&#xd;&#xa;END as CLOSENESS&#xd;&#xa;FROM SDE_GIS_FULL AS T&#xd;&#xa;JOIN&#xd;&#xa;&#x28;SELECT&#xd;&#xa;s.SCLINK,&#xd;&#xa;MIN&#x28;a.Numbers&#x29; AS LOW,&#xd;&#xa;MAX&#x28;a.Numbers&#x29; AS HIGH&#xd;&#xa;FROM&#xd;&#xa;SDE_GIS_FULL as s&#xd;&#xa;JOIN&#xd;&#xa;&#x28;SELECT SCLINK, &#xd;&#xa;CASE WHEN LFROM &#x3d; 0 THEN null ELSE LFROM END as Numbers FROM SDE_GIS_FULL&#xd;&#xa;UNION&#xd;&#xa;SELECT SCLINK,&#xd;&#xa;CASE WHEN LTO &#x3d; 0 THEN null ELSE LTO END as Numbers FROM SDE_GIS_FULL&#xd;&#xa;UNION&#xd;&#xa;SELECT SCLINK,&#xd;&#xa;CASE WHEN RFROM &#x3d; 0 THEN null ELSE RFROM END as Numbers FROM SDE_GIS_FULL&#xd;&#xa;UNION&#xd;&#xa;SELECT SCLINK,&#xd;&#xa;CASE WHEN RTO &#x3d; 0 THEN null ELSE RTO END as Numbers FROM SDE_GIS_FULL&#xd;&#xa;&#x29; a ON a.SCLINK &#x3d; s.SCLINK&#xd;&#xa;WHERE LFROM &#x2b; LTO &#x2b; RFROM &#x2b; RTO &#x3c;&#x3e; 0&#xd;&#xa;GROUP BY s.SCLINK&#x29; SCSUM ON SCSUM.SCLINK &#x3d; T.SCLINK&#xd;&#xa;ORDER BY CLOSENESS ASC</sql>
+    <outer_join>Y</outer_join>
+    <replace_vars>N</replace_vars>
+    <sql_fieldname>SQL</sql_fieldname>
+    <query_only_on_change>N</query_only_on_change>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>638</xloc>
-      <yloc>48</yloc>
+      <xloc>375</xloc>
+      <yloc>50</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Set MatchType&#x2f;Address</name>
+    <name>Write Query</name>
     <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
@@ -407,35 +401,46 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var MatchType &#x3d; &#x27;Block Level&#x27;&#xd;&#xa;var MatchAddress &#x3d; CleanAddress&#xd;&#xa;var lat &#x3d; X&#xd;&#xa;var lng &#x3d; Y</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>MatchType</name>
-        <rename>MatchType</rename>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var SQL &#x3d;&#x22;SELECT TOP 1 &#x22; &#x2b;&#xd;&#xa;&#x22;T.SCLINK, T.ROADNAME, CASE WHEN ABS&#x28;SCSUM.LOW - &#x22; &#x2b; Num1 &#x2b; &#x22;&#x29; &#x3c;&#x3d; ABS&#x28;SCSUM.HIGH - &#x22; &#x2b; Num1 &#x2b; &#x22;&#x29; THEN ABS&#x28;SCSUM.LOW - &#x22; &#x2b; Num1 &#x2b; &#x22;&#x29; ELSE ABS&#x28;SCSUM.HIGH - &#x22; &#x2b; Num1 &#x2b; &#x22;&#x29; END as CLOSENESS FROM SDE_GIS_FULL AS T &#x22; &#x2b;&#xd;&#xa;&#x22;JOIN &#x28;SELECT s.SCLINK, MIN&#x28;a.Numbers&#x29; AS LOW, MAX&#x28;a.Numbers&#x29; AS HIGH FROM SDE_GIS_FULL as s &#x22; &#x2b;&#xd;&#xa;&#x22;JOIN &#x28;SELECT SCLINK, CASE WHEN LFROM &#x3d; 0 THEN null ELSE LFROM END as Numbers FROM SDE_GIS_FULL UNION &#x22; &#x2b;&#xd;&#xa;&#x22;SELECT SCLINK,CASE WHEN LTO &#x3d; 0 THEN null ELSE LTO END as Numbers FROM SDE_GIS_FULL UNION &#x22; &#x2b;&#xd;&#xa;&#x22;SELECT SCLINK, CASE WHEN RFROM &#x3d; 0 THEN null ELSE RFROM END as Numbers FROM SDE_GIS_FULL UNION &#x22; &#x2b;&#xd;&#xa;&#x22;SELECT SCLINK, CASE WHEN RTO &#x3d; 0 THEN null ELSE RTO END as Numbers FROM SDE_GIS_FULL&#x29; a ON a.SCLINK &#x3d; s.SCLINK &#x22; &#x2b;&#xd;&#xa;&#x22;WHERE LFROM &#x2b; LTO &#x2b; RFROM &#x2b; RTO &#x3c;&#x3e; 0 &#x22; &#x2b;&#xd;&#xa;&#x22;GROUP BY s.SCLINK&#x29; SCSUM ON SCSUM.SCLINK &#x3d; T.SCLINK &#x22; &#x2b;&#xd;&#xa;&#x22;WHERE ROADNAME LIKE &#x27;&#x22; &#x2b; ROADNAME &#x2b; &#x22;&#x27; &#x22; &#x2b;&#xd;&#xa;&#x22;ORDER BY CLOSENESS ASC&#x22;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>SQL</name>
+        <rename>SQL</rename>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
-        <replace>Y</replace>
-      </field>      <field>        <name>MatchAddress</name>
-        <rename>MatchAddress</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>      <field>        <name>lat</name>
-        <rename>lat</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>      <field>        <name>lng</name>
-        <rename>lng</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
+        <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>753</xloc>
-      <yloc>48</yloc>
+      <xloc>235</xloc>
+      <yloc>50</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Stream lookup</send_true_to>
+<send_false_to>Set MatchType&#x2f;Address 2</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>A_SCLINK</leftvalue>
+ <function>IS NOT NULL</function>
+ <rightvalue/>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>525</xloc>
+      <yloc>50</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -455,35 +460,17 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var MatchType &#x3d; &#x27;No Match&#x27;&#xd;&#xa;var MatchAddress &#x3d; null&#xd;&#xa;var lat &#x3d; null&#xd;&#xa;var lng &#x3d; null</jsScript_script>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var MatchType &#x3d; &#x27;No Match&#x27;&#xd;&#xa;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>MatchType</name>
         <rename>MatchType</rename>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>Y</replace>
-      </field>      <field>        <name>MatchAddress</name>
-        <rename>MatchAddress</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>      <field>        <name>lat</name>
-        <rename>lat</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>      <field>        <name>lng</name>
-        <rename>lng</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>770</xloc>
-      <yloc>146</yloc>
+      <xloc>529</xloc>
+      <yloc>258</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
