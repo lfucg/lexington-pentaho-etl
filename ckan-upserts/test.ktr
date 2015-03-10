@@ -73,11 +73,11 @@
   <notepads>
   </notepads>
   <connection>
-    <name>GIS</name>
-    <server>&#x24;&#x7b;GIS_SERVER&#x7d;</server>
+    <name>CE</name>
+    <server>&#x24;&#x7b;CODE_SERVER&#x7d;</server>
     <type>MSSQL</type>
     <access>Native</access>
-    <database>&#x24;&#x7b;GIS_DB&#x7d;</database>
+    <database>&#x24;&#x7b;CODE_DB&#x7d;</database>
     <port>&#x24;&#x7b;CODE_PORT&#x7d;</port>
     <username/>
     <password>Encrypted </password>
@@ -97,13 +97,72 @@
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
+  <connection>
+    <name>GIS</name>
+    <server>&#x24;&#x7b;GIS_SERVER&#x7d;</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>&#x24;&#x7b;GIS_DB&#x7d;</database>
+    <port>&#x24;&#x7b;GIS_PORT&#x7d;</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;GIS_PORT&#x7d;</attribute></attribute>
+      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
   <order>
-  <hop> <from>GIS Streets</from><to>Json output</to><enabled>Y</enabled> </hop>
-  <hop> <from>Json output</from><to>Modified Java Script Value</to><enabled>Y</enabled> </hop>
+  <hop> <from>No Suffix Streets</from><to>Format as JSON 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>Format as JSON 2</from><to>Create RegEx</to><enabled>Y</enabled> </hop>
+  <hop> <from>Create RegEx</from><to>Add RegEx</to><enabled>Y</enabled> </hop>
+  <hop> <from>Format as JSON 2 2</from><to>Create RegEx 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>Create RegEx 2</from><to>Stream lookup 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>Suffixes</from><to>Format as JSON 2 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get Direction&#x2f;Number</from><to>Add RegEx</to><enabled>Y</enabled> </hop>
+  <hop> <from>Add RegEx</from><to>Get Street</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get Street</from><to>Sort Clean Addresses</to><enabled>Y</enabled> </hop>
+  <hop> <from>Stream lookup 2</from><to>Get Suffix&#x2f;Street</to><enabled>Y</enabled> </hop>
+  <hop> <from>Sort Clean Addresses</from><to>Remove Fields</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get Suffix&#x2f;Street</from><to>Remove Fields</to><enabled>Y</enabled> </hop>
+  <hop> <from>Sort Clean Addresses</from><to>Stream lookup 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>Remove Fields</from><to>Stream lookup</to><enabled>Y</enabled> </hop>
+  <hop> <from>GIS Streets</from><to>Stream lookup</to><enabled>Y</enabled> </hop>
+  <hop> <from>Stream lookup</from><to>Filter rows</to><enabled>Y</enabled> </hop>
+  <hop> <from>Filter rows</from><to>Fuzzy match</to><enabled>Y</enabled> </hop>
+  <hop> <from>GIS Streets</from><to>Fuzzy match</to><enabled>Y</enabled> </hop>
+  <hop> <from>Fuzzy match</from><to>Filter rows 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>Filter rows 2</from><to>Unmatched</to><enabled>Y</enabled> </hop>
+  <hop> <from>Filter rows</from><to>Create Address</to><enabled>Y</enabled> </hop>
+  <hop> <from>Remove Fields 2</from><to>Create Address</to><enabled>Y</enabled> </hop>
+  <hop> <from>Filter rows 2</from><to>Rename NAME</to><enabled>Y</enabled> </hop>
+  <hop> <from>Rename NAME</from><to>Remove Fields 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>GIS Streets</from><to>Stream lookup 3</to><enabled>Y</enabled> </hop>
+  <hop> <from>Create Address</from><to>Stream lookup 3</to><enabled>Y</enabled> </hop>
+  <hop> <from>Stream lookup 3</from><to>Filter rows 3</to><enabled>Y</enabled> </hop>
+  <hop> <from>CleanAddress</from><to>Get Direction&#x2f;Number</to><enabled>Y</enabled> </hop>
+  <hop> <from>Filter rows 3</from><to>Stream lookup 4</to><enabled>Y</enabled> </hop>
+  <hop> <from>GIS Streets</from><to>Stream lookup 4</to><enabled>Y</enabled> </hop>
+  <hop> <from>Filter rows 3</from><to>Select values</to><enabled>Y</enabled> </hop>
+  <hop> <from>Stream lookup 4</from><to>Copy ROADNAME</to><enabled>Y</enabled> </hop>
+  <hop> <from>Copy ROADNAME</from><to>Select values</to><enabled>Y</enabled> </hop>
+  <hop> <from>Select values</from><to>Construct Clean Addresses</to><enabled>Y</enabled> </hop>
+  <hop> <from>Input</from><to>CleanAddress</to><enabled>Y</enabled> </hop>
+  <hop> <from>Construct Clean Addresses</from><to>Mapping output specification</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>GIS Streets</name>
-    <type>TableInput</type>
+    <name>Add RegEx</name>
+    <type>StreamLookup</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -112,23 +171,222 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>GIS</connection>
-    <sql>SELECT DISTINCT NAME as &#x5b;word&#x5d; FROM SDE_GIS_FULL WHERE NAME &#x3c;&#x3e; &#x27;&#x27;&#xd;&#xa;UNION&#xd;&#xa;SELECT DISTINCT TYPE as &#x5b;word&#x5d; FROM SDE_GIS_FULL WHERE TYPE &#x3c;&#x3e; &#x27;&#x27;&#xd;&#xa;ORDER BY word ASC</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
+    <from>Create RegEx</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>DummyID</name>
+        <field>DummyID</field>
+      </key>
+      <value>
+        <name>NoSufRegEx</name>
+        <rename>NoSufRegEx</rename>
+        <default/>
+        <type>None</type>
+      </value>
+    </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>75</xloc>
-      <yloc>66</yloc>
+      <xloc>304</xloc>
+      <yloc>116</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Json output</name>
+    <name>Create Address</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var NameCheck &#x3d; CreateAddress&#x28;&#x29;&#xd;&#xa;&#xd;&#xa;function CreateAddress&#x28;&#x29;&#x7b;&#xd;&#xa;var direction, street, suffix&#xd;&#xa;if &#x28;Dir &#x3d;&#x3d; null&#x29;&#x7b;direction &#x3d; &#x27;&#x27;&#x7d;&#xd;&#xa;else &#x7b;direction &#x3d; Dir &#x2b; &#x27; &#x27;&#x7d;&#xd;&#xa;if &#x28;NAME &#x3d;&#x3d; null&#x29;&#x7b;street &#x3d; &#x27;&#x27;&#x7d;&#xd;&#xa;else &#x7b;street &#x3d; NAME &#x2b; &#x27; &#x27;&#x7d;&#xd;&#xa;if &#x28;Suf &#x3d;&#x3d; null&#x29;&#x7b;suffix &#x3d; &#x27;&#x27;&#x7d;&#xd;&#xa;else &#x7b;suffix &#x3d; Suf&#x7d;&#xd;&#xa;var address &#x3d; direction &#x2b; street &#x2b; suffix&#xd;&#xa;return address.trim&#x28;&#x29;&#xd;&#xa;&#x7d;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>NameCheck</name>
+        <rename>NameCheck</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>792</xloc>
+      <yloc>111</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Create RegEx</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var NoSufRegEx &#x3d; T_RegEx&#x28;&#x29;&#xd;&#xa;var DummyID &#x3d; 1&#xd;&#xa;&#xd;&#xa;function T_RegEx&#x28;&#x29;&#x7b;&#xd;&#xa;var data, list, last&#xd;&#xa;data &#x3d; JSON.parse&#x28;TypeJSON&#x29;.data&#xd;&#xa;list &#x3d; &#x27;&#x27;&#xd;&#xa;last &#x3d; data&#x5b;data.length-1&#x5d;.NAME&#xd;&#xa;for &#x28;var i &#x3d; 0, len &#x3d; data.length&#x3b; i &#x3c; len-1&#x3b; i&#x2b;&#x2b;&#x29; &#x7b;&#xd;&#xa;  list &#x2b;&#x3d; data&#x5b;i&#x5d;.NAME &#x2b; &#x27;&#x7c;&#x27;&#xd;&#xa;&#x7d;&#xd;&#xa;return &#x27;&#x5c;&#x5c;b&#x28;&#x27; &#x2b; list &#x2b; last &#x2b; &#x27;&#x29;&#x5c;&#x5c;b&#x27;&#x3b;&#xd;&#xa;&#x7d;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>NoSufRegEx</name>
+        <rename>NoSufRegEx</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>DummyID</name>
+        <rename>DummyID</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>303</xloc>
+      <yloc>187</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Create RegEx 2</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var SufRegEx &#x3d; T_RegEx&#x28;&#x29;&#xd;&#xa;var DummyID &#x3d; 1&#xd;&#xa;&#xd;&#xa;function T_RegEx&#x28;&#x29;&#x7b;&#xd;&#xa;var data, list, last&#xd;&#xa;data &#x3d; JSON.parse&#x28;TypeJSON&#x29;.data&#xd;&#xa;list &#x3d; &#x27;&#x27;&#xd;&#xa;last &#x3d; data&#x5b;data.length-1&#x5d;.TYPE&#xd;&#xa;for &#x28;var i &#x3d; 0, len &#x3d; data.length&#x3b; i &#x3c; len-1&#x3b; i&#x2b;&#x2b;&#x29; &#x7b;&#xd;&#xa;  list &#x2b;&#x3d; data&#x5b;i&#x5d;.TYPE &#x2b; &#x27;&#x7c;&#x27;&#xd;&#xa;&#x7d;&#xd;&#xa;return &#x27;&#x5c;&#x5c;b&#x28;&#x27; &#x2b; list &#x2b; last &#x2b; &#x27;&#x29;&#x5c;&#x5c;b&#x27;&#x3b;&#xd;&#xa;&#x7d;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>SufRegEx</name>
+        <rename>SufRegEx</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>DummyID</name>
+        <rename>DummyID</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>462</xloc>
+      <yloc>275</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Create Address</send_true_to>
+<send_false_to>Fuzzy match</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>NAME</leftvalue>
+ <function>IS NOT NULL</function>
+ <rightvalue/>
+ <value><name>constant</name><type>Number</type><text>0.9</text><length>-5</length><precision>-4</precision><isnull>N</isnull><mask>&#x23;.&#x23;&#x3b;-&#x23;.&#x23;</mask></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>713</xloc>
+      <yloc>113</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows 2</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Rename NAME</send_true_to>
+<send_false_to>Unmatched</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>JaroWinkerValue</leftvalue>
+ <function>&#x3e;&#x3d;</function>
+ <rightvalue/>
+ <value><name>constant</name><type>Number</type><text>0.85</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask>&#x23;.&#x23;&#x3b;-&#x23;.&#x23;</mask></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>795</xloc>
+      <yloc>253</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows 3</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Select values</send_true_to>
+<send_false_to>Stream lookup 4</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>ROADNAME</leftvalue>
+ <function>IS NOT NULL</function>
+ <rightvalue/>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>917</xloc>
+      <yloc>110</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Format as JSON 2</name>
     <type>JsonOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -138,7 +396,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <outputValue>WordsBlock</outputValue>
+    <outputValue>TypeJSON</outputValue>
     <jsonBloc>data</jsonBloc>
     <nrRowsInBloc>0</nrRowsInBloc>
     <operation_type>outputvalue</operation_type>
@@ -159,20 +417,122 @@
       </file>
     <fields>
       <field>
-        <name>word</name>
-        <element>word</element>
+        <name>NAME</name>
+        <element>NAME</element>
     </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>163</xloc>
-      <yloc>65</yloc>
+      <xloc>306</xloc>
+      <yloc>259</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Modified Java Script Value</name>
+    <name>Format as JSON 2 2</name>
+    <type>JsonOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <outputValue>TypeJSON</outputValue>
+    <jsonBloc>data</jsonBloc>
+    <nrRowsInBloc>0</nrRowsInBloc>
+    <operation_type>outputvalue</operation_type>
+    <compatibility_mode>N</compatibility_mode>
+    <encoding>UTF-8</encoding>
+    <addtoresult>N</addtoresult>
+    <file>
+      <name/>
+      <extention>js</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <create_parent_folder>N</create_parent_folder>
+      <DoNotOpenNewFileInit>N</DoNotOpenNewFileInit>
+      <servlet_output>N</servlet_output>
+      </file>
+    <fields>
+      <field>
+        <name>TYPE</name>
+        <element>TYPE</element>
+    </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>465</xloc>
+      <yloc>347</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Fuzzy match</name>
+    <type>FuzzyMatch</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>GIS Streets</from>
+    <lookupfield>NAME</lookupfield>
+    <mainstreamfield>Str</mainstreamfield>
+    <outputmatchfield>FuzzyName</outputmatchfield>
+    <outputvaluefield>JaroWinkerValue</outputvaluefield>
+    <caseSensitive>N</caseSensitive>
+    <closervalue>Y</closervalue>
+    <minimalValue>0</minimalValue>
+    <maximalValue>1</maximalValue>
+    <separator>,</separator>
+    <algorithm>jarowinkler</algorithm>
+    <lookup>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>713</xloc>
+      <yloc>253</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>GIS Streets</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>GIS</connection>
+    <sql>SELECT DISTINCT&#xd;&#xa;ROADNAME, &#xd;&#xa;DIR, &#xd;&#xa;NAME, &#xd;&#xa;TYPE &#xd;&#xa;FROM &#xd;&#xa;SDE_GIS_Full</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>637</xloc>
+      <yloc>255</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get Direction&#x2f;Number</name>
     <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
@@ -186,17 +546,666 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var array1 &#x3d; JSON.parse&#x28;WordsBlock&#x29;.data</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>array1</name>
-        <rename>array1</rename>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var Num1 &#x3d; GetNumber&#x28;CleanAddress,0&#x29;&#xd;&#xa;var Num2 &#x3d; GetNumber&#x28;CleanAddress,1&#x29;&#xd;&#xa;var Dir &#x3d; GetDirection&#x28;CleanAddress&#x29;&#xd;&#xa;&#xd;&#xa;function GetNumber&#x28;input,num&#x29;&#x7b;&#xd;&#xa;var match &#x3d; input.trim&#x28;&#x29;.match&#x28;&#x2f;&#x5b;0-9&#x5d;&#x28;&#x5c;d&#x7c;&#x5c;W&#x7c;&#x5c;s&#x29;&#x2a;&#x2f;i&#x29;&#xd;&#xa;var numstring &#x3d; &#x22;&#x22;&#xd;&#xa;if&#x28;match &#x3d;&#x3d;&#x3d; null&#x29;&#x7b;numstring &#x3d; null&#x7d;&#xd;&#xa;else if &#x28;match&#x5b;0&#x5d;.trim&#x28;&#x29;.replace&#x28;&#x2f;&#x5c;D&#x2a;&#x24;&#x2f;i,&#x22;&#x22;&#x29;.replace&#x28;&#x2f;&#x5c;W&#x2b;&#x2f;i,&#x22;-&#x22;&#x29;.split&#x28;&#x22;-&#x22;&#x29;&#x5b;num&#x5d; &#x3d;&#x3d;&#x3d; undefined&#x29;&#x7b;numstring &#x3d; null&#x7d;  &#xd;&#xa;else &#x7b;numstring &#x3d; match&#x5b;0&#x5d;.trim&#x28;&#x29;.replace&#x28;&#x2f;&#x5c;D&#x2a;&#x24;&#x2f;i,&#x22;&#x22;&#x29;.replace&#x28;&#x2f;&#x5c;W&#x2b;&#x2f;i,&#x22;-&#x22;&#x29;.split&#x28;&#x22;-&#x22;&#x29;&#x5b;num&#x5d;&#x7d;&#xd;&#xa;return numstring&#xd;&#xa;&#x7d;&#xd;&#xa;&#xd;&#xa;function GetDirection&#x28;input&#x29;&#x7b;&#xd;&#xa;var format &#x3d;  input.replace&#x28;&#x2f;&#x5b;0-9&#x5d;&#x28;&#x5c;d&#x7c;&#x5c;W&#x7c;&#x5c;s&#x29;&#x2a;&#x2f;gi,&#x27;&#x27;&#x29;.replace&#x28;&#x2f;&#x5c;.&#x2f;gi,&#x22; &#x22;&#x29;.trim&#x28;&#x29;. replace&#x28;&#x2f;&#x5c;b&#x28;north&#x7c;n&#x29;&#x5c;b&#x2f;i,&#x22;N&#x22;&#x29;.replace&#x28;&#x2f;&#x5c;b&#x28;south&#x7c;s&#x29;&#x5c;b&#x2f;i,&#x22;S&#x22;&#x29;.replace&#x28;&#x2f;&#x5c;b&#x28;east&#x7c;e&#x29;&#x5c;b&#x2f;i,&#x22;E&#x22;&#x29;.replace&#x28;&#x2f;&#x5c;b&#x28;west&#x7c;w&#x29;&#x5c;b&#x2f;i,&#x22;W&#x22;&#x29;.replace&#x28;&#x2f;&#x5c;bn&#x5c;sct&#x2f;i,&#x27;North Ct&#x27;&#x29;.trim&#x28;&#x29;.replace&#x28;&#x2f;&#x5c;bOld&#x5c;sS&#x2f;i,&#x27;Old South&#x27;&#x29;.replace&#x28;&#x2f;&#x5c;bBrier&#x5c;sE&#x2f;i,&#x27;Brier East&#x27;&#x29;&#xd;&#xa;if &#x28;format.match&#x28;&#x2f;&#x5e;&#x28;N&#x7c;S&#x7c;E&#x7c;W&#x29;&#x5c;s&#x2f;i&#x29; &#x3d;&#x3d; null&#x29;&#x7b;return null&#x7d;&#xd;&#xa;else &#x7b;return format.match&#x28;&#x2f;&#x5e;&#x28;N&#x7c;S&#x7c;E&#x7c;W&#x29;&#x5c;s&#x2f;i&#x29;&#x5b;0&#x5d;.trim&#x28;&#x29;&#x7d;  &#xd;&#xa;&#x7d;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>Num1</name>
+        <rename>Num1</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>Num2</name>
+        <rename>Num2</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>Dir</name>
+        <rename>Dir</rename>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>270</xloc>
-      <yloc>64</yloc>
+      <xloc>212</xloc>
+      <yloc>116</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get Street</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var Str &#x3d; GetStreet&#x28;CleanAddress&#x29;&#xd;&#xa;var Suf &#x3d; null&#xd;&#xa;&#xd;&#xa;function GetStreet&#x28;input&#x29; &#x7b;&#xd;&#xa;var vwords &#x3d; new RegExp&#x28;NoSufRegEx,&#x27;gi&#x27;&#x29;&#xd;&#xa;if &#x28;input.match&#x28;vwords&#x29; &#x3d;&#x3d; null&#x29;&#xd;&#xa;&#x7b;return null&#x7d;&#xd;&#xa;else &#xd;&#xa;&#x7b;return input.match&#x28;vwords&#x29;&#x5b;0&#x5d;&#x7d;&#xd;&#xa;&#x7d;&#xd;&#xa;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>Str</name>
+        <rename>Str</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>Suf</name>
+        <rename>Suf</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>374</xloc>
+      <yloc>115</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get Suffix&#x2f;Street</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var Suf &#x3d; GetSuf&#x28;CleanAddress&#x29;&#xd;&#xa;var Str &#x3d; GetStreet2&#x28;CleanAddress&#x29;&#xd;&#xa;&#xd;&#xa;function GetSuf&#x28;input&#x29; &#x7b;&#xd;&#xa;var vwords &#x3d; new RegExp&#x28;SufRegEx,&#x27;gi&#x27;&#x29;&#xd;&#xa;if &#x28;input.match&#x28;vwords&#x29; &#x3d;&#x3d; null&#x29;&#xd;&#xa;&#x7b;return null&#x7d;&#xd;&#xa;else &#xd;&#xa;&#x7b;return input.match&#x28;vwords&#x29;&#x5b;input.match&#x28;vwords&#x29;.length-1&#x5d;&#x7d;&#xd;&#xa;&#x7d;&#xd;&#xa;&#xd;&#xa;function GetStreet&#x28;input&#x29;&#x7b;&#xd;&#xa;var match &#x3d; input.trim&#x28;&#x29;.match&#x28;&#x2f;&#x5b;0-9&#x5d;&#x28;&#x5c;d&#x7c;&#x5c;W&#x7c;&#x5c;s&#x29;&#x2a;&#x2f;i&#x29;&#xd;&#xa;var regex &#x3d; new RegExp&#x28;&#x27;&#x28;&#x5c;&#x5c;b&#x27; &#x2b; Suf &#x2b; &#x27;&#x5c;&#x5c;b&#x7c;&#x27; &#x2b; Suf &#x2b; &#x27;&#x5b;0-9&#x5d;&#x29;.&#x2a;&#x24;&#x27;,&#x27;gi&#x27;&#x29;&#xd;&#xa;var strstring &#x3d; &#x27;&#x27;&#xd;&#xa;if&#x28;match &#x3d;&#x3d;&#x3d; null&#x29;&#x7b;strstring &#x3d; input&#x7d;&#xd;&#xa;else &#x7b;strstring &#x3d; input.replace&#x28;match&#x5b;0&#x5d;,&#x22;&#x22;&#x29;.trim&#x28;&#x29;&#x7d;&#xd;&#xa;return strstring.replace&#x28;&#x2f;&#x5e;0&#x5c;s&#x2f;i,&#x22;&#x22;&#x29;.trim&#x28;&#x29;.replace&#x28;regex,&#x22;&#x22;&#x29;.trim&#x28;&#x29;.replace&#x28;&#x2f;&#x5c;.&#x2f;i,&#x22; &#x22;&#x29;.replace&#x28;&#x2f;&#x5e;&#x5c;b&#x28;north&#x7c;n&#x7c;south&#x7c;s&#x7c;east&#x7c;e&#x7c;west&#x7c;w&#x29;&#x5c;b&#x2f;i,&#x22;&#x22;&#x29;.trim&#x28;&#x29;&#xd;&#xa;&#x7d;&#xd;&#xa;&#xd;&#xa;function GetStreet2 &#x28;input&#x29;&#x7b;&#xd;&#xa;var regex &#x3d; new RegExp&#x28;&#x27;&#x28;&#x5c;&#x5c;b&#x27; &#x2b; Suf &#x2b; &#x27;&#x5c;&#x5c;b&#x7c;&#x27; &#x2b; Suf &#x2b; &#x27;&#x5b;0-9&#x5d;&#x29;.&#x2a;&#x24;&#x27;,&#x27;gi&#x27;&#x29;&#xd;&#xa;var removenum &#x3d; input.replace&#x28;&#x2f;&#x5b;0-9&#x5d;&#x28;&#x5c;d&#x7c;&#x5c;W&#x7c;&#x5c;s&#x29;&#x2a;&#x2f;gi,&#x27;&#x27;&#x29;.replace&#x28;&#x2f;&#x5c;.&#x2f;gi,&#x22; &#x22;&#x29;.trim&#x28;&#x29;    &#xd;&#xa;var removedir &#x3d; removenum.replace&#x28;&#x2f;&#x5c;b&#x28;north&#x7c;n&#x29;&#x5c;b&#x2f;i,&#x22;N&#x22;&#x29;.replace&#x28;&#x2f;&#x5c;b&#x28;south&#x7c;s&#x29;&#x5c;b&#x2f;i,&#x22;S&#x22;&#x29;.replace&#x28;&#x2f;&#x5c;b&#x28;east&#x7c;e&#x29;&#x5c;b&#x2f;i,&#x22;E&#x22;&#x29;.replace&#x28;&#x2f;&#x5c;b&#x28;west&#x7c;w&#x29;&#x5c;b&#x2f;i,&#x22;W&#x22;&#x29;.replace&#x28;&#x2f;&#x5c;bn&#x5c;sct&#x2f;i,&#x27;North Ct&#x27;&#x29;.replace&#x28;&#x2f;&#x5c;bOld&#x5c;sS&#x2f;i,&#x27;Old South&#x27;&#x29;.replace&#x28;&#x2f;&#x5c;bBrier&#x5c;sE&#x2f;i,&#x27;Brier East&#x27;&#x29;.replace&#x28;&#x2f;&#x5e;&#x28;N&#x7c;S&#x7c;E&#x7c;W&#x29;&#x5c;s&#x2f;,&#x22;&#x22;&#x29;.trim&#x28;&#x29;&#xd;&#xa;var removeelse &#x3d; removedir.replace&#x28;&#x2f;&#x5e;0&#x5c;s&#x2f;i,&#x22;&#x22;&#x29;.trim&#x28;&#x29;.replace&#x28;regex,&#x22;&#x22;&#x29;.trim&#x28;&#x29;&#xd;&#xa;return removeelse  &#xd;&#xa;&#x7d;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>Suf</name>
+        <rename>Suf</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>Str</name>
+        <rename>Str</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>555</xloc>
+      <yloc>201</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>No Suffix Streets</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>GIS</connection>
+    <sql>SELECT DISTINCT NAME FROM SDE_GIS_FULL WHERE TYPE Is Null AND NAME &#x3c;&#x3e; &#x27;64&#x27; AND NAME &#x3c;&#x3e; &#x27;75&#x27;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>309</xloc>
+      <yloc>344</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Remove Fields</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>      <field>        <name>DummyID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CaseNo</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CaseYr</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Address</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>DateOpened</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CaseType</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Status</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>StatusDate</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Closed</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Num1</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Num2</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Dir</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CleanAddress</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Str</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Suf</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>552</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Remove Fields 2</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <remove>        <name>FuzzyName</name>
+      </remove>      <remove>        <name>JaroWinkerValue</name>
+      </remove>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>794</xloc>
+      <yloc>157</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Rename NAME</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var NAME &#x3d; FuzzyName</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>NAME</name>
+        <rename>NAME</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>794</xloc>
+      <yloc>203</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Sort Clean Addresses</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Remove Fields</send_true_to>
+<send_false_to>Stream lookup 2</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>Str</leftvalue>
+ <function>IS NOT NULL</function>
+ <rightvalue/>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>459</xloc>
+      <yloc>115</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Stream lookup</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>GIS Streets</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>Str</name>
+        <field>NAME</field>
+      </key>
+      <value>
+        <name>NAME</name>
+        <rename>NAME</rename>
+        <default/>
+        <type>None</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>633</xloc>
+      <yloc>114</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Stream lookup 2</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>Create RegEx 2</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>DummyID</name>
+        <field>DummyID</field>
+      </key>
+      <value>
+        <name>SufRegEx</name>
+        <rename>SufRegEx</rename>
+        <default/>
+        <type>None</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>460</xloc>
+      <yloc>201</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Stream lookup 3</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>GIS Streets</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>NameCheck</name>
+        <field>ROADNAME</field>
+      </key>
+      <value>
+        <name>ROADNAME</name>
+        <rename>ROADNAME</rename>
+        <default/>
+        <type>None</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>851</xloc>
+      <yloc>111</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Suffixes</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>GIS</connection>
+    <sql>SELECT DISTINCT TYPE FROM SDE_GIS_FULL WHERE TYPE Is Not Null</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>468</xloc>
+      <yloc>415</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Unmatched</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>796</xloc>
+      <yloc>371</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>CleanAddress</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var CleanAddress &#x3d; Address.replace&#x28;&#x2f;&#x5e;0&#x5c;s&#x2f;i,&#x22;&#x22;&#x29;.replace&#x28;&#x2f;&#x28;&#x5c;b&#x7c;&#x5c;s&#x29;&#x28;aka&#x7c;at&#x5c;s&#x7c;&#x26;&#x7c;&#x5c;&#x28;&#x7c;&#x5c;&#x2f;&#x5b;a-z&#x5d;&#x7c;&#x23;&#x7c;&#x40;&#x29;&#x28;&#x24;&#x7c;.&#x2a;&#x29;&#x2f;ig,&#x22;&#x22;&#x29;&#xd;&#xa;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>CleanAddress</name>
+        <rename>CleanAddress</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>114</xloc>
+      <yloc>115</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Stream lookup 4</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>GIS Streets</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>NAME</name>
+        <field>NAME</field>
+      </key>
+      <value>
+        <name>ROADNAME</name>
+        <rename>ROADNAME</rename>
+        <default/>
+        <type>None</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>921</xloc>
+      <yloc>255</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>      <field>        <name>Address</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Num1</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Num2</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Dir</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Str</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Suf</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CleanAddress</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ROADNAME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1068</xloc>
+      <yloc>165</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Copy ROADNAME</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;ROADNAME &#x3d; ROADNAME_1&#xd;&#xa;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>994</xloc>
+      <yloc>212</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Construct Clean Addresses</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;&#xd;&#xa;var CleanAddress &#x3d; CreateAddress&#x28;&#x29;&#xd;&#xa;&#xd;&#xa;function CreateAddress&#x28;&#x29;&#x7b;&#xd;&#xa;var num &#x3d; &#x27;&#x27;&#xd;&#xa;var street &#x3d; &#x27;&#x27;&#xd;&#xa;if &#x28;Num1 &#x3d;&#x3d; null&#x29; &#x7b;num &#x3d; &#x27;&#x27;&#x7d;&#xd;&#xa;else &#x7b;num &#x3d; Num1 &#x2b; &#x27; &#x27;&#x7d;&#xd;&#xa;if &#x28;ROADNAME &#x3d;&#x3d; null&#x29; &#x7b;street &#x3d; &#x27;&#x27;&#x7d;&#xd;&#xa;else &#x7b;street &#x3d; ROADNAME&#x7d;&#xd;&#xa;return num &#x2b; street&#xd;&#xa;&#x7d;&#xd;&#xa;&#xd;&#xa;var AdrType &#x3d; SetType&#x28;&#x29;&#xd;&#xa;&#xd;&#xa;function SetType&#x28;&#x29;&#x7b;&#xd;&#xa;if &#x28;Num1 &#x3d;&#x3d; null&#x29;&#x7b;&#xd;&#xa;return &#x22;No Number&#x22;&#xd;&#xa;&#x7d;&#xd;&#xa;else if &#x28;ROADNAME &#x3d;&#x3d; null &#x7c;&#x7c; ROADNAME &#x3d;&#x3d; &#x27;&#x27;&#x29;&#x7b;&#xd;&#xa;return &#x22;No Street&#x22;&#xd;&#xa;&#x7d;&#xd;&#xa;else &#x7b;return &#x22;Normal Address&#x22;&#x7d;&#xd;&#xa;&#x7d;&#xd;&#xa;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>CleanAddress</name>
+        <rename>CleanAddress</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>AdrType</name>
+        <rename>AdrType</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1179</xloc>
+      <yloc>165</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Input</name>
+    <type>MappingInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>Address</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+        <select_unspecified>N</select_unspecified>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>43</xloc>
+      <yloc>115</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Mapping output specification</name>
+    <type>MappingOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1183</xloc>
+      <yloc>258</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

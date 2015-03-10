@@ -50,7 +50,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>40</xloc>
+      <xloc>36</xloc>
       <yloc>117</yloc>
       </entry>
     <entry>
@@ -60,8 +60,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>373</xloc>
-      <yloc>120</yloc>
+      <xloc>374</xloc>
+      <yloc>117</yloc>
       </entry>
     <entry>
       <name>Code Enforcement</name>
@@ -160,7 +160,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>195</xloc>
-      <yloc>198</yloc>
+      <yloc>207</yloc>
       </entry>
   </entries>
   <hops>
