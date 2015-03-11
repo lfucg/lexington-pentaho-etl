@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>parcel-match</name>
+    <name>upsert-records-to-ckan</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
-    <trans_status>0</trans_status>
     <directory>&#x2f;</directory>
     <parameters>
     </parameters>
@@ -17,7 +16,7 @@
 <size_limit_lines/>
 <interval/>
 <timeout_days/>
-<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name><subject/></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name><subject/></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name><subject/></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name><subject/></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name><subject/></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name><subject/></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field><field><id>EXECUTING_SERVER</id><enabled>N</enabled><name>EXECUTING_SERVER</name></field><field><id>EXECUTING_USER</id><enabled>N</enabled><name>EXECUTING_USER</name></field><field><id>CLIENT</id><enabled>N</enabled><name>CLIENT</name></field></trans-log-table>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name><subject>jsonRecords input</subject></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name><subject>Mapping output specification</subject></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name><subject/></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name><subject/></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name><subject/></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name><subject/></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field><field><id>EXECUTING_SERVER</id><enabled>N</enabled><name>EXECUTING_SERVER</name></field><field><id>EXECUTING_USER</id><enabled>N</enabled><name>EXECUTING_USER</name></field><field><id>CLIENT</id><enabled>N</enabled><name>CLIENT</name></field></trans-log-table>
 <perf-log-table><connection/>
 <schema/>
 <table/>
@@ -67,51 +66,46 @@
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
-  <created_date>2015&#x2f;03&#x2f;06 14&#x3a;47&#x3a;32.003</created_date>
+  <created_date>2014&#x2f;09&#x2f;02 17&#x3a;29&#x3a;32.883</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2015&#x2f;03&#x2f;06 14&#x3a;47&#x3a;32.003</modified_date>
+  <modified_date>2014&#x2f;09&#x2f;02 17&#x3a;29&#x3a;32.883</modified_date>
   </info>
   <notepads>
+    <notepad>
+      <note>This is a sub-transformation that upserts jsonRecords to CKAN.&#xa;&#xa;TODO&#x3a; add instructions for usage from another transformation</note>
+      <xloc>437</xloc>
+      <yloc>32</yloc>
+      <width>469</width>
+      <heigth>67</heigth>
+      <fontname>Lucida Grande</fontname>
+      <fontsize>13</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <order>
-  <hop> <from>Input</from><to>Stream lookup</to><enabled>Y</enabled> </hop>
-  <hop> <from>PVA Addresses</from><to>Stream lookup</to><enabled>Y</enabled> </hop>
-  <hop> <from>Stream lookup</from><to>Match Type</to><enabled>Y</enabled> </hop>
-  <hop> <from>Match Type</from><to>Output</to><enabled>Y</enabled> </hop>
+  <hop> <from>Create POST body</from><to>Upsert records to CKAN</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get CKAN API variables</from><to>Create POST body</to><enabled>Y</enabled> </hop>
+  <hop> <from>jsonRecords input</from><to>Get CKAN API variables</to><enabled>Y</enabled> </hop>
+  <hop> <from>Upsert records to CKAN</from><to>Mapping output specification</to><enabled>Y</enabled> </hop>
+  <hop> <from>Create POST body</from><to>Write to log</to><enabled>N</enabled> </hop>
+  <hop> <from>jsonRecords input</from><to>Write to log</to><enabled>N</enabled> </hop>
   </order>
   <step>
-    <name>Input</name>
-    <type>MappingInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>CleanAddress</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-        <select_unspecified>N</select_unspecified>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>86</xloc>
-      <yloc>94</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Match Type</name>
+    <name>Create POST body</name>
     <type>ScriptValueMod</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
@@ -122,23 +116,56 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var MatchType &#x3d; F_MatchType&#x28;&#x29;&#xd;&#xa;&#xd;&#xa;function F_MatchType&#x28;&#x29;&#x7b;&#xd;&#xa;if&#x28;MatchAddress &#x21;&#x3d;&#x3d; null&#x29;&#x7b;return &#x22;Exact Parcel&#x22;&#x7d;&#xd;&#xa;else &#x7b;return null&#x7d;&#xd;&#xa;&#x7d;&#xd;&#xa;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>MatchType</name>
-        <rename>MatchType</rename>
+        <jsScript_script>&#x2f;&#x2a;&#xa; jsonRecords comes as string&#x3a; &#x27;&#x7b;&#x22;records&#x22;&#x3a; &#x5b;&#x7b;&#x22;CaseNo&#x22;&#x3a;&#x22;123&#x22;...&#x7d;&#x5d;&#x7d;&#x27;&#xa; we add resource_id and other params to the end of the JSON string&#xa; to create CKAN upsert body&#x3a;&#xa; &#x7b;&#x22;records&#x22;&#x3a; &#x5b;&#x7b;&#x22;CaseNo&#x22;&#x3a;&#x22;123&#x22;...&#x7d;&#x5d;, &#x22;resource_id&#x22;&#x3a;&#x22;foo&#x22;...&#x7d;&#xa;&#x2a;&#x2f;&#xa;&#xa;upsertBody &#x3d; jsonRecords.substring&#x28;0,jsonRecords.length-1&#x29; &#x2b; &#xa;	&#x27;,&#x22;resource_id&#x22;&#x3a;&#x22;&#x27; &#x2b; ckanResourceId &#x2b; &#x27;&#x22;,&#x22;force&#x22;&#x3a;&#x22;true&#x22;&#x7d;&#x27;&#x3b;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>upsertBody</name>
+        <rename>upsertBody</rename>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>375</xloc>
-      <yloc>95</yloc>
+      <xloc>323</xloc>
+      <yloc>242</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Output</name>
+    <name>Get CKAN API variables</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ckanApiKey</name>
+        <variable>&#x24;&#x7b;CKAN_API_KEY&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>325</xloc>
+      <yloc>140</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Mapping output specification</name>
     <type>MappingOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -150,159 +177,15 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>515</xloc>
-      <yloc>95</yloc>
+      <xloc>323</xloc>
+      <yloc>482</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>PVA Addresses</name>
-    <type>CsvInput</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <filename>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x5c;ParcelCenters.csv</filename>
-    <filename_field/>
-    <rownum_field/>
-    <include_filename>N</include_filename>
-    <separator>,</separator>
-    <enclosure>&#x22;</enclosure>
-    <header>Y</header>
-    <buffer_size>50000</buffer_size>
-    <lazy_conversion>N</lazy_conversion>
-    <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
-    <newline_possible>N</newline_possible>
-    <encoding/>
-    <fields>
-      <field>
-        <name>ADDRESS</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>X</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Y</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>PVANUM</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>NUM1</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>NUM2</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>DIR</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>NAME</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>TYPE</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>UNIT</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>258</xloc>
-      <yloc>235</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Stream lookup</name>
-    <type>StreamLookup</type>
+    <name>Upsert records to CKAN</name>
+    <type>Rest</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -311,45 +194,98 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <from>PVA Addresses</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
-    <lookup>
-      <key>
-        <name>CleanAddress</name>
-        <field>ADDRESS</field>
-      </key>
-      <value>
-        <name>ADDRESS</name>
-        <rename>MatchAddress</rename>
-        <default/>
-        <type>None</type>
-      </value>
-      <value>
-        <name>X</name>
-        <rename>lat</rename>
-        <default/>
-        <type>None</type>
-      </value>
-      <value>
-        <name>Y</name>
-        <rename>lng</rename>
-        <default/>
-        <type>None</type>
-      </value>
-      <value>
-        <name>PVANUM</name>
-        <rename>parcelId</rename>
-        <default/>
-        <type>None</type>
-      </value>
-    </lookup>
+    <applicationType>TEXT PLAIN</applicationType>
+    <method>POST</method>
+    <url>&#x24;&#x7b;CKAN_BASE_URL&#x7d;&#x2f;api&#x2f;3&#x2f;action&#x2f;datastore_upsert</url>
+    <urlInField>N</urlInField>
+    <dynamicMethod>N</dynamicMethod>
+    <methodFieldName/>
+    <urlField/>
+    <bodyField>upsertBody</bodyField>
+    <httpLogin/>
+    <httpPassword>Encrypted </httpPassword>
+    <proxyHost/>
+    <proxyPort/>
+    <preemptive>N</preemptive>
+    <trustStoreFile/>
+    <trustStorePassword>Encrypted </trustStorePassword>
+    <headers>
+      <header>
+        <field>ckanApiKey</field>
+        <name>Authorization</name>
+        </header>
+      </headers>
+    <parameters>
+      </parameters>
+    <result>
+      <name>result</name>
+      <code/>
+      <response_time/>
+      </result>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>257</xloc>
-      <yloc>95</yloc>
+      <xloc>323</xloc>
+      <yloc>367</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Write to log</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <loglevel>log_level_basic</loglevel>
+      <displayHeader>Y</displayHeader>
+      <limitRows>N</limitRows>
+      <limitRowsNumber>0</limitRowsNumber>
+      <logmessage/>
+    <fields>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>523</xloc>
+      <yloc>242</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>jsonRecords input</name>
+    <type>MappingInput</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>jsonRecords</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ckanResourceId</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+        <select_unspecified>N</select_unspecified>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>326</xloc>
+      <yloc>32</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

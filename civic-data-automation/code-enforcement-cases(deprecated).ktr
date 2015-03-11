@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>code-clean</name>
+    <name>code-enforcement-cases</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -67,14 +67,39 @@
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
-  <created_date>2015&#x2f;03&#x2f;08 14&#x3a;47&#x3a;15.201</created_date>
+  <created_date>2015&#x2f;03&#x2f;04 15&#x3a;08&#x3a;08.621</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2015&#x2f;03&#x2f;08 14&#x3a;47&#x3a;15.201</modified_date>
+  <modified_date>2015&#x2f;03&#x2f;04 15&#x3a;08&#x3a;08.621</modified_date>
   </info>
   <notepads>
   </notepads>
   <connection>
-    <name>ce</name>
+    <name>BldgInsp</name>
+    <server>&#x24;&#x7b;PERMIT_SERVER&#x7d;</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>&#x24;&#x7b;PERMIT_DB&#x7d;</database>
+    <port>&#x24;&#x7b;PERMIT_PORT&#x7d;</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;PERMIT_PORT&#x7d;</attribute></attribute>
+      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>CE</name>
     <server>&#x24;&#x7b;CODE_SERVER&#x7d;</server>
     <type>MSSQL</type>
     <access>Native</access>
@@ -100,10 +125,10 @@
   </connection>
   <connection>
     <name>GIS</name>
-    <server>&#x24;&#x7b;GIS_SERVER&#x7d;</server>
+    <server>GCSQL2</server>
     <type>MSSQL</type>
     <access>Native</access>
-    <database>&#x24;&#x7b;GIS_DB&#x7d;</database>
+    <database>GIS</database>
     <port>1433</port>
     <username/>
     <password>Encrypted </password>
@@ -124,31 +149,25 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>GIS Streets</from><to>Get Street Name</to><enabled>Y</enabled> </hop>
-  <hop> <from>Clean Addresses</from><to>Get Street Name</to><enabled>Y</enabled> </hop>
-  <hop> <from>Get Street Name</from><to>Matched SID&#x3f;</to><enabled>Y</enabled> </hop>
-  <hop> <from>Construct Clean Addresses</from><to>Address Type&#x3f;</to><enabled>Y</enabled> </hop>
-  <hop> <from>Damerau Levenshtein</from><to>Sort Matches 2</to><enabled>Y</enabled> </hop>
-  <hop> <from>Jaro Winkler</from><to>Sort Matches 1</to><enabled>Y</enabled> </hop>
-  <hop> <from>Remove Fields</from><to>Construct Clean Addresses</to><enabled>Y</enabled> </hop>
-  <hop> <from>Remove Fields 2</from><to>Construct Clean Addresses</to><enabled>Y</enabled> </hop>
-  <hop> <from>Set ROADNAME</from><to>Remove Fields 2</to><enabled>Y</enabled> </hop>
-  <hop> <from>Set ROADNAME 2</from><to>Remove Fields</to><enabled>Y</enabled> </hop>
-  <hop> <from>Set ROADNAME 3</from><to>Remove Fields</to><enabled>Y</enabled> </hop>
-  <hop> <from>Sort Matches 1</from><to>Damerau Levenshtein</to><enabled>Y</enabled> </hop>
-  <hop> <from>Sort Matches 1</from><to>Set ROADNAME</to><enabled>Y</enabled> </hop>
-  <hop> <from>Sort Matches 2</from><to>Set ROADNAME 2</to><enabled>Y</enabled> </hop>
-  <hop> <from>Sort Matches 2</from><to>Set ROADNAME 3</to><enabled>Y</enabled> </hop>
-  <hop> <from>Matched SID&#x3f;</from><to>Jaro Winkler</to><enabled>Y</enabled> </hop>
-  <hop> <from>GIS Streets</from><to>Jaro Winkler</to><enabled>Y</enabled> </hop>
-  <hop> <from>GIS Streets</from><to>Damerau Levenshtein</to><enabled>Y</enabled> </hop>
-  <hop> <from>Matched SID&#x3f;</from><to>Construct Clean Addresses</to><enabled>Y</enabled> </hop>
-  <hop> <from>Input</from><to>Clean Addresses</to><enabled>Y</enabled> </hop>
-  <hop> <from>Address Type&#x3f;</from><to>Select values</to><enabled>Y</enabled> </hop>
-  <hop> <from>Select values</from><to>Output</to><enabled>Y</enabled> </hop>
+  <hop> <from>Match Parcels</from><to>Sort Exact Matches</to><enabled>Y</enabled> </hop>
+  <hop> <from>Sort Exact Matches</from><to>Geocode</to><enabled>Y</enabled> </hop>
+  <hop> <from>Geocode</from><to>Sort Geocoder Repsonse</to><enabled>N</enabled> </hop>
+  <hop> <from>Sort Geocoder Repsonse</from><to>Format as JSON</to><enabled>N</enabled> </hop>
+  <hop> <from>Sort Geocoder Repsonse</from><to>No Match</to><enabled>N</enabled> </hop>
+  <hop> <from>No Streetname&#x3f;</from><to>Addresses with No Street</to><enabled>Y</enabled> </hop>
+  <hop> <from>No Streetname&#x3f;</from><to>Match Parcels</to><enabled>Y</enabled> </hop>
+  <hop> <from>Code Database</from><to>Clean Addresses</to><enabled>Y</enabled> </hop>
+  <hop> <from>Clean Addresses</from><to>No Streetname&#x3f;</to><enabled>Y</enabled> </hop>
+  <hop> <from>Add Resource ID</from><to>CKAN Upsert</to><enabled>Y</enabled> </hop>
+  <hop> <from>Format as JSON</from><to>Add Resource ID</to><enabled>Y</enabled> </hop>
+  <hop> <from>Sort Exact Matches</from><to>Select values</to><enabled>Y</enabled> </hop>
+  <hop> <from>Select values</from><to>Format as JSON</to><enabled>Y</enabled> </hop>
+  <hop> <from>No Match</from><to>Select values 2</to><enabled>N</enabled> </hop>
+  <hop> <from>Select values 2</from><to>Format as JSON</to><enabled>N</enabled> </hop>
+  <hop> <from>CKAN Upsert</from><to>Write to log</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Address Type&#x3f;</name>
+    <name>Add Resource ID</name>
     <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
@@ -162,24 +181,87 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var AdrType &#x3d; SetType&#x28;&#x29;&#xd;&#xa;&#xd;&#xa;function SetType&#x28;&#x29;&#x7b;&#xd;&#xa;if &#x28;Num1 &#x3d;&#x3d; null&#x29;&#x7b;&#xd;&#xa;return &#x22;No Number&#x22;&#xd;&#xa;&#x7d;&#xd;&#xa;else if &#x28;ROADNAME &#x3d;&#x3d; null &#x7c;&#x7c; ROADNAME &#x3d;&#x3d; &#x27;&#x27;&#x29;&#x7b;&#xd;&#xa;return &#x22;No Street&#x22;&#xd;&#xa;&#x7d;&#xd;&#xa;else &#x7b;return &#x22;Normal Address&#x22;&#x7d;&#xd;&#xa;&#x7d;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>AdrType</name>
-        <rename>AdrType</rename>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var ckanResourceId &#x3d; &#x27;ad346da7-ce88-4c77-a0e1-10ff09bb0622&#x27;&#xd;&#xa;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>ckanResourceId</name>
+        <rename>ckanResourceId</rename>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1063</xloc>
-      <yloc>199</yloc>
+      <xloc>867</xloc>
+      <yloc>321</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Addresses with No Street</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>302</xloc>
+      <yloc>375</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>CKAN Upsert</name>
+    <type>Mapping</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <specification_method>filename</specification_method>
+    <trans_object_id/>
+    <trans_name/>
+    <filename>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;sub-transformations&#x2f;upsert-records-to-ckan.ktr</filename>
+    <directory_path/>
+    <mappings>
+      <input>
+    <mapping>    <input_step/>
+    <output_step/>
+    <main_path>Y</main_path>
+    <rename_on_output>Y</rename_on_output>
+    <description/>
+    </mapping>      </input>
+      <output>
+    <mapping>    <input_step/>
+    <output_step/>
+    <main_path>Y</main_path>
+    <rename_on_output>N</rename_on_output>
+    <description/>
+    </mapping>      </output>
+          <parameters>    <inherit_all_vars>Y</inherit_all_vars>
+    </parameters>
+    </mappings>
+    <allow_multiple_input>N</allow_multiple_input>
+    <allow_multiple_output>N</allow_multiple_output>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>870</xloc>
+      <yloc>410</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
     <name>Clean Addresses</name>
-    <type>ScriptValueMod</type>
+    <type>SimpleMapping</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -188,124 +270,50 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var Num1 &#x3d; GetNumber&#x28;Address,0&#x29;&#xd;&#xa;var Num2 &#x3d; GetNumber&#x28;Address,1&#x29;&#xd;&#xa;var Street &#x3d; GetStreet&#x28;clean&#x28;Address&#x29;&#x29;&#xd;&#xa;var CleanAddress &#x3d; &#x27;&#x27;&#xd;&#xa;var StrMatch &#x3d; &#x22;Yes&#x22;&#xd;&#xa;&#xa;function clean&#x28;inputaddress&#x29;&#x7b;&#xa;var stage1 &#x3d; inputaddress.replace&#x28;&#x2f;&#x5e;0&#x5c;s&#x2f;i,&#x22;&#x22;&#x29;&#xa;var stage2 &#x3d; stage1.replace&#x28;&#x2f;&#x28;&#x23;&#x7c;&#x5c;&#x28;&#x7c;&#x5c;&#x2f;&#x5b;a-z&#x5d;&#x7c;-&#x5c;s&#x29;.&#x2a;&#x2f;i,&#x22;&#x22;&#x29;&#xa;var stage3 &#x3d; stage2.replace&#x28;&#x2f;&#x5c;b&#x28;retaining&#x7c;apt&#x7c;garage&#x7c;pool&#x7c;side&#x7c;A&#x7c;B&#x7c;ext&#x7c;ramp&#x7c;ste&#x7c;unit&#x7c;suite&#x7c;bldg&#x7c;lot&#x7c;exterior&#x7c;roof&#x7c;board&#x7c;aka&#x7c;common&#x7c;at&#x7c;and&#x7c;emergency&#x7c;vacant&#x7c;structure&#x7c;MH&#x29;&#x5c;b&#x28;&#x5c;s&#x7c;&#x24;&#x7c;&#x5c;&#x2f;&#x7c;-&#x29;.&#x2a;&#x2f;i,&#x22;&#x22;&#x29;  &#xa;var stage4 &#x3d; trim&#x28;stage3&#x29;&#xa;return stage4&#xa;&#x7d;&#xd;&#xa;&#xd;&#xa;function GetNumber&#x28;input,num&#x29;&#x7b;&#xd;&#xa;var match &#x3d; input.trim&#x28;&#x29;.match&#x28;&#x2f;&#x5b;0-9&#x5d;&#x28;&#x5c;d&#x7c;&#x5c;W&#x7c;&#x5c;s&#x29;&#x2a;&#x2f;i&#x29;&#xd;&#xa;var numstring &#x3d; &#x22;&#x22;&#xd;&#xa;if&#x28;match &#x3d;&#x3d;&#x3d; null&#x29;&#x7b;numstring &#x3d; null&#x7d;&#xd;&#xa;else if &#x28;match&#x5b;0&#x5d;.trim&#x28;&#x29;.replace&#x28;&#x2f;&#x5c;D&#x2a;&#x24;&#x2f;i,&#x22;&#x22;&#x29;.replace&#x28;&#x2f;&#x5c;W&#x2b;&#x2f;i,&#x22;-&#x22;&#x29;.split&#x28;&#x22;-&#x22;&#x29;&#x5b;num&#x5d; &#x3d;&#x3d;&#x3d; undefined&#x29;&#x7b;numstring &#x3d; null&#x7d;  &#xd;&#xa;else &#x7b;numstring &#x3d; match&#x5b;0&#x5d;.trim&#x28;&#x29;.replace&#x28;&#x2f;&#x5c;D&#x2a;&#x24;&#x2f;i,&#x22;&#x22;&#x29;.replace&#x28;&#x2f;&#x5c;W&#x2b;&#x2f;i,&#x22;-&#x22;&#x29;.split&#x28;&#x22;-&#x22;&#x29;&#x5b;num&#x5d;&#x7d;&#xd;&#xa;return numstring&#xd;&#xa;&#x7d;&#xd;&#xa;&#xd;&#xa;function GetStreet&#x28;input&#x29;&#x7b;&#xd;&#xa;var match &#x3d; input.trim&#x28;&#x29;.match&#x28;&#x2f;&#x5b;0-9&#x5d;&#x28;&#x5c;d&#x7c;&#x5c;W&#x7c;&#x5c;s&#x29;&#x2a;&#x2f;i&#x29;&#xd;&#xa;var numstring &#x3d; &#x22;&#x22;&#xd;&#xa;if&#x28;match &#x3d;&#x3d;&#x3d; null&#x29;&#x7b;numstring &#x3d; input&#x7d;&#xd;&#xa;else &#x7b;numstring &#x3d; input.replace&#x28;match&#x5b;0&#x5d;,&#x22;&#x22;&#x29;.trim&#x28;&#x29;&#x7d;&#xd;&#xa;return numstring&#xd;&#xa;&#x7d;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>Num1</name>
-        <rename>Num1</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>      <field>        <name>Num2</name>
-        <rename>Num2</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>      <field>        <name>Street</name>
-        <rename>Street</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>      <field>        <name>CleanAddress</name>
-        <rename>CleanAddress</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>      <field>        <name>StrMatch</name>
-        <rename>StrMatch</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>255</xloc>
-      <yloc>82</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Construct Clean Addresses</name>
-    <type>ScriptValueMod</type>
+    <specification_method>filename</specification_method>
+    <trans_object_id/>
+    <trans_name/>
+    <filename>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;&#x2f;sub-transformations&#x2f;code-clean.ktr</filename>
+    <directory_path/>
+    <mappings>
+      <input>
+    <mapping>    <input_step/>
+    <output_step/>
+    <main_path>Y</main_path>
+    <rename_on_output>Y</rename_on_output>
     <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;&#xd;&#xa;var CleanAddress &#x3d; CreateAddress&#x28;&#x29;&#xd;&#xa;&#xd;&#xa;function CreateAddress&#x28;&#x29;&#x7b;&#xd;&#xa;var num &#x3d; &#x27;&#x27;&#xd;&#xa;var street &#x3d; &#x27;&#x27;&#xd;&#xa;if &#x28;Num1 &#x3d;&#x3d; null&#x29; &#x7b;num &#x3d; &#x27;&#x27;&#x7d;&#xd;&#xa;else &#x7b;num &#x3d; Num1 &#x2b; &#x27; &#x27;&#x7d;&#xd;&#xa;if &#x28;ROADNAME &#x3d;&#x3d; null&#x29; &#x7b;street &#x3d; &#x27;&#x27;&#x7d;&#xd;&#xa;else &#x7b;street &#x3d; ROADNAME&#x7d;&#xd;&#xa;return num &#x2b; street&#xd;&#xa;&#x7d;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>CleanAddress</name>
-        <rename>CleanAddress</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>959</xloc>
-      <yloc>198</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Damerau Levenshtein</name>
-    <type>FuzzyMatch</type>
+    </mapping>      </input>
+      <output>
+    <mapping>    <input_step/>
+    <output_step/>
+    <main_path>Y</main_path>
+    <rename_on_output>N</rename_on_output>
     <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <from>GIS Streets</from>
-    <lookupfield>ROADNAME</lookupfield>
-    <mainstreamfield>Street</mainstreamfield>
-    <outputmatchfield>D_Match</outputmatchfield>
-    <outputvaluefield>D_Closeness</outputvaluefield>
-    <caseSensitive>N</caseSensitive>
-    <closervalue>Y</closervalue>
-    <minimalValue>0</minimalValue>
-    <maximalValue>1</maximalValue>
-    <separator>,</separator>
-    <algorithm>dameraulevenshtein</algorithm>
-    <lookup>
-    </lookup>
+    </mapping>      </output>
+          <parameters>    <inherit_all_vars>Y</inherit_all_vars>
+    </parameters>
+    </mappings>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>552</xloc>
-      <yloc>380</yloc>
+      <xloc>171</xloc>
+      <yloc>254</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>GIS Streets</name>
+    <name>Code Database</name>
     <type>TableInput</type>
     <description/>
-    <distribute>N</distribute>
+    <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>GIS</connection>
-    <sql>SELECT DISTINCT&#xd;&#xa;ROADNAME, &#xd;&#xa;DIR, &#xd;&#xa;NAME, &#xd;&#xa;TYPE &#xd;&#xa;FROM &#xd;&#xa;SDE_GIS_Full</sql>
+    <connection>CE</connection>
+    <sql>SELECT&#xd;&#xa;C.CaseNo,&#xd;&#xa;C.CaseYr,&#xd;&#xa;C.Address,&#xd;&#xa;C.DateOpened,&#xd;&#xa;S.CaseType,&#xd;&#xa;S.Description as Status,&#xd;&#xa;C.StatusDate,&#xd;&#xa;CASE WHEN S.Closed &#x3d; 0 THEN &#x27;N&#x27;ELSE &#x27;Y&#x27; END as Closed&#xd;&#xa;FROM &#xd;&#xa;Cases as C&#xd;&#xa;JOIN&#xd;&#xa;StatusCodes as S ON C.StatusCode &#x3d; S.StatusCode&#xd;&#xa;WHERE&#xd;&#xa;C.StatusDate &#x3e;&#x3d; dateadd&#x28;day,-14,getdate&#x28;&#x29;&#x29; AND C.StatusDate &#x3c;&#x3d; GETDATE&#x28;&#x29;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -313,15 +321,15 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>445</xloc>
-      <yloc>299</yloc>
+      <xloc>39</xloc>
+      <yloc>253</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Get Street Name</name>
-    <type>StreamLookup</type>
+    <name>Format as JSON</name>
+    <type>JsonOutput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -330,62 +338,94 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <from>GIS Streets</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
-    <lookup>
-      <key>
-        <name>Street</name>
-        <field>ROADNAME</field>
-      </key>
-      <value>
-        <name>ROADNAME</name>
-        <rename>ROADNAME</rename>
-        <default/>
-        <type>None</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>445</xloc>
-      <yloc>82</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Input</name>
-    <type>MappingInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
+    <outputValue>jsonRecords</outputValue>
+    <jsonBloc>records</jsonBloc>
+    <nrRowsInBloc/>
+    <operation_type>outputvalue</operation_type>
+    <compatibility_mode>N</compatibility_mode>
+    <encoding>UTF-8</encoding>
+    <addtoresult>N</addtoresult>
+    <file>
+      <name>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x5c;code-enforcement</name>
+      <extention>json</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <create_parent_folder>N</create_parent_folder>
+      <DoNotOpenNewFileInit>N</DoNotOpenNewFileInit>
+      <servlet_output>N</servlet_output>
+      </file>
     <fields>
       <field>
+        <name>CaseNo</name>
+        <element>CaseNo</element>
+    </field>
+      <field>
+        <name>CaseYr</name>
+        <element>CaseYr</element>
+    </field>
+      <field>
         <name>Address</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-        <select_unspecified>N</select_unspecified>
+        <element>Address</element>
+    </field>
+      <field>
+        <name>DateOpened</name>
+        <element>DateOpened</element>
+    </field>
+      <field>
+        <name>CaseType</name>
+        <element>CaseType</element>
+    </field>
+      <field>
+        <name>Status</name>
+        <element>Status</element>
+    </field>
+      <field>
+        <name>StatusDate</name>
+        <element>StatusDate</element>
+    </field>
+      <field>
+        <name>Closed</name>
+        <element>Closed</element>
+    </field>
+      <field>
+        <name>CleanAddress</name>
+        <element>CleanAddress</element>
+    </field>
+      <field>
+        <name>MatchType</name>
+        <element>MatchType</element>
+    </field>
+      <field>
+        <name>MatchAddress</name>
+        <element>MatchAddress</element>
+    </field>
+      <field>
+        <name>lat</name>
+        <element>lat</element>
+    </field>
+      <field>
+        <name>lng</name>
+        <element>lng</element>
+    </field>
+      <field>
+        <name>parcelId</name>
+        <element>parcelId</element>
+    </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>73</xloc>
-      <yloc>82</yloc>
+      <xloc>864</xloc>
+      <yloc>253</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Jaro Winkler</name>
-    <type>FuzzyMatch</type>
+    <name>Geocode</name>
+    <type>SimpleMapping</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -394,29 +434,100 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <from>GIS Streets</from>
-    <lookupfield>ROADNAME</lookupfield>
-    <mainstreamfield>Street</mainstreamfield>
-    <outputmatchfield>JW_Match</outputmatchfield>
-    <outputvaluefield>JW_Closeness</outputvaluefield>
-    <caseSensitive>N</caseSensitive>
-    <closervalue>Y</closervalue>
-    <minimalValue>1</minimalValue>
-    <maximalValue>1</maximalValue>
-    <separator>,</separator>
-    <algorithm>jarowinkler</algorithm>
-    <lookup>
-    </lookup>
+    <specification_method>filename</specification_method>
+    <trans_object_id/>
+    <trans_name/>
+    <filename>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;sub-transformations&#x2f;geocoder.ktr</filename>
+    <directory_path/>
+    <mappings>
+      <input>
+    <mapping>    <input_step/>
+    <output_step/>
+    <main_path>Y</main_path>
+    <rename_on_output>Y</rename_on_output>
+    <description/>
+    </mapping>      </input>
+      <output>
+    <mapping>    <input_step/>
+    <output_step/>
+    <main_path>Y</main_path>
+    <rename_on_output>N</rename_on_output>
+    <description/>
+    </mapping>      </output>
+          <parameters>    <inherit_all_vars>Y</inherit_all_vars>
+    </parameters>
+    </mappings>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>552</xloc>
-      <yloc>233</yloc>
+      <xloc>535</xloc>
+      <yloc>126</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Matched SID&#x3f;</name>
+    <name>Match Parcels</name>
+    <type>SimpleMapping</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <specification_method>filename</specification_method>
+    <trans_object_id/>
+    <trans_name/>
+    <filename>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;&#x2f;sub-transformations&#x2f;parcel-match.ktr</filename>
+    <directory_path/>
+    <mappings>
+      <input>
+    <mapping>    <input_step/>
+    <output_step/>
+    <main_path>Y</main_path>
+    <rename_on_output>Y</rename_on_output>
+    <description/>
+    </mapping>      </input>
+      <output>
+    <mapping>    <input_step/>
+    <output_step/>
+    <main_path>Y</main_path>
+    <rename_on_output>N</rename_on_output>
+    <description/>
+    </mapping>      </output>
+          <parameters>    <inherit_all_vars>Y</inherit_all_vars>
+    </parameters>
+    </mappings>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>425</xloc>
+      <yloc>253</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>No Match</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>971</xloc>
+      <yloc>126</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>No Streetname&#x3f;</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -426,240 +537,20 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>Construct Clean Addresses</send_true_to>
-<send_false_to>Jaro Winkler</send_false_to>
+<send_true_to>Match Parcels</send_true_to>
+<send_false_to>Addresses with No Street</send_false_to>
     <compare>
 <condition>
  <negated>N</negated>
- <leftvalue>ROADNAME</leftvalue>
- <function>IS NOT NULL</function>
+ <leftvalue>AdrType</leftvalue>
+ <function>&#x3c;&#x3e;</function>
  <rightvalue/>
- </condition>
+ <value><name>constant</name><type>String</type><text>No Street</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>551</xloc>
-      <yloc>83</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Output</name>
-    <type>MappingOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1209</xloc>
-      <yloc>199</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Remove Fields</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>        <select_unspecified>N</select_unspecified>
-      <remove>        <name>JW_Match</name>
-      </remove>      <remove>        <name>JW_Closeness</name>
-      </remove>      <remove>        <name>D_Match</name>
-      </remove>      <remove>        <name>D_Closeness</name>
-      </remove>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>961</xloc>
-      <yloc>268</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Remove Fields 2</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>        <select_unspecified>N</select_unspecified>
-      <remove>        <name>Street</name>
-      </remove>      <remove>        <name>JW_Match</name>
-      </remove>      <remove>        <name>JW_Closeness</name>
-      </remove>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>799</xloc>
-      <yloc>197</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Set ROADNAME</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var ROADNAME &#x3d; JW_Match&#xd;&#xa;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>ROADNAME</name>
-        <rename>ROADNAME</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>668</xloc>
-      <yloc>196</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Set ROADNAME 2</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var ROADNAME &#x3d; D_Match</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>ROADNAME</name>
-        <rename>ROADNAME</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>796</xloc>
-      <yloc>269</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Set ROADNAME 3</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var ROADNAME &#x3d; Street</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>ROADNAME</name>
-        <rename>ROADNAME</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>      <field>        <name>StrMatch</name>
-        <rename>StrMatch</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>799</xloc>
-      <yloc>352</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Sort Matches 1</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<send_true_to>Set ROADNAME</send_true_to>
-<send_false_to>Damerau Levenshtein</send_false_to>
-    <compare>
-<condition>
- <negated>N</negated>
- <leftvalue>JW_Match</leftvalue>
- <function>IS NOT NULL</function>
- <rightvalue/>
- </condition>
-    </compare>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>552</xloc>
-      <yloc>301</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Sort Matches 2</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<send_true_to>Set ROADNAME 2</send_true_to>
-<send_false_to>Set ROADNAME 3</send_false_to>
-    <compare>
-<condition>
- <negated>N</negated>
- <leftvalue>D_Match</leftvalue>
- <function>IS NOT NULL</function>
- <rightvalue/>
- </condition>
-    </compare>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>665</xloc>
-      <yloc>269</yloc>
+      <xloc>306</xloc>
+      <yloc>253</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -675,14 +566,233 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <fields>        <select_unspecified>N</select_unspecified>
-      <remove>        <name>Num2</name>
-      </remove>      <remove>        <name>Street</name>
-      </remove>      <remove>        <name>StrMatch</name>
-      </remove>    </fields>     <cluster_schema/>
+    <fields>      <field>        <name>CaseNo</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CaseYr</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Address</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>DateOpened</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CaseType</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Status</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>StatusDate</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Closed</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CleanAddress</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MatchType</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MatchAddress</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>lat</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>lng</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>parcelId</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1138</xloc>
-      <yloc>199</yloc>
+      <xloc>730</xloc>
+      <yloc>253</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Select values 2</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>      <field>        <name>CaseNo</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CaseYr</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Address</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>DateOpened</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CaseType</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Status</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>StatusDate</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Closed</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CleanAddress</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MatchAddress</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>lat</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>lng</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>parcelId</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MatchType</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>924</xloc>
+      <yloc>193</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Sort Exact Matches</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Select values</send_true_to>
+<send_false_to>Geocode</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>MatchAddress</leftvalue>
+ <function>IS NOT NULL</function>
+ <rightvalue/>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>536</xloc>
+      <yloc>253</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Sort Geocoder Repsonse</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Format as JSON</send_true_to>
+<send_false_to>No Match</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>MatchType</leftvalue>
+ <function>&#x3c;&#x3e;</function>
+ <rightvalue/>
+ <value><name>constant</name><type>String</type><text>Unable to Match</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>861</xloc>
+      <yloc>126</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Write to log</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <loglevel>log_level_basic</loglevel>
+      <displayHeader>Y</displayHeader>
+      <limitRows>N</limitRows>
+      <limitRowsNumber>0</limitRowsNumber>
+      <logmessage/>
+    <fields>
+      <field>
+        <name>result</name>
+        </field>
+      <field>
+        <name>upsertBody</name>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>976</xloc>
+      <yloc>409</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

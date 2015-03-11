@@ -126,16 +126,48 @@
   <order>
   <hop> <from>BI Database</from><to>Clean Address</to><enabled>Y</enabled> </hop>
   <hop> <from>Match Parcels</from><to>Sort Exact Matches</to><enabled>Y</enabled> </hop>
-  <hop> <from>Sort Exact Matches</from><to>Format as JSON</to><enabled>Y</enabled> </hop>
   <hop> <from>Sort Exact Matches</from><to>Geocode</to><enabled>Y</enabled> </hop>
-  <hop> <from>Geocode</from><to>Sort Geocoder Repsonse</to><enabled>Y</enabled> </hop>
-  <hop> <from>Sort Geocoder Repsonse</from><to>Format as JSON</to><enabled>Y</enabled> </hop>
-  <hop> <from>Sort Geocoder Repsonse</from><to>No Match</to><enabled>Y</enabled> </hop>
   <hop> <from>Clean Address</from><to>No Streetname&#x3f;</to><enabled>Y</enabled> </hop>
   <hop> <from>No Streetname&#x3f;</from><to>Addresses with No Street</to><enabled>Y</enabled> </hop>
   <hop> <from>No Streetname&#x3f;</from><to>Match Parcels</to><enabled>Y</enabled> </hop>
-  <hop> <from>No Match</from><to>Format as JSON</to><enabled>Y</enabled> </hop>
+  <hop> <from>Add Resource ID</from><to>CKAN Upsert</to><enabled>Y</enabled> </hop>
+  <hop> <from>Format as JSON</from><to>Add Resource ID</to><enabled>Y</enabled> </hop>
+  <hop> <from>CKAN Upsert</from><to>Write to log</to><enabled>Y</enabled> </hop>
+  <hop> <from>Sort Exact Matches</from><to>Exact Match</to><enabled>Y</enabled> </hop>
+  <hop> <from>Geocode</from><to>Geocoded</to><enabled>Y</enabled> </hop>
+  <hop> <from>Exact Match</from><to>Format as JSON</to><enabled>Y</enabled> </hop>
+  <hop> <from>Geocoded</from><to>Format as JSON</to><enabled>Y</enabled> </hop>
   </order>
+  <step>
+    <name>Add Resource ID</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var ckanResourceId &#x3d; &#x27;2691aff1-e555-48d3-9188-aebf1fa8323e&#x27;&#xd;&#xa;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>ckanResourceId</name>
+        <rename>ckanResourceId</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>865</xloc>
+      <yloc>332</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
   <step>
     <name>Addresses with No Street</name>
     <type>Dummy</type>
@@ -167,7 +199,7 @@
            <schema_name/>
            </partitioning>
     <connection>BldgInsp</connection>
-    <sql>SELECT&#xd;&#xa;Permits.ID,&#xd;&#xa;Permits.PermitID,&#xd;&#xa;Permits.ParcelID as &#x5b;ParID&#x5d;,&#xd;&#xa;Permits.Date, &#xd;&#xa;Permits.Address as &#x5b;Address&#x5d;, &#xd;&#xa;Permits.Suite as &#x5b;Suite&#x5d;, &#xd;&#xa;Permits.PropertyType As &#x5b;PermitType&#x5d;, &#xd;&#xa;Sum&#x28;PFees.ConstCost&#x29; As &#x5b;ConstructionCost&#x5d;, &#xd;&#xa;Permits.OwnerName as &#x5b;OwnerName&#x5d;,&#xd;&#xa;Permits.Contractor as &#x5b;Contractor&#x5d;&#xd;&#xa;FROM Permits JOIN PFees ON Permits.ID&#x3d;PFees.PermitID&#xd;&#xa;WHERE Permits.Date &#x3e;&#x3d; &#x27;2011-01-01&#x27; AND Permits.Date &#x3c;&#x3d; GETDATE&#x28;&#x29; AND Permits.PermitID &#x3c;&#x3e; 0 AND Permits.Address &#x3c;&#x3e; &#x27;&#x27;&#xd;&#xa;GROUP BY Permits.ID, Permits.PermitID, Permits.ParcelID,Permits.Date, Permits.Address, Permits.Suite, Permits.PropertyType, Permits.OwnerName, Permits.Contractor&#x3b;&#xd;&#xa;</sql>
+    <sql>SELECT&#xd;&#xa;Permits.ID,&#xd;&#xa;Permits.PermitID,&#xd;&#xa;Permits.ParcelID as &#x5b;ParID&#x5d;,&#xd;&#xa;Permits.Date, &#xd;&#xa;Permits.Address as &#x5b;Address&#x5d;, &#xd;&#xa;Permits.Suite as &#x5b;Suite&#x5d;, &#xd;&#xa;Permits.PropertyType As &#x5b;PermitType&#x5d;, &#xd;&#xa;Sum&#x28;PFees.ConstCost&#x29; As &#x5b;ConstructionCost&#x5d;, &#xd;&#xa;Permits.OwnerName as &#x5b;OwnerName&#x5d;,&#xd;&#xa;Permits.Contractor as &#x5b;Contractor&#x5d;&#xd;&#xa;FROM Permits JOIN PFees ON Permits.ID&#x3d;PFees.PermitID&#xd;&#xa;WHERE Permits.Date &#x3e;&#x3d; dateadd&#x28;day,-14,getdate&#x28;&#x29;&#x29; AND Permits.Date &#x3c;&#x3d; GETDATE&#x28;&#x29; AND Permits.PermitID &#x3c;&#x3e; 0 AND Permits.Address &#x3c;&#x3e; &#x27;&#x27;&#xd;&#xa;GROUP BY Permits.ID, Permits.PermitID, Permits.ParcelID,Permits.Date, Permits.Address, Permits.Suite, Permits.PropertyType, Permits.OwnerName, Permits.Contractor&#x3b;&#xd;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -175,8 +207,52 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>34</xloc>
-      <yloc>253</yloc>
+      <xloc>33</xloc>
+      <yloc>252</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>CKAN Upsert</name>
+    <type>Mapping</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <specification_method>filename</specification_method>
+    <trans_object_id/>
+    <trans_name/>
+    <filename>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;sub-transformations&#x2f;upsert-records-to-ckan.ktr</filename>
+    <directory_path/>
+    <mappings>
+      <input>
+    <mapping>    <input_step/>
+    <output_step/>
+    <main_path>Y</main_path>
+    <rename_on_output>Y</rename_on_output>
+    <description/>
+    </mapping>      </input>
+      <output>
+    <mapping>    <input_step/>
+    <output_step/>
+    <main_path>Y</main_path>
+    <rename_on_output>N</rename_on_output>
+    <description/>
+    </mapping>      </output>
+          <parameters>    <inherit_all_vars>Y</inherit_all_vars>
+    </parameters>
+    </mappings>
+    <allow_multiple_input>N</allow_multiple_input>
+    <allow_multiple_output>N</allow_multiple_output>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>866</xloc>
+      <yloc>417</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -224,48 +300,6 @@
     </step>
 
   <step>
-    <name>Geocode</name>
-    <type>SimpleMapping</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <specification_method>filename</specification_method>
-    <trans_object_id/>
-    <trans_name/>
-    <filename>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;sub-transformations&#x2f;geocoder.ktr</filename>
-    <directory_path/>
-    <mappings>
-      <input>
-    <mapping>    <input_step/>
-    <output_step/>
-    <main_path>Y</main_path>
-    <rename_on_output>Y</rename_on_output>
-    <description/>
-    </mapping>      </input>
-      <output>
-    <mapping>    <input_step/>
-    <output_step/>
-    <main_path>Y</main_path>
-    <rename_on_output>N</rename_on_output>
-    <description/>
-    </mapping>      </output>
-          <parameters>    <inherit_all_vars>Y</inherit_all_vars>
-    </parameters>
-    </mappings>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>535</xloc>
-      <yloc>126</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
     <name>Format as JSON</name>
     <type>JsonOutput</type>
     <description/>
@@ -276,10 +310,10 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <outputValue>outputValue</outputValue>
+    <outputValue>jsonRecords</outputValue>
     <jsonBloc>records</jsonBloc>
     <nrRowsInBloc/>
-    <operation_type>writetofile</operation_type>
+    <operation_type>outputvalue</operation_type>
     <compatibility_mode>N</compatibility_mode>
     <encoding>UTF-8</encoding>
     <addtoresult>N</addtoresult>
@@ -333,16 +367,8 @@
         <element>CleanAddress</element>
     </field>
       <field>
-        <name>MatchType</name>
-        <element>MatchType</element>
-    </field>
-      <field>
         <name>MatchAddress</name>
         <element>MatchAddress</element>
-    </field>
-      <field>
-        <name>ParcelId</name>
-        <element>ParcelId</element>
     </field>
       <field>
         <name>lat</name>
@@ -352,11 +378,61 @@
         <name>lng</name>
         <element>lng</element>
     </field>
+      <field>
+        <name>parcelId</name>
+        <element>parcelId</element>
+    </field>
+      <field>
+        <name>MatchType</name>
+        <element>MatchType</element>
+    </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>865</xloc>
-      <yloc>253</yloc>
+      <xloc>863</xloc>
+      <yloc>252</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Geocode</name>
+    <type>SimpleMapping</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <specification_method>filename</specification_method>
+    <trans_object_id/>
+    <trans_name/>
+    <filename>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;sub-transformations&#x2f;geocoder.ktr</filename>
+    <directory_path/>
+    <mappings>
+      <input>
+    <mapping>    <input_step/>
+    <output_step/>
+    <main_path>Y</main_path>
+    <rename_on_output>Y</rename_on_output>
+    <description/>
+    </mapping>      </input>
+      <output>
+    <mapping>    <input_step/>
+    <output_step/>
+    <main_path>Y</main_path>
+    <rename_on_output>N</rename_on_output>
+    <description/>
+    </mapping>      </output>
+          <parameters>    <inherit_all_vars>Y</inherit_all_vars>
+    </parameters>
+    </mappings>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>535</xloc>
+      <yloc>126</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -404,7 +480,7 @@
     </step>
 
   <step>
-    <name>No Match</name>
+    <name>Geocoded</name>
     <type>Dummy</type>
     <description/>
     <distribute>Y</distribute>
@@ -416,66 +492,8 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>941</xloc>
-      <yloc>180</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Sort Exact Matches</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<send_true_to>Format as JSON</send_true_to>
-<send_false_to>Geocode</send_false_to>
-    <compare>
-<condition>
- <negated>N</negated>
- <leftvalue>MatchAddress</leftvalue>
- <function>IS NOT NULL</function>
- <rightvalue/>
- </condition>
-    </compare>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>536</xloc>
-      <yloc>253</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Sort Geocoder Repsonse</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<send_true_to>Format as JSON</send_true_to>
-<send_false_to>No Match</send_false_to>
-    <compare>
-<condition>
- <negated>N</negated>
- <leftvalue>MatchType</leftvalue>
- <function>&#x3c;&#x3e;</function>
- <rightvalue/>
- <value><name>constant</name><type>String</type><text>Unable to Match</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
-    </compare>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>861</xloc>
-      <yloc>126</yloc>
+      <xloc>670</xloc>
+      <yloc>178</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -504,6 +522,86 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>309</xloc>
+      <yloc>253</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Sort Exact Matches</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Exact Match</send_true_to>
+<send_false_to>Geocode</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>MatchAddress</leftvalue>
+ <function>IS NOT NULL</function>
+ <rightvalue/>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>536</xloc>
+      <yloc>253</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Write to log</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <loglevel>log_level_basic</loglevel>
+      <displayHeader>Y</displayHeader>
+      <limitRows>N</limitRows>
+      <limitRowsNumber>0</limitRowsNumber>
+      <logmessage/>
+    <fields>
+      <field>
+        <name>upsertBody</name>
+        </field>
+      <field>
+        <name>result</name>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>868</xloc>
+      <yloc>510</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Exact Match</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>670</xloc>
       <yloc>253</yloc>
       <draw>Y</draw>
       </GUI>

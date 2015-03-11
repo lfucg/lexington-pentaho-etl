@@ -145,7 +145,8 @@
   <hop> <from>Sort Matches 2</from><to>Set ROADNAME 3</to><enabled>Y</enabled> </hop>
   <hop> <from>Set ROADNAME 3</from><to>Remove Fields</to><enabled>Y</enabled> </hop>
   <hop> <from>Construct Clean Addresses</from><to>Address Type&#x3f;</to><enabled>Y</enabled> </hop>
-  <hop> <from>Address Type&#x3f;</from><to>Output</to><enabled>Y</enabled> </hop>
+  <hop> <from>Address Type&#x3f;</from><to>Select values</to><enabled>Y</enabled> </hop>
+  <hop> <from>Select values</from><to>Output</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Address Type&#x3f;</name>
@@ -427,8 +428,8 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>982</xloc>
-      <yloc>243</yloc>
+      <xloc>1056</xloc>
+      <yloc>245</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -715,6 +716,32 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>364</xloc>
       <yloc>178</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <remove>        <name>P_SID</name>
+      </remove>      <remove>        <name>Num2</name>
+      </remove>      <remove>        <name>StrMatch</name>
+      </remove>      <remove>        <name>DIR</name>
+      </remove>      <remove>        <name>NAME</name>
+      </remove>      <remove>        <name>TYPE</name>
+      </remove>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>974</xloc>
+      <yloc>244</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

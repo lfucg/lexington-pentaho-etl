@@ -40,9 +40,9 @@
       <start>Y</start>
       <dummy>N</dummy>
       <repeat>N</repeat>
-      <schedulerType>0</schedulerType>
+      <schedulerType>1</schedulerType>
       <intervalSeconds>0</intervalSeconds>
-      <intervalMinutes>60</intervalMinutes>
+      <intervalMinutes>30</intervalMinutes>
       <hour>12</hour>
       <minutes>0</minutes>
       <weekDay>1</weekDay>

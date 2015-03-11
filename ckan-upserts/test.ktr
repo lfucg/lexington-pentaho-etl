@@ -158,7 +158,8 @@
   <hop> <from>Copy ROADNAME</from><to>Select values</to><enabled>Y</enabled> </hop>
   <hop> <from>Select values</from><to>Construct Clean Addresses</to><enabled>Y</enabled> </hop>
   <hop> <from>Input</from><to>CleanAddress</to><enabled>Y</enabled> </hop>
-  <hop> <from>Construct Clean Addresses</from><to>Mapping output specification</to><enabled>Y</enabled> </hop>
+  <hop> <from>Construct Clean Addresses</from><to>Select values 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>Select values 2</from><to>Mapping output specification</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Add RegEx</name>
@@ -192,6 +193,102 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>304</xloc>
       <yloc>116</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>CleanAddress</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var CleanAddress &#x3d; Address.replace&#x28;&#x2f;&#x5e;0&#x5c;s&#x2f;i,&#x22;&#x22;&#x29;.replace&#x28;&#x2f;&#x28;&#x5c;b&#x7c;&#x5c;s&#x29;&#x28;aka&#x7c;at&#x5c;s&#x7c;&#x26;&#x7c;&#x5c;&#x28;&#x7c;&#x5c;&#x2f;&#x5b;a-z&#x5d;&#x7c;&#x23;&#x7c;&#x40;&#x29;&#x28;&#x24;&#x7c;.&#x2a;&#x29;&#x2f;ig,&#x22;&#x22;&#x29;&#xd;&#xa;var DummyID &#x3d; 1</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>CleanAddress</name>
+        <rename>CleanAddress</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>DummyID</name>
+        <rename>DummyID</rename>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>114</xloc>
+      <yloc>115</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Construct Clean Addresses</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;&#xd;&#xa;var CleanAddress &#x3d; CreateAddress&#x28;&#x29;&#xd;&#xa;&#xd;&#xa;function CreateAddress&#x28;&#x29;&#x7b;&#xd;&#xa;var num &#x3d; &#x27;&#x27;&#xd;&#xa;var street &#x3d; &#x27;&#x27;&#xd;&#xa;if &#x28;Num1 &#x3d;&#x3d; null&#x29; &#x7b;num &#x3d; &#x27;&#x27;&#x7d;&#xd;&#xa;else &#x7b;num &#x3d; Num1 &#x2b; &#x27; &#x27;&#x7d;&#xd;&#xa;if &#x28;ROADNAME &#x3d;&#x3d; null&#x29; &#x7b;street &#x3d; &#x27;&#x27;&#x7d;&#xd;&#xa;else &#x7b;street &#x3d; ROADNAME&#x7d;&#xd;&#xa;return num &#x2b; street&#xd;&#xa;&#x7d;&#xd;&#xa;&#xd;&#xa;var AdrType &#x3d; SetType&#x28;&#x29;&#xd;&#xa;&#xd;&#xa;function SetType&#x28;&#x29;&#x7b;&#xd;&#xa;if &#x28;Num1 &#x3d;&#x3d; null&#x29;&#x7b;&#xd;&#xa;return &#x22;No Number&#x22;&#xd;&#xa;&#x7d;&#xd;&#xa;else if &#x28;ROADNAME &#x3d;&#x3d; null &#x7c;&#x7c; ROADNAME &#x3d;&#x3d; &#x27;&#x27;&#x29;&#x7b;&#xd;&#xa;return &#x22;No Street&#x22;&#xd;&#xa;&#x7d;&#xd;&#xa;else &#x7b;return &#x22;Normal Address&#x22;&#x7d;&#xd;&#xa;&#x7d;&#xd;&#xa;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>CleanAddress</name>
+        <rename>CleanAddress</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>AdrType</name>
+        <rename>AdrType</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1179</xloc>
+      <yloc>165</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Copy ROADNAME</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;ROADNAME &#x3d; ROADNAME_1&#xd;&#xa;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>994</xloc>
+      <yloc>212</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -646,6 +743,53 @@
     </step>
 
   <step>
+    <name>Input</name>
+    <type>MappingInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>Address</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+        <select_unspecified>N</select_unspecified>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>25</xloc>
+      <yloc>115</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Mapping output specification</name>
+    <type>MappingOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1182</xloc>
+      <yloc>341</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>No Suffix Streets</name>
     <type>TableInput</type>
     <description/>
@@ -804,6 +948,37 @@
     </step>
 
   <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <remove>        <name>DummyID</name>
+      </remove>      <remove>        <name>Address</name>
+      </remove>      <remove>        <name>Num1</name>
+      </remove>      <remove>        <name>Num2</name>
+      </remove>      <remove>        <name>Dir</name>
+      </remove>      <remove>        <name>CleanAddress</name>
+      </remove>      <remove>        <name>Str</name>
+      </remove>      <remove>        <name>Suf</name>
+      </remove>      <remove>        <name>NAME</name>
+      </remove>      <remove>        <name>NameCheck</name>
+      </remove>      <remove>        <name>ROADNAME</name>
+      </remove>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1068</xloc>
+      <yloc>165</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Sort Clean Addresses</name>
     <type>FilterRows</type>
     <description/>
@@ -941,6 +1116,42 @@
     </step>
 
   <step>
+    <name>Stream lookup 4</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>GIS Streets</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>NAME</name>
+        <field>NAME</field>
+      </key>
+      <value>
+        <name>ROADNAME</name>
+        <rename>ROADNAME</rename>
+        <default/>
+        <type>None</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>921</xloc>
+      <yloc>255</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Suffixes</name>
     <type>TableInput</type>
     <description/>
@@ -986,73 +1197,7 @@
     </step>
 
   <step>
-    <name>CleanAddress</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var CleanAddress &#x3d; Address.replace&#x28;&#x2f;&#x5e;0&#x5c;s&#x2f;i,&#x22;&#x22;&#x29;.replace&#x28;&#x2f;&#x28;&#x5c;b&#x7c;&#x5c;s&#x29;&#x28;aka&#x7c;at&#x5c;s&#x7c;&#x26;&#x7c;&#x5c;&#x28;&#x7c;&#x5c;&#x2f;&#x5b;a-z&#x5d;&#x7c;&#x23;&#x7c;&#x40;&#x29;&#x28;&#x24;&#x7c;.&#x2a;&#x29;&#x2f;ig,&#x22;&#x22;&#x29;&#xd;&#xa;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>CleanAddress</name>
-        <rename>CleanAddress</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>114</xloc>
-      <yloc>115</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Stream lookup 4</name>
-    <type>StreamLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <from>GIS Streets</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
-    <lookup>
-      <key>
-        <name>NAME</name>
-        <field>NAME</field>
-      </key>
-      <value>
-        <name>ROADNAME</name>
-        <rename>ROADNAME</rename>
-        <default/>
-        <type>None</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>921</xloc>
-      <yloc>255</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Select values</name>
+    <name>Select values 2</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -1062,150 +1207,21 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <fields>      <field>        <name>Address</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>Num1</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>Num2</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>Dir</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>Str</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>Suf</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>CleanAddress</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ROADNAME</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>        <select_unspecified>N</select_unspecified>
-    </fields>     <cluster_schema/>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <remove>        <name>DummyID</name>
+      </remove>      <remove>        <name>Num1</name>
+      </remove>      <remove>        <name>Num2</name>
+      </remove>      <remove>        <name>Dir</name>
+      </remove>      <remove>        <name>Str</name>
+      </remove>      <remove>        <name>Suf</name>
+      </remove>      <remove>        <name>NAME</name>
+      </remove>      <remove>        <name>NameCheck</name>
+      </remove>      <remove>        <name>ROADNAME</name>
+      </remove>      <remove>        <name>ROADNAME_1</name>
+      </remove>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1068</xloc>
-      <yloc>165</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Copy ROADNAME</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;ROADNAME &#x3d; ROADNAME_1&#xd;&#xa;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>994</xloc>
-      <yloc>212</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Construct Clean Addresses</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;&#xd;&#xa;var CleanAddress &#x3d; CreateAddress&#x28;&#x29;&#xd;&#xa;&#xd;&#xa;function CreateAddress&#x28;&#x29;&#x7b;&#xd;&#xa;var num &#x3d; &#x27;&#x27;&#xd;&#xa;var street &#x3d; &#x27;&#x27;&#xd;&#xa;if &#x28;Num1 &#x3d;&#x3d; null&#x29; &#x7b;num &#x3d; &#x27;&#x27;&#x7d;&#xd;&#xa;else &#x7b;num &#x3d; Num1 &#x2b; &#x27; &#x27;&#x7d;&#xd;&#xa;if &#x28;ROADNAME &#x3d;&#x3d; null&#x29; &#x7b;street &#x3d; &#x27;&#x27;&#x7d;&#xd;&#xa;else &#x7b;street &#x3d; ROADNAME&#x7d;&#xd;&#xa;return num &#x2b; street&#xd;&#xa;&#x7d;&#xd;&#xa;&#xd;&#xa;var AdrType &#x3d; SetType&#x28;&#x29;&#xd;&#xa;&#xd;&#xa;function SetType&#x28;&#x29;&#x7b;&#xd;&#xa;if &#x28;Num1 &#x3d;&#x3d; null&#x29;&#x7b;&#xd;&#xa;return &#x22;No Number&#x22;&#xd;&#xa;&#x7d;&#xd;&#xa;else if &#x28;ROADNAME &#x3d;&#x3d; null &#x7c;&#x7c; ROADNAME &#x3d;&#x3d; &#x27;&#x27;&#x29;&#x7b;&#xd;&#xa;return &#x22;No Street&#x22;&#xd;&#xa;&#x7d;&#xd;&#xa;else &#x7b;return &#x22;Normal Address&#x22;&#x7d;&#xd;&#xa;&#x7d;&#xd;&#xa;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>CleanAddress</name>
-        <rename>CleanAddress</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>      <field>        <name>AdrType</name>
-        <rename>AdrType</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1179</xloc>
-      <yloc>165</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Input</name>
-    <type>MappingInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>Address</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-        <select_unspecified>N</select_unspecified>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>43</xloc>
-      <yloc>115</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Mapping output specification</name>
-    <type>MappingOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1183</xloc>
-      <yloc>258</yloc>
+      <xloc>1182</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
