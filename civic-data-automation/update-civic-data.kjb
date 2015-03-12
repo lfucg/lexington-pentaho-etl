@@ -40,7 +40,7 @@
       <start>Y</start>
       <dummy>N</dummy>
       <repeat>N</repeat>
-      <schedulerType>1</schedulerType>
+      <schedulerType>0</schedulerType>
       <intervalSeconds>0</intervalSeconds>
       <intervalMinutes>30</intervalMinutes>
       <hour>12</hour>
