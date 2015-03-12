@@ -100,11 +100,11 @@
   </connection>
   <connection>
     <name>GIS</name>
-    <server>GCSQL2</server>
+    <server>&#x24;&#x7b;GIS_SERVER&#x7d;</server>
     <type>MSSQL</type>
     <access>Native</access>
-    <database>GIS</database>
-    <port>1433</port>
+    <database>&#x24;&#x7b;GIS_DB&#x7d;</database>
+    <port>&#x24;&#x7b;GIS_PORT&#x7d;</port>
     <username/>
     <password>Encrypted </password>
     <servername/>
@@ -115,7 +115,7 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
       <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1433</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;GIS_PORT&#x7d;</attribute></attribute>
       <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
@@ -300,6 +300,25 @@
     </step>
 
   <step>
+    <name>Exact Match</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>670</xloc>
+      <yloc>253</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Format as JSON</name>
     <type>JsonOutput</type>
     <description/>
@@ -438,6 +457,25 @@
     </step>
 
   <step>
+    <name>Geocoded</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>670</xloc>
+      <yloc>178</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Match Parcels</name>
     <type>SimpleMapping</type>
     <description/>
@@ -475,25 +513,6 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>422</xloc>
       <yloc>253</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Geocoded</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>670</xloc>
-      <yloc>178</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -584,25 +603,6 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>868</xloc>
       <yloc>510</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Exact Match</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>670</xloc>
-      <yloc>253</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

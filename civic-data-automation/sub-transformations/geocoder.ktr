@@ -73,31 +73,6 @@
   <notepads>
   </notepads>
   <connection>
-    <name>BI</name>
-    <server>&#x24;&#x7b;PERMIT_SERVER&#x7d;</server>
-    <type>MSSQL</type>
-    <access>Native</access>
-    <database>&#x24;&#x7b;PERMIT_DB&#x7d;</database>
-    <port>&#x24;&#x7b;PERMIT_PORT&#x7d;</port>
-    <username/>
-    <password>Encrypted </password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;PERMIT_PORT&#x7d;</attribute></attribute>
-      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
     <name>GIS</name>
     <server>&#x24;&#x7b;GIS_SERVER&#x7d;</server>
     <type>MSSQL</type>
@@ -270,6 +245,33 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>651</xloc>
       <yloc>258</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Select values 3</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <remove>        <name>SQL</name>
+      </remove>      <remove>        <name>SCLINK</name>
+      </remove>      <remove>        <name>ROADNAME_1</name>
+      </remove>      <remove>        <name>CLOSENESS</name>
+      </remove>      <remove>        <name>INRANGE</name>
+      </remove>      <remove>        <name>X</name>
+      </remove>      <remove>        <name>Y</name>
+      </remove>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>754</xloc>
+      <yloc>153</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -528,33 +530,6 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>235</xloc>
       <yloc>50</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Select values 3</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>        <select_unspecified>N</select_unspecified>
-      <remove>        <name>SQL</name>
-      </remove>      <remove>        <name>SCLINK</name>
-      </remove>      <remove>        <name>ROADNAME_1</name>
-      </remove>      <remove>        <name>CLOSENESS</name>
-      </remove>      <remove>        <name>INRANGE</name>
-      </remove>      <remove>        <name>X</name>
-      </remove>      <remove>        <name>Y</name>
-      </remove>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>754</xloc>
-      <yloc>153</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

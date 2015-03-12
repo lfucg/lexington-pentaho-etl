@@ -74,37 +74,12 @@
   <notepads>
   </notepads>
   <connection>
-    <name>BldgInsp</name>
-    <server>&#x24;&#x7b;PERMIT_SERVER&#x7d;</server>
-    <type>MSSQL</type>
-    <access>Native</access>
-    <database>&#x24;&#x7b;PERMIT_DB&#x7d;</database>
-    <port>&#x24;&#x7b;PERMIT_PORT&#x7d;</port>
-    <username/>
-    <password>Encrypted </password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;PERMIT_PORT&#x7d;</attribute></attribute>
-      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
     <name>CE</name>
     <server>&#x24;&#x7b;CODE_SERVER&#x7d;</server>
     <type>MSSQL</type>
     <access>Native</access>
     <database>&#x24;&#x7b;CODE_DB&#x7d;</database>
-    <port>1433</port>
+    <port>&#x24;&#x7b;CODE_PORT&#x7d;</port>
     <username/>
     <password>Encrypted </password>
     <servername/>
@@ -115,7 +90,7 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
       <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1433</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;CODE_PORT&#x7d;</attribute></attribute>
       <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
@@ -125,11 +100,11 @@
   </connection>
   <connection>
     <name>GIS</name>
-    <server>GCSQL2</server>
+    <server>&#x24;&#x7b;GIS_SERVER&#x7d;</server>
     <type>MSSQL</type>
     <access>Native</access>
-    <database>GIS</database>
-    <port>1433</port>
+    <database>&#x24;&#x7b;GIS_DB&#x7d;</database>
+    <port>&#x24;&#x7b;GIS_PORT&#x7d;</port>
     <username/>
     <password>Encrypted </password>
     <servername/>
@@ -140,7 +115,7 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
       <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1433</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;GIS_PORT&#x7d;</attribute></attribute>
       <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
@@ -299,6 +274,48 @@
     </step>
 
   <step>
+    <name>Clean Addresses 2</name>
+    <type>SimpleMapping</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <specification_method>filename</specification_method>
+    <trans_object_id/>
+    <trans_name/>
+    <filename>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;&#x2f;sub-transformations&#x2f;geocoder.ktr</filename>
+    <directory_path/>
+    <mappings>
+      <input>
+    <mapping>    <input_step/>
+    <output_step/>
+    <main_path>Y</main_path>
+    <rename_on_output>Y</rename_on_output>
+    <description/>
+    </mapping>      </input>
+      <output>
+    <mapping>    <input_step/>
+    <output_step/>
+    <main_path>Y</main_path>
+    <rename_on_output>N</rename_on_output>
+    <description/>
+    </mapping>      </output>
+          <parameters>    <inherit_all_vars>Y</inherit_all_vars>
+    </parameters>
+    </mappings>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>564</xloc>
+      <yloc>124</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Code Database</name>
     <type>TableInput</type>
     <description/>
@@ -320,6 +337,25 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>39</xloc>
       <yloc>254</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Exact Match</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>716</xloc>
+      <yloc>253</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -421,6 +457,25 @@
     </step>
 
   <step>
+    <name>Geocoded</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>718</xloc>
+      <yloc>187</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Match Parcels</name>
     <type>SimpleMapping</type>
     <description/>
@@ -492,38 +547,6 @@
     </step>
 
   <step>
-    <name>Write to log</name>
-    <type>WriteToLog</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <loglevel>log_level_basic</loglevel>
-      <displayHeader>Y</displayHeader>
-      <limitRows>N</limitRows>
-      <limitRowsNumber>0</limitRowsNumber>
-      <logmessage/>
-    <fields>
-      <field>
-        <name>upsertBody</name>
-        </field>
-      <field>
-        <name>result</name>
-        </field>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>879</xloc>
-      <yloc>540</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
     <name>Parcel Match&#x3f;</name>
     <type>FilterRows</type>
     <description/>
@@ -553,8 +576,8 @@
     </step>
 
   <step>
-    <name>Clean Addresses 2</name>
-    <type>SimpleMapping</type>
+    <name>Write to log</name>
+    <type>WriteToLog</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -563,71 +586,23 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <specification_method>filename</specification_method>
-    <trans_object_id/>
-    <trans_name/>
-    <filename>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;&#x2f;sub-transformations&#x2f;geocoder.ktr</filename>
-    <directory_path/>
-    <mappings>
-      <input>
-    <mapping>    <input_step/>
-    <output_step/>
-    <main_path>Y</main_path>
-    <rename_on_output>Y</rename_on_output>
-    <description/>
-    </mapping>      </input>
-      <output>
-    <mapping>    <input_step/>
-    <output_step/>
-    <main_path>Y</main_path>
-    <rename_on_output>N</rename_on_output>
-    <description/>
-    </mapping>      </output>
-          <parameters>    <inherit_all_vars>Y</inherit_all_vars>
-    </parameters>
-    </mappings>
+      <loglevel>log_level_basic</loglevel>
+      <displayHeader>Y</displayHeader>
+      <limitRows>N</limitRows>
+      <limitRowsNumber>0</limitRowsNumber>
+      <logmessage/>
+    <fields>
+      <field>
+        <name>upsertBody</name>
+        </field>
+      <field>
+        <name>result</name>
+        </field>
+      </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>564</xloc>
-      <yloc>124</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Exact Match</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>716</xloc>
-      <yloc>253</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Geocoded</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>718</xloc>
-      <yloc>187</yloc>
+      <xloc>879</xloc>
+      <yloc>540</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
