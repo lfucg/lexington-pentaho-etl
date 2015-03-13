@@ -327,7 +327,7 @@
            <schema_name/>
            </partitioning>
     <connection>CE</connection>
-    <sql>SELECT&#xd;&#xa;C.CaseNo,&#xd;&#xa;C.CaseYr,&#xd;&#xa;C.Address,&#xd;&#xa;C.DateOpened,&#xd;&#xa;S.CaseType,&#xd;&#xa;S.Description as Status,&#xd;&#xa;C.StatusDate,&#xd;&#xa;CASE WHEN S.Closed &#x3d; 0 THEN &#x27;N&#x27;ELSE &#x27;Y&#x27; END as Closed&#xd;&#xa;FROM &#xd;&#xa;Cases as C&#xd;&#xa;JOIN&#xd;&#xa;StatusCodes as S ON C.StatusCode &#x3d; S.StatusCode&#xd;&#xa;WHERE&#xd;&#xa;C.StatusDate &#x3e;&#x3d; dateadd&#x28;day,-14,getdate&#x28;&#x29;&#x29; AND C.StatusDate &#x3c;&#x3d; GETDATE&#x28;&#x29;</sql>
+    <sql>SELECT&#xd;&#xa;C.CaseNo,&#xd;&#xa;C.CaseYr,&#xd;&#xa;C.Address,&#xd;&#xa;C.DateOpened,&#xd;&#xa;S.CaseType,&#xd;&#xa;S.Description as Status,&#xd;&#xa;C.StatusDate,&#xd;&#xa;CASE WHEN S.Closed &#x3d; 0 THEN &#x27;N&#x27;ELSE &#x27;Y&#x27; END as Closed&#xd;&#xa;FROM &#xd;&#xa;Cases as C&#xd;&#xa;JOIN&#xd;&#xa;StatusCodes as S ON C.StatusCode &#x3d; S.StatusCode&#xd;&#xa;WHERE&#xd;&#xa;C.StatusDate &#x3e;&#x3d; dateadd&#x28;day,-3,getdate&#x28;&#x29;&#x29; AND C.StatusDate &#x3c;&#x3d; GETDATE&#x28;&#x29;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>

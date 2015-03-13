@@ -617,7 +617,7 @@
            <schema_name/>
            </partitioning>
     <connection>PVA</connection>
-    <sql>SELECT &#xd;&#xa;SALEKEY, &#xd;&#xa;SALEDT,&#xd;&#xa;PRICE, &#xd;&#xa;SALEVAL, &#xd;&#xa;PARID as parcelId &#xd;&#xa;FROM SALES&#xd;&#xa;WHERE &#x28;SALEVAL &#x3d; 12 OR SALEVAL &#x3d; 14&#x29; AND SALEDT &#x3e;&#x3d; dateadd&#x28;day,-14,getdate&#x28;&#x29;&#x29; AND SALEDT &#x3c;&#x3d; GetDate&#x28;&#x29;&#x3b;&#xd;&#xa;</sql>
+    <sql>SELECT &#xd;&#xa;SALEKEY, &#xd;&#xa;SALEDT,&#xd;&#xa;PRICE, &#xd;&#xa;SALEVAL, &#xd;&#xa;PARID as parcelId &#xd;&#xa;FROM SALES&#xd;&#xa;WHERE &#x28;SALEVAL &#x3d; 12 OR SALEVAL &#x3d; 14&#x29; AND SALEDT &#x3e;&#x3d; dateadd&#x28;day,-3,getdate&#x28;&#x29;&#x29; AND SALEDT &#x3c;&#x3d; GetDate&#x28;&#x29;&#x3b;&#xd;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -714,7 +714,7 @@
   <step_error_handling>
       <error>
         <source_step>Name Sale Val</source_step>
-        <target_step>No Data</target_step>
+        <target_step/>
         <is_enabled>N</is_enabled>
         <nr_valuename/>
         <descriptions_valuename/>
