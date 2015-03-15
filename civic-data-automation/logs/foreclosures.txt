@@ -1,0 +1,18 @@
+2015/03/15 18:11:32 - Foreclosures - Loading transformation from XML file [file:///c:/Users/jhollinger/Documents/GitHub/lexington-pentaho-etl/civic-data-automation/foreclosures.ktr]
+2015/03/15 18:11:32 - foreclosure-parcel-match - Dispatching started for transformation [foreclosure-parcel-match]
+2015/03/15 18:11:32 - upsert-records-to-ckan - Dispatching started for transformation [upsert-records-to-ckan]
+2015/03/15 18:11:32 - PVA Addresses.0 - Header row skipped in file 'file:///c:/Users/jhollinger/Documents/GitHub/lexington-pentaho-etl/civic-data-automation\sub-transformations\ParcelCenters.csv'
+2015/03/15 18:11:32 - PVA Sales.0 - Finished reading query, closing connection.
+2015/03/15 18:11:32 - Check for Data.0 - Finished reading query, closing connection.
+2015/03/15 18:11:32 - Check for Data.0 - Finished processing (I=1, O=0, R=0, W=1, U=0, E=0)
+2015/03/15 18:11:32 - Abort.0 - ERROR (version 5.1.0.0, build 1 from 2014-06-19_19-02-57 by buildguy) : Row nr 1 causing abort : [0]
+2015/03/15 18:11:32 - Data?.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/15 18:11:32 - Abort.0 - ERROR (version 5.1.0.0, build 1 from 2014-06-19_19-02-57 by buildguy) : No Data
+2015/03/15 18:11:32 - foreclosure-parcel-match - ERROR (version 5.1.0.0, build 1 from 2014-06-19_19-02-57 by buildguy) : Errors detected!
+2015/03/15 18:11:32 - Abort.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=1)
+2015/03/15 18:11:32 - Stream lookup.0 - Finished processing (I=0, O=0, R=1085, W=0, U=0, E=0)
+2015/03/15 18:11:32 - PVA Addresses.0 - Finished processing (I=1350, O=0, R=0, W=1348, U=0, E=0)
+2015/03/15 18:11:32 - Format as JSON.0 - Finished processing (I=0, O=1, R=0, W=0, U=0, E=0)
+2015/03/15 18:11:32 - foreclosure-parcel-match - Transformation detected one or more steps with errors.
+2015/03/15 18:11:32 - foreclosure-parcel-match - Transformation is killing the other steps!
+2015/03/15 18:11:32 - foreclosure-parcel-match - ERROR (version 5.1.0.0, build 1 from 2014-06-19_19-02-57 by buildguy) : Errors detected!
