@@ -1,24 +1,61 @@
-2015/03/15 18:11:32 - ROW Permits - Loading transformation from XML file [file:///c:/Users/jhollinger/Documents/GitHub/lexington-pentaho-etl/civic-data-automation/row-permits.ktr]
-2015/03/15 18:11:32 - row-permits - Dispatching started for transformation [row-permits]
-2015/03/15 18:11:32 - upsert-records-to-ckan - Dispatching started for transformation [upsert-records-to-ckan]
-2015/03/15 18:11:32 - parcel-match - Dispatching started for transformation [parcel-match]
-2015/03/15 18:11:32 - geocoder - Dispatching started for transformation [geocoder]
-2015/03/15 18:11:32 - row-clean - Dispatching started for transformation [row-clean]
-2015/03/15 18:11:33 - Street Points CSV.0 - Header row skipped in file 'file:///c:/Users/jhollinger/Documents/GitHub/lexington-pentaho-etl/civic-data-automation/sub-transformations\StreetPoints.csv'
-2015/03/15 18:11:33 - PVA Addresses.0 - Header row skipped in file 'file:///c:/Users/jhollinger/Documents/GitHub/lexington-pentaho-etl/civic-data-automation/sub-transformations\ParcelCenters.csv'
-2015/03/15 18:11:33 - ROW Permits.0 - Finished reading query, closing connection.
-2015/03/15 18:11:33 - Check for Data.0 - Finished reading query, closing connection.
-2015/03/15 18:11:33 - Check for Data.0 - Finished processing (I=1, O=0, R=0, W=1, U=0, E=0)
-2015/03/15 18:11:33 - Abort.0 - ERROR (version 5.1.0.0, build 1 from 2014-06-19_19-02-57 by buildguy) : Row nr 1 causing abort : [0]
-2015/03/15 18:11:33 - Abort.0 - ERROR (version 5.1.0.0, build 1 from 2014-06-19_19-02-57 by buildguy) : No Data
-2015/03/15 18:11:33 - Stream lookup.0 - Finished processing (I=0, O=0, R=2766, W=0, U=0, E=0)
-2015/03/15 18:11:33 - PVA Addresses.0 - Finished processing (I=3295, O=0, R=0, W=3293, U=0, E=0)
-2015/03/15 18:11:33 - Stream lookup.0 - Finished processing (I=0, O=0, R=3011, W=0, U=0, E=0)
-2015/03/15 18:11:33 - row-permits - ERROR (version 5.1.0.0, build 1 from 2014-06-19_19-02-57 by buildguy) : Errors detected!
-2015/03/15 18:11:33 - Abort.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=1)
-2015/03/15 18:11:33 - Street Points CSV.0 - Finished processing (I=3396, O=0, R=0, W=3394, U=0, E=0)
-2015/03/15 18:11:33 - Data?.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/15 18:11:33 - row-permits - Transformation detected one or more steps with errors.
-2015/03/15 18:11:33 - Format as JSON.0 - Finished processing (I=0, O=1, R=0, W=0, U=0, E=0)
-2015/03/15 18:11:33 - row-permits - Transformation is killing the other steps!
-2015/03/15 18:11:33 - row-permits - ERROR (version 5.1.0.0, build 1 from 2014-06-19_19-02-57 by buildguy) : Errors detected!
+2015/03/16 12:41:34 - ROW Permits - Loading transformation from XML file [file:///c:/Users/jhollinger/Documents/GitHub/lexington-pentaho-etl/civic-data-automation/row-permits.ktr]
+2015/03/16 12:41:34 - row-permits - Dispatching started for transformation [row-permits]
+2015/03/16 12:41:34 - upsert-records-to-ckan - Dispatching started for transformation [upsert-records-to-ckan]
+2015/03/16 12:41:34 - parcel-match - Dispatching started for transformation [parcel-match]
+2015/03/16 12:41:34 - row-clean - Dispatching started for transformation [row-clean]
+2015/03/16 12:41:34 - geocoder - Dispatching started for transformation [geocoder]
+2015/03/16 12:41:34 - PVA Addresses.0 - Header row skipped in file 'file:///c:/Users/jhollinger/Documents/GitHub/lexington-pentaho-etl/civic-data-automation/sub-transformations\ParcelCenters.csv'
+2015/03/16 12:41:34 - Street Points CSV.0 - Header row skipped in file 'file:///c:/Users/jhollinger/Documents/GitHub/lexington-pentaho-etl/civic-data-automation/sub-transformations\StreetPoints.csv'
+2015/03/16 12:41:34 - ROW Permits.0 - Finished reading query, closing connection.
+2015/03/16 12:41:34 - Check for Data.0 - Finished reading query, closing connection.
+2015/03/16 12:41:34 - ROW Permits.0 - Finished processing (I=1, O=0, R=0, W=1, U=0, E=0)
+2015/03/16 12:41:34 - Check for Data.0 - Finished processing (I=1, O=0, R=0, W=1, U=0, E=0)
+2015/03/16 12:41:34 - Clean Address 2.0 - Optimization level set to 9.
+2015/03/16 12:41:34 - Data?.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:34 - Mapping input specification.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:34 - Street Points CSV.0 - Finished processing (I=13240, O=0, R=0, W=13239, U=0, E=0)
+2015/03/16 12:41:34 - Address Type? 2.0 - Optimization level set to 9.
+2015/03/16 12:41:34 - Clean Address 2.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:34 - Address Type? 2.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:34 - Mapping output specification.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:34 - Match Parcels 2.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:34 - No Streetname?.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:34 - Input.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:34 - PVA Addresses.0 - Line number : 50000
+2015/03/16 12:41:35 - PVA Addresses.0 - Line number : 100000
+2015/03/16 12:41:35 - PVA Addresses.0 - Finished processing (I=109836, O=0, R=0, W=109836, U=0, E=0)
+2015/03/16 12:41:35 - Match Type.0 - Optimization level set to 9.
+2015/03/16 12:41:35 - Stream lookup.0 - Finished processing (I=0, O=0, R=109837, W=1, U=0, E=0)
+2015/03/16 12:41:35 - Match Type.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:35 - Output.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:35 - Match Parcels.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:35 - Write Query.0 - Optimization level set to 9.
+2015/03/16 12:41:35 - Sort Exact Matches.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:35 - Input.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:35 - Write Query.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:35 - Set MatchType/Address.0 - Optimization level set to 9.
+2015/03/16 12:41:35 - Geocoder SQL.0 - Finished processing (I=2, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:35 - Filter rows.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:35 - Stream lookup.0 - Finished processing (I=0, O=0, R=13240, W=1, U=0, E=0)
+2015/03/16 12:41:35 - Set MatchType/Address.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:35 - Select values 3.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:35 - Output.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:35 - Clean Addresses 2.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:35 - Geocoded.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:35 - Format as JSON.0 - Finished processing (I=0, O=1, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:35 - Add Resource ID.0 - Optimization level set to 9.
+2015/03/16 12:41:35 - Create POST body.0 - Optimization level set to 9.
+2015/03/16 12:41:35 - Add Resource ID.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:35 - jsonRecords input.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:35 - Get CKAN API variables.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:35 - Create POST body.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:36 - Write to log.0 - 
+2015/03/16 12:41:36 - Write to log.0 - ------------> Linenr 1------------------------------
+2015/03/16 12:41:36 - Write to log.0 - upsertBody = {"records":[{"MatchType":"Approximate Block Address Range","IssueDate":"2015\/03\/16 00:00:00.000000000","MatchAddress":"PATCHEN WILKES DR","PermitNo":29206,"LaneBlockage":"No","lng":"38.043287763161935","Name":"Contractor","SubmitDate":"2015\/03\/16 00:00:00.000000000","StartDate":"2015\/03\/16 00:00:00.000000000","parcelId":null,"Address":"0 PATCHEN WILKES DR","TypeOfWork":"New Construction","CompleteDate":"2015\/04\/30 00:00:00.000000000","lat":"-84.43971427725765","PermitType":"Street Cut","CleanAddress":"PATCHEN WILKES DR"}],"resource_id":"f64d48f2-3d01-499e-b182-7793eb7bff7c","force":"true"}
+2015/03/16 12:41:36 - Write to log.0 - result = {"help": "Updates or inserts into a table in the DataStore\n\n    The datastore_upsert API action allows you to add or edit records to\n    an existing DataStore resource. In order for the *upsert* and *update*\n    methods to work, a unique key has to be defined via the datastore_create\n    action. The available methods are:\n\n    *upsert*\n        Update if record with same key already exists, otherwise insert.\n        Requires unique key.\n    *insert*\n        Insert only. This method is faster that upsert, but will fail if any\n        inserted record matches an existing one. Does *not* require a unique\n        key.\n    *update*\n        Update only. An exception will occur if the key that should be updated\n        does not exist. Requires unique key.\n\n\n    :param resource_id: resource id that the data is going to be stored under.\n    :type resource_id: string\n    :param force: set to True to edit a read-only resource\n    :type force: bool (optional, default: False)\n    :param records: the data, eg: [{\"dob\": \"2005\", \"some_stuff\": [\"a\",\"b\"]}] (optional)\n    :type records: list of dictionaries\n    :param method: the method to use to put the data into the datastore.\n                   Possible options are: upsert, insert, update (optional, default: upsert)\n    :type method: string\n\n    **Results:**\n\n    :returns: The modified data object.\n    :rtype: dictionary\n\n    ", "success": false, "error": {"table": ["table does not have a unique key defined"], "__type": "Validation Error"}}
+2015/03/16 12:41:36 - Write to log.0 - 
+2015/03/16 12:41:36 - Write to log.0 - ====================
+2015/03/16 12:41:36 - Upsert records to CKAN.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:36 - Mapping output specification.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:36 - CKAN Upsert.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/16 12:41:36 - Write to log.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
