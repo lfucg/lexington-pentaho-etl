@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>foreclosure-parcel-match</name>
+    <name>foreclosures</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>&#x2f;</directory>
     <parameters>
     </parameters>
@@ -107,9 +108,6 @@
   <hop> <from>Format as JSON</from><to>Add Resource ID</to><enabled>Y</enabled> </hop>
   <hop> <from>Add Resource ID</from><to>CKAN Upsert</to><enabled>Y</enabled> </hop>
   <hop> <from>CKAN Upsert</from><to>Write to log</to><enabled>Y</enabled> </hop>
-  <hop> <from>Check for Data</from><to>Data&#x3f;</to><enabled>Y</enabled> </hop>
-  <hop> <from>Data&#x3f;</from><to>Abort</to><enabled>Y</enabled> </hop>
-  <hop> <from>Data&#x3f;</from><to>PVA Sales</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Add Resource ID</name>
@@ -228,7 +226,7 @@
     <outputValue>jsonRecords</outputValue>
     <jsonBloc>records</jsonBloc>
     <nrRowsInBloc/>
-    <operation_type>both</operation_type>
+    <operation_type>outputvalue</operation_type>
     <compatibility_mode>N</compatibility_mode>
     <encoding>UTF-8</encoding>
     <addtoresult>N</addtoresult>
@@ -620,7 +618,7 @@
            <schema_name/>
            </partitioning>
     <connection>PVA</connection>
-    <sql>SELECT &#xd;&#xa;SALEKEY, &#xd;&#xa;SALEDT,&#xd;&#xa;PRICE, &#xd;&#xa;SALEVAL, &#xd;&#xa;PARID as parcelId &#xd;&#xa;FROM SALES&#xd;&#xa;WHERE &#x28;SALEVAL &#x3d; 12 OR SALEVAL &#x3d; 14&#x29; AND SALEDT &#x3e;&#x3d; dateadd&#x28;day,-3,getdate&#x28;&#x29;&#x29; AND SALEDT &#x3c;&#x3d; GetDate&#x28;&#x29;&#x3b;&#xd;&#xa;</sql>
+    <sql>SELECT &#xd;&#xa;SALEKEY, &#xd;&#xa;SALEDT,&#xd;&#xa;PRICE, &#xd;&#xa;SALEVAL, &#xd;&#xa;PARID as parcelId &#xd;&#xa;FROM SALES&#xd;&#xa;WHERE &#x28;SALEVAL &#x3d; 12 OR SALEVAL &#x3d; 14&#x29; AND SALEDT &#x3e;&#x3d; dateadd&#x28;day,-30,getdate&#x28;&#x29;&#x29; AND SALEDT &#x3c;&#x3d; GetDate&#x28;&#x29;&#x3b;&#xd;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -710,82 +708,6 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>845</xloc>
       <yloc>159</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Abort</name>
-    <type>Abort</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <row_threshold>0</row_threshold>
-      <message>No Data</message>
-      <always_log_rows>Y</always_log_rows>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>233</xloc>
-      <yloc>80</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Check for Data</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>PVA</connection>
-    <sql>SELECT Count&#x28;&#x2a;&#x29; as &#x5b;Count&#x5d;&#xd;&#xa;FROM SALES&#xd;&#xa;WHERE &#x28;SALEVAL &#x3d; 12 OR SALEVAL &#x3d; 14&#x29; AND SALEDT &#x3e;&#x3d; dateadd&#x28;day,-3,getdate&#x28;&#x29;&#x29; AND SALEDT &#x3c;&#x3d; GetDate&#x28;&#x29;&#x3b;&#xd;&#xa;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>32</xloc>
-      <yloc>78</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Data&#x3f;</name>
-    <type>SwitchCase</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<fieldname>Count</fieldname>
-<use_contains>N</use_contains>
-<case_value_type>Integer</case_value_type>
-<case_value_format/>
-<case_value_decimal/>
-<case_value_group/>
-<default_target_step>PVA Sales</default_target_step>
-<cases><case><value>0</value>
-<target_step>Abort</target_step>
-</case></cases>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>132</xloc>
-      <yloc>79</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

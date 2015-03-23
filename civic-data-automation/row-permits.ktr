@@ -107,14 +107,16 @@
   <hop> <from>Clean Addresses 2</from><to>Geocoded</to><enabled>Y</enabled> </hop>
   <hop> <from>ROW Permits</from><to>Match Parcels 2</to><enabled>Y</enabled> </hop>
   <hop> <from>Match Parcels 2</from><to>No Streetname&#x3f;</to><enabled>Y</enabled> </hop>
-  <hop> <from>Add Resource ID</from><to>CKAN Upsert</to><enabled>Y</enabled> </hop>
-  <hop> <from>CKAN Upsert</from><to>Write to log</to><enabled>Y</enabled> </hop>
-  <hop> <from>Format as JSON</from><to>Add Resource ID</to><enabled>Y</enabled> </hop>
+  <hop> <from>Add Resource ID</from><to>CKAN Upsert</to><enabled>N</enabled> </hop>
+  <hop> <from>CKAN Upsert</from><to>Write to log</to><enabled>N</enabled> </hop>
+  <hop> <from>Format as JSON</from><to>Add Resource ID</to><enabled>N</enabled> </hop>
   <hop> <from>Geocoded</from><to>Format as JSON</to><enabled>Y</enabled> </hop>
   <hop> <from>Exact Match</from><to>Format as JSON</to><enabled>Y</enabled> </hop>
   <hop> <from>Check for Data</from><to>Data&#x3f;</to><enabled>Y</enabled> </hop>
   <hop> <from>Data&#x3f;</from><to>ROW Permits</to><enabled>Y</enabled> </hop>
   <hop> <from>Data&#x3f;</from><to>Abort</to><enabled>Y</enabled> </hop>
+  <hop> <from>Geocoded</from><to>Text file output</to><enabled>Y</enabled> </hop>
+  <hop> <from>Exact Match</from><to>Text file output</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Abort</name>
@@ -162,8 +164,8 @@
         <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>934</xloc>
-      <yloc>195</yloc>
+      <xloc>932</xloc>
+      <yloc>230</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -225,8 +227,8 @@
     <allow_multiple_output>N</allow_multiple_output>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>934</xloc>
-      <yloc>279</yloc>
+      <xloc>932</xloc>
+      <yloc>314</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -271,7 +273,7 @@
     <specification_method>filename</specification_method>
     <trans_object_id/>
     <trans_name/>
-    <filename>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;&#x2f;sub-transformations&#x2f;geocoder.ktr</filename>
+    <filename>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;&#x2f;sub-transformations&#x2f;geocoder-v2.ktr</filename>
     <directory_path/>
     <mappings>
       <input>
@@ -331,7 +333,7 @@
     <name>Exact Match</name>
     <type>Dummy</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
@@ -366,7 +368,7 @@
     <addtoresult>N</addtoresult>
     <file>
       <name/>
-      <extention/>
+      <extention>js</extention>
       <append>N</append>
       <split>N</split>
       <haspartno>N</haspartno>
@@ -377,6 +379,10 @@
       <servlet_output>N</servlet_output>
       </file>
     <fields>
+      <field>
+        <name>ConfirmationNo</name>
+        <element>ConfirmationNo</element>
+    </field>
       <field>
         <name>PermitNo</name>
         <element>PermitNo</element>
@@ -454,7 +460,7 @@
     <name>Geocoded</name>
     <type>Dummy</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
@@ -483,7 +489,7 @@
     <specification_method>filename</specification_method>
     <trans_object_id/>
     <trans_name/>
-    <filename>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;&#x2f;sub-transformations&#x2f;parcel-match.ktr</filename>
+    <filename>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;&#x2f;sub-transformations&#x2f;parcel-match-v2.ktr</filename>
     <directory_path/>
     <mappings>
       <input>
@@ -594,7 +600,7 @@
            <schema_name/>
            </partitioning>
     <connection>ROW</connection>
-    <sql>SELECT p.PermitNo, &#xd;&#xa;CASE &#xd;&#xa;WHEN p.SiteStreetNo &#x3d; &#x27;&#x27; OR p.SiteStreetNo Is Null THEN &#x27;0&#x27;&#xd;&#xa;ELSE P.SiteStreetNo &#xd;&#xa;END AS SiteStreetNo,&#xd;&#xa;p.SiteStreetName as ROADNAME, &#xd;&#xa;p.SubmitDate, &#xd;&#xa;p.IssueDate, &#xd;&#xa;p.StartDate,&#xd;&#xa;p.CompleteDate, &#xd;&#xa;u.Name, &#xd;&#xa;CASE&#xd;&#xa;WHEN p.PermitType &#x3d; &#x27;S&#x27; THEN &#x27;Street Cut&#x27;&#xd;&#xa;WHEN p.PermitType &#x3d; &#x27;I&#x27; THEN &#x27;Installation&#x27;&#xd;&#xa;WHEN p.PermitType &#x3d; &#x27;AGP&#x27; THEN &#x27;Annual General Permit&#x27;&#xd;&#xa;End as PermitType,&#xd;&#xa;CASE&#xd;&#xa;WHEN p.TypeOfWork &#x3d; &#x27;R&#x27; THEN &#x27;Repair&#x27;&#xd;&#xa;WHEN p.TypeOfWork &#x3d; &#x27;A&#x27; THEN &#x27;Add or Change Equipment&#x27;&#xd;&#xa;WHEN p.TypeOfWork &#x3d; &#x27;M&#x27; THEN &#x27;Maintenance&#x27;&#xd;&#xa;WHEN p.TypeOfWork &#x3d; &#x27;N&#x27; THEN &#x27;New Construction&#x27;&#xd;&#xa;End as TypeOfWork, &#xd;&#xa;CASE &#xd;&#xa;WHEN p.LaneBlockage &#x3d; 1 THEN &#x27;Yes&#x27;&#xd;&#xa;ELSE &#x27;No&#x27;&#xd;&#xa;END as LaneBlockage&#xd;&#xa;FROM&#xd;&#xa;Permit as p&#xd;&#xa;JOIN Utilities as U ON p.UtilityCode &#x3d; u.UtilityCode&#xd;&#xa;WHERE p.IssueDate &#x3e;&#x3d; dateadd&#x28;day,-3,getdate&#x28;&#x29;&#x29; AND p.IssueDate &#x3c;&#x3d; GETDATE&#x28;&#x29; AND p.Approved &#x3d; 1</sql>
+    <sql>SELECT &#xd;&#xa;p.ConfirmationNo,&#xd;&#xa;p.PermitNo, &#xd;&#xa;CASE &#xd;&#xa;WHEN p.SiteStreetNo &#x3d; &#x27;&#x27; OR p.SiteStreetNo Is Null THEN &#x27;0&#x27;&#xd;&#xa;ELSE P.SiteStreetNo &#xd;&#xa;END AS SiteStreetNo,&#xd;&#xa;p.SiteStreetName as ROADNAME, &#xd;&#xa;p.SubmitDate, &#xd;&#xa;p.IssueDate, &#xd;&#xa;p.StartDate,&#xd;&#xa;p.CompleteDate, &#xd;&#xa;u.Name, &#xd;&#xa;CASE&#xd;&#xa;WHEN p.PermitType &#x3d; &#x27;S&#x27; THEN &#x27;Street Cut&#x27;&#xd;&#xa;WHEN p.PermitType &#x3d; &#x27;I&#x27; THEN &#x27;Installation&#x27;&#xd;&#xa;WHEN p.PermitType &#x3d; &#x27;AGP&#x27; THEN &#x27;Annual General Permit&#x27;&#xd;&#xa;End as PermitType,&#xd;&#xa;CASE&#xd;&#xa;WHEN p.TypeOfWork &#x3d; &#x27;R&#x27; THEN &#x27;Repair&#x27;&#xd;&#xa;WHEN p.TypeOfWork &#x3d; &#x27;A&#x27; THEN &#x27;Add or Change Equipment&#x27;&#xd;&#xa;WHEN p.TypeOfWork &#x3d; &#x27;M&#x27; THEN &#x27;Maintenance&#x27;&#xd;&#xa;WHEN p.TypeOfWork &#x3d; &#x27;N&#x27; THEN &#x27;New Construction&#x27;&#xd;&#xa;End as TypeOfWork, &#xd;&#xa;CASE &#xd;&#xa;WHEN p.LaneBlockage &#x3d; 1 THEN &#x27;Yes&#x27;&#xd;&#xa;ELSE &#x27;No&#x27;&#xd;&#xa;END as LaneBlockage&#xd;&#xa;FROM&#xd;&#xa;Permit as p&#xd;&#xa;JOIN Utilities as U ON p.UtilityCode &#x3d; u.UtilityCode&#xd;&#xa;WHERE p.IssueDate &#x3e;&#x3d; &#x27;2011-01-01&#x27; AND p.IssueDate &#x3c;&#x3d; GETDATE&#x28;&#x29; AND p.Approved &#x3d; 1</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -663,8 +669,264 @@
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>934</xloc>
-      <yloc>373</yloc>
+      <xloc>932</xloc>
+      <yloc>408</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Text file output</name>
+    <type>TextFileOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <separator>,</separator>
+    <enclosure>&#x22;</enclosure>
+    <enclosure_forced>N</enclosure_forced>
+    <enclosure_fix_disabled>N</enclosure_fix_disabled>
+    <header>Y</header>
+    <footer>N</footer>
+    <format>DOS</format>
+    <compression>None</compression>
+    <encoding/>
+    <endedLine/>
+    <fileNameInField>N</fileNameInField>
+    <fileNameField/>
+    <create_parent_folder>Y</create_parent_folder>
+    <file>
+      <name>C&#x3a;&#x5c;Users&#x5c;jhollinger&#x5c;Desktop&#x5c;file</name>
+      <is_command>N</is_command>
+      <servlet_output>N</servlet_output>
+      <do_not_open_new_file_init>N</do_not_open_new_file_init>
+      <extention>txt</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format/>
+      <add_to_result_filenames>Y</add_to_result_filenames>
+      <pad>N</pad>
+      <fast_dump>N</fast_dump>
+      <splitevery>0</splitevery>
+    </file>
+    <fields>
+      <field>
+        <name>ConfirmationNo</name>
+        <type>Integer</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>PermitNo</name>
+        <type>Integer</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>Address</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>SubmitDate</name>
+        <type>Timestamp</type>
+        <format>yyyy-MM-dd</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>IssueDate</name>
+        <type>Timestamp</type>
+        <format>yyyy&#x2f;MM&#x2f;dd</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>StartDate</name>
+        <type>Timestamp</type>
+        <format>yyyy&#x2f;MM&#x2f;dd</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>CompleteDate</name>
+        <type>Timestamp</type>
+        <format>yyyy&#x2f;MM&#x2f;dd</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>Name</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>PermitType</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>TypeOfWork</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>LaneBlockage</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>CleanAddress</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>MatchAddress</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>MatchType</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>parcelId</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>lat</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>lng</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>933</xloc>
+      <yloc>28</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

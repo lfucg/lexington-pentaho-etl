@@ -1,61 +1,49 @@
-2015/03/16 12:41:34 - ROW Permits - Loading transformation from XML file [file:///c:/Users/jhollinger/Documents/GitHub/lexington-pentaho-etl/civic-data-automation/row-permits.ktr]
-2015/03/16 12:41:34 - row-permits - Dispatching started for transformation [row-permits]
-2015/03/16 12:41:34 - upsert-records-to-ckan - Dispatching started for transformation [upsert-records-to-ckan]
-2015/03/16 12:41:34 - parcel-match - Dispatching started for transformation [parcel-match]
-2015/03/16 12:41:34 - row-clean - Dispatching started for transformation [row-clean]
-2015/03/16 12:41:34 - geocoder - Dispatching started for transformation [geocoder]
-2015/03/16 12:41:34 - PVA Addresses.0 - Header row skipped in file 'file:///c:/Users/jhollinger/Documents/GitHub/lexington-pentaho-etl/civic-data-automation/sub-transformations\ParcelCenters.csv'
-2015/03/16 12:41:34 - Street Points CSV.0 - Header row skipped in file 'file:///c:/Users/jhollinger/Documents/GitHub/lexington-pentaho-etl/civic-data-automation/sub-transformations\StreetPoints.csv'
-2015/03/16 12:41:34 - ROW Permits.0 - Finished reading query, closing connection.
-2015/03/16 12:41:34 - Check for Data.0 - Finished reading query, closing connection.
-2015/03/16 12:41:34 - ROW Permits.0 - Finished processing (I=1, O=0, R=0, W=1, U=0, E=0)
-2015/03/16 12:41:34 - Check for Data.0 - Finished processing (I=1, O=0, R=0, W=1, U=0, E=0)
-2015/03/16 12:41:34 - Clean Address 2.0 - Optimization level set to 9.
-2015/03/16 12:41:34 - Data?.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:34 - Mapping input specification.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:34 - Street Points CSV.0 - Finished processing (I=13240, O=0, R=0, W=13239, U=0, E=0)
-2015/03/16 12:41:34 - Address Type? 2.0 - Optimization level set to 9.
-2015/03/16 12:41:34 - Clean Address 2.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:34 - Address Type? 2.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:34 - Mapping output specification.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:34 - Match Parcels 2.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:34 - No Streetname?.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:34 - Input.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:34 - PVA Addresses.0 - Line number : 50000
-2015/03/16 12:41:35 - PVA Addresses.0 - Line number : 100000
-2015/03/16 12:41:35 - PVA Addresses.0 - Finished processing (I=109836, O=0, R=0, W=109836, U=0, E=0)
-2015/03/16 12:41:35 - Match Type.0 - Optimization level set to 9.
-2015/03/16 12:41:35 - Stream lookup.0 - Finished processing (I=0, O=0, R=109837, W=1, U=0, E=0)
-2015/03/16 12:41:35 - Match Type.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:35 - Output.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:35 - Match Parcels.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:35 - Write Query.0 - Optimization level set to 9.
-2015/03/16 12:41:35 - Sort Exact Matches.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:35 - Input.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:35 - Write Query.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:35 - Set MatchType/Address.0 - Optimization level set to 9.
-2015/03/16 12:41:35 - Geocoder SQL.0 - Finished processing (I=2, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:35 - Filter rows.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:35 - Stream lookup.0 - Finished processing (I=0, O=0, R=13240, W=1, U=0, E=0)
-2015/03/16 12:41:35 - Set MatchType/Address.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:35 - Select values 3.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:35 - Output.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:35 - Clean Addresses 2.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:35 - Geocoded.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:35 - Format as JSON.0 - Finished processing (I=0, O=1, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:35 - Add Resource ID.0 - Optimization level set to 9.
-2015/03/16 12:41:35 - Create POST body.0 - Optimization level set to 9.
-2015/03/16 12:41:35 - Add Resource ID.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:35 - jsonRecords input.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:35 - Get CKAN API variables.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:35 - Create POST body.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:36 - Write to log.0 - 
-2015/03/16 12:41:36 - Write to log.0 - ------------> Linenr 1------------------------------
-2015/03/16 12:41:36 - Write to log.0 - upsertBody = {"records":[{"MatchType":"Approximate Block Address Range","IssueDate":"2015\/03\/16 00:00:00.000000000","MatchAddress":"PATCHEN WILKES DR","PermitNo":29206,"LaneBlockage":"No","lng":"38.043287763161935","Name":"Contractor","SubmitDate":"2015\/03\/16 00:00:00.000000000","StartDate":"2015\/03\/16 00:00:00.000000000","parcelId":null,"Address":"0 PATCHEN WILKES DR","TypeOfWork":"New Construction","CompleteDate":"2015\/04\/30 00:00:00.000000000","lat":"-84.43971427725765","PermitType":"Street Cut","CleanAddress":"PATCHEN WILKES DR"}],"resource_id":"f64d48f2-3d01-499e-b182-7793eb7bff7c","force":"true"}
-2015/03/16 12:41:36 - Write to log.0 - result = {"help": "Updates or inserts into a table in the DataStore\n\n    The datastore_upsert API action allows you to add or edit records to\n    an existing DataStore resource. In order for the *upsert* and *update*\n    methods to work, a unique key has to be defined via the datastore_create\n    action. The available methods are:\n\n    *upsert*\n        Update if record with same key already exists, otherwise insert.\n        Requires unique key.\n    *insert*\n        Insert only. This method is faster that upsert, but will fail if any\n        inserted record matches an existing one. Does *not* require a unique\n        key.\n    *update*\n        Update only. An exception will occur if the key that should be updated\n        does not exist. Requires unique key.\n\n\n    :param resource_id: resource id that the data is going to be stored under.\n    :type resource_id: string\n    :param force: set to True to edit a read-only resource\n    :type force: bool (optional, default: False)\n    :param records: the data, eg: [{\"dob\": \"2005\", \"some_stuff\": [\"a\",\"b\"]}] (optional)\n    :type records: list of dictionaries\n    :param method: the method to use to put the data into the datastore.\n                   Possible options are: upsert, insert, update (optional, default: upsert)\n    :type method: string\n\n    **Results:**\n\n    :returns: The modified data object.\n    :rtype: dictionary\n\n    ", "success": false, "error": {"table": ["table does not have a unique key defined"], "__type": "Validation Error"}}
-2015/03/16 12:41:36 - Write to log.0 - 
-2015/03/16 12:41:36 - Write to log.0 - ====================
-2015/03/16 12:41:36 - Upsert records to CKAN.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:36 - Mapping output specification.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:36 - CKAN Upsert.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/03/16 12:41:36 - Write to log.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/17 16:11:35 - ROW Permits - Loading transformation from XML file [file:///c:/Users/jhollinger/Documents/GitHub/lexington-pentaho-etl/civic-data-automation/row-permits.ktr]
+2015/03/17 16:11:35 - row-permits - Dispatching started for transformation [row-permits]
+2015/03/17 16:11:35 - parcel-match - Dispatching started for transformation [parcel-match]
+2015/03/17 16:11:35 - row-clean - Dispatching started for transformation [row-clean]
+2015/03/17 16:11:35 - geocoder-v2 - Dispatching started for transformation [geocoder-v2]
+2015/03/17 16:11:35 - PVA Addresses.0 - Header row skipped in file 'file:///c:/Users/jhollinger/Documents/GitHub/lexington-pentaho-etl/civic-data-automation/sub-transformations\ParcelCenters.csv'
+2015/03/17 16:11:35 - Street Points CSV.0 - Header row skipped in file 'file:///c:/Users/jhollinger/Documents/GitHub/lexington-pentaho-etl/civic-data-automation/sub-transformations\StreetPoints.csv'
+2015/03/17 16:11:35 - Check for Data.0 - Finished reading query, closing connection.
+2015/03/17 16:11:35 - Clean Address 2.0 - Optimization level set to 9.
+2015/03/17 16:11:35 - Street Points CSV.0 - Finished processing (I=13240, O=0, R=0, W=13239, U=0, E=0)
+2015/03/17 16:11:35 - Check for Data.0 - Finished processing (I=1, O=0, R=0, W=1, U=0, E=0)
+2015/03/17 16:11:35 - Data?.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/03/17 16:11:35 - Address Type? 2.0 - Optimization level set to 9.
+2015/03/17 16:11:35 - ROW Permits.0 - Finished reading query, closing connection.
+2015/03/17 16:11:35 - ROW Permits.0 - Finished processing (I=8531, O=0, R=0, W=8531, U=0, E=0)
+2015/03/17 16:11:35 - Mapping input specification.0 - Finished processing (I=0, O=0, R=8531, W=8531, U=0, E=0)
+2015/03/17 16:11:35 - PVA Addresses.0 - Line number : 50000
+2015/03/17 16:11:36 - PVA Addresses.0 - Line number : 100000
+2015/03/17 16:11:36 - PVA Addresses.0 - Finished processing (I=109836, O=0, R=0, W=109836, U=0, E=0)
+2015/03/17 16:11:37 - Clean Address 2.0 - Finished processing (I=0, O=0, R=8531, W=8531, U=0, E=0)
+2015/03/17 16:11:37 - Address Type? 2.0 - Finished processing (I=0, O=0, R=8531, W=8531, U=0, E=0)
+2015/03/17 16:11:37 - Mapping output specification.0 - Finished processing (I=0, O=0, R=8531, W=8531, U=0, E=0)
+2015/03/17 16:11:37 - Match Parcels 2.0 - Finished processing (I=0, O=0, R=8531, W=8531, U=0, E=0)
+2015/03/17 16:11:37 - No Streetname?.0 - Finished processing (I=0, O=0, R=8531, W=8531, U=0, E=0)
+2015/03/17 16:11:37 - Input.0 - Finished processing (I=0, O=0, R=8531, W=8531, U=0, E=0)
+2015/03/17 16:11:37 - Match Type.0 - Optimization level set to 9.
+2015/03/17 16:11:37 - Write Query.0 - Optimization level set to 9.
+2015/03/17 16:11:37 - Stream lookup.0 - Finished processing (I=0, O=0, R=118367, W=8531, U=0, E=0)
+2015/03/17 16:11:37 - Match Type.0 - Finished processing (I=0, O=0, R=8531, W=8531, U=0, E=0)
+2015/03/17 16:11:37 - Output.0 - Finished processing (I=0, O=0, R=8531, W=8531, U=0, E=0)
+2015/03/17 16:11:37 - Match Parcels.0 - Finished processing (I=0, O=0, R=8531, W=8531, U=0, E=0)
+2015/03/17 16:11:37 - Set MatchType/Address.0 - Optimization level set to 9.
+2015/03/17 16:11:37 - Sort Exact Matches.0 - Finished processing (I=0, O=0, R=8531, W=8531, U=0, E=0)
+2015/03/17 16:11:37 - Exact Match.0 - Finished processing (I=0, O=0, R=7018, W=14036, U=0, E=0)
+2015/03/17 16:11:38 - Input.0 - Finished processing (I=0, O=0, R=1513, W=1513, U=0, E=0)
+2015/03/17 16:11:38 - Write Query.0 - Finished processing (I=0, O=0, R=1513, W=1513, U=0, E=0)
+2015/03/17 16:11:39 - Set MatchType/Address 2.0 - Optimization level set to 9.
+2015/03/17 16:12:31 - Geocoder SQL.0 - Finished processing (I=3001, O=0, R=1513, W=1513, U=0, E=0)
+2015/03/17 16:12:31 - Filter rows.0 - Finished processing (I=0, O=0, R=1513, W=1513, U=0, E=0)
+2015/03/17 16:12:31 - Set MatchType/Address 2.0 - Finished processing (I=0, O=0, R=25, W=25, U=0, E=0)
+2015/03/17 16:12:31 - Stream lookup.0 - Finished processing (I=0, O=0, R=14727, W=1488, U=0, E=0)
+2015/03/17 16:12:31 - Select values.0 - Finished processing (I=0, O=0, R=25, W=25, U=0, E=0)
+2015/03/17 16:12:31 - Set MatchType/Address.0 - Finished processing (I=0, O=0, R=1488, W=1488, U=0, E=0)
+2015/03/17 16:12:31 - Select values 3.0 - Finished processing (I=0, O=0, R=1488, W=1488, U=0, E=0)
+2015/03/17 16:12:31 - Output.0 - Finished processing (I=0, O=0, R=1513, W=1513, U=0, E=0)
+2015/03/17 16:12:31 - Clean Addresses 2.0 - Finished processing (I=0, O=0, R=1513, W=1513, U=0, E=0)
+2015/03/17 16:12:31 - Geocoded.0 - Finished processing (I=0, O=0, R=1513, W=3026, U=0, E=0)
+2015/03/17 16:12:31 - Text file output.0 - Finished processing (I=0, O=8532, R=8531, W=8531, U=0, E=0)
+2015/03/17 16:12:32 - Format as JSON.0 - Finished processing (I=0, O=1, R=8531, W=1, U=0, E=0)
