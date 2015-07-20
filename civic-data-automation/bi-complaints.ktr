@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>building-permits-v2</name>
+    <name>bi-complaints</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -201,7 +201,7 @@
            <schema_name/>
            </partitioning>
     <connection>BldgInsp</connection>
-    <sql>SELECT&#xd;&#xa;Permits.PermitID as &#x5b;ID&#x5d;,&#xd;&#xa;Permits.ParcelID as &#x5b;ParID&#x5d;,&#xd;&#xa;Permits.Date, &#xd;&#xa;Permits.Address, &#xd;&#xa;Permits.Suite, &#xd;&#xa;CASE &#xd;&#xa;WHEN Permits.IntendedUse LIKE &#x27;3000&#x25;&#x27; THEN &#x27;ZONING COMPLIANCE PERMIT&#x27;&#xd;&#xa;WHEN Permits.IntendedUse LIKE &#x27;3001&#x25;&#x27; THEN &#x27;ZONING COMPLIANCE - HOME OFFICE&#x27;&#xd;&#xa;ELSE Permits.PropertyType&#xd;&#xa;END AS &#x5b;PermitType&#x5d;, &#xd;&#xa;Sum&#x28;PFees.ConstCost&#x29; As &#x5b;ConstructionCost&#x5d;, &#xd;&#xa;Permits.OwnerName,&#xd;&#xa;Permits.Contractor,&#xd;&#xa;Permits.ClosedDate,&#xd;&#xa;Permits.VoidDate&#xd;&#xa;FROM Permits JOIN PFees ON Permits.ID&#x3d;PFees.PermitID&#xd;&#xa;WHERE Permits.Date &#x3e;&#x3d; &#x27;2015-01-01&#x27; AND Permits.Date &#x3c;&#x3d; GETDATE&#x28;&#x29; AND Permits.PermitID &#x3c;&#x3e; 0 AND Permits.Address &#x3c;&#x3e; &#x27;&#x27;&#xd;&#xa;GROUP BY Permits.PermitID, Permits.ParcelID,Permits.Date, Permits.Address, Permits.Suite, &#xd;&#xa;Permits.IntendedUse, Permits.PropertyType, Permits.OwnerName, Permits.Contractor, Permits.ClosedDate, Permits.VoidDate&#x3b;</sql>
+    <sql>SELECT&#xd;&#xa;ID,&#xd;&#xa;ParcelID as ParID,&#xd;&#xa;Date,&#xd;&#xa;Addr as &#x27;Address&#x27;, &#xd;&#xa;CASE&#xd;&#xa;WHEN ProbSmry LIKE &#x27;&#x25;busi&#x25;&#x27; THEN &#x27;ILLEGAL BUSINESS&#x27;&#xd;&#xa;WHEN ProbSmry LIKE &#x27;&#x25;permit&#x25;&#x27; OR ProbSmry LIKE &#x27;&#x25;working&#x25;&#x27; OR ProbSmry LIKE &#x27;&#x25;remodel&#x25;&#x27; THEN &#x27;NO PERMIT&#x27;&#xd;&#xa;WHEN ProbSmry LIKE &#x27;&#x25;occupancy&#x25;&#x27; THEN &#x27;OCCUPANCY ISSUE&#x27;&#xd;&#xa;WHEN ProbSmry LIKE &#x27;&#x25;sign&#x25;&#x27; THEN &#x27;SIGNAGE&#x27;&#xd;&#xa;WHEN ProbSmry LIKE &#x27;&#x25;paving&#x25;&#x27; OR ProbSmry LIKE &#x27;&#x25;asphalt&#x25;&#x27; THEN &#x27;PAVING&#x27;&#xd;&#xa;WHEN ProbSmry LIKE &#x27;&#x25;gravel&#x25;&#x27; THEN &#x27;GRAVEL&#x27;&#xd;&#xa;WHEN ProbSmry LIKE &#x27;&#x25;zoning&#x25;&#x27; THEN &#x27;ZONING&#x27;&#xd;&#xa;WHEN ProbSmry LIKE &#x27;&#x25;park&#x25;&#x27; THEN &#x27;PARKING&#x27;&#xd;&#xa;WHEN ProbSmry LIKE &#x27;&#x25;vehicle Repair&#x25;&#x27; THEN &#x27;VEHICLE REPAIR&#x27;&#xd;&#xa;WHEN ProbSmry LIKE &#x27;&#x25;sight&#x25;&#x27; OR ProbSmry LIKE &#x27;&#x25;site&#x25;&#x27; THEN &#x27;SIGHT DISTANCE ISSUE&#x27;&#xd;&#xa;ELSE &#x27;OTHER&#x27;&#xd;&#xa;END AS &#x27;ComplaintType&#x27;,&#xd;&#xa;Status,&#xd;&#xa;DateModified&#xd;&#xa;FROM &#xd;&#xa;Complaints&#xd;&#xa;WHERE Date &#x3e;&#x3d; &#x27;2011-1-1&#x27; and Date &#x3c;&#x3d; GetDate&#x28;&#x29;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -621,7 +621,7 @@
     <fileNameField/>
     <create_parent_folder>N</create_parent_folder>
     <file>
-      <name>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;csv&#x2f;bldg-permits</name>
+      <name>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;csv&#x2f;bi-complaints</name>
       <is_command>N</is_command>
       <servlet_output>N</servlet_output>
       <do_not_open_new_file_init>N</do_not_open_new_file_init>
@@ -676,7 +676,7 @@
         <precision>-1</precision>
       </field>
       <field>
-        <name>Suite</name>
+        <name>ComplaintType</name>
         <type>String</type>
         <format/>
         <currency/>
@@ -688,7 +688,7 @@
         <precision>-1</precision>
       </field>
       <field>
-        <name>PermitType</name>
+        <name>Status</name>
         <type>String</type>
         <format/>
         <currency/>
@@ -700,55 +700,7 @@
         <precision>-1</precision>
       </field>
       <field>
-        <name>ConstructionCost</name>
-        <type>BigNumber</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>OwnerName</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>Contractor</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>ClosedDate</name>
-        <type>Timestamp</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>VoidDate</name>
+        <name>DateModified</name>
         <type>Timestamp</type>
         <format/>
         <currency/>
