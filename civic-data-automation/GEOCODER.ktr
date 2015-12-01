@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>row-permits</name>
+    <name>code-enforcement-cases</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -67,19 +67,19 @@
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
-  <created_date>2015&#x2f;03&#x2f;04 13&#x3a;52&#x3a;28.523</created_date>
+  <created_date>2015&#x2f;03&#x2f;04 15&#x3a;08&#x3a;08.621</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2015&#x2f;03&#x2f;04 13&#x3a;52&#x3a;28.523</modified_date>
+  <modified_date>2015&#x2f;03&#x2f;04 15&#x3a;08&#x3a;08.621</modified_date>
   </info>
   <notepads>
   </notepads>
   <connection>
-    <name>ROW</name>
-    <server>&#x24;&#x7b;LEX_ROW_SERVER&#x7d;</server>
+    <name>CE</name>
+    <server>&#x24;&#x7b;CODE_SERVER&#x7d;</server>
     <type>MSSQL</type>
     <access>Native</access>
-    <database>&#x24;&#x7b;LEX_ROW_DB&#x7d;</database>
-    <port>&#x24;&#x7b;LEX_ROW_PORT&#x7d;</port>
+    <database>&#x24;&#x7b;CODE_DB&#x7d;</database>
+    <port>&#x24;&#x7b;CODE_PORT&#x7d;</port>
     <username/>
     <password>Encrypted </password>
     <servername/>
@@ -90,7 +90,32 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
       <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;LEX_ROW_PORT&#x7d;</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;CODE_PORT&#x7d;</attribute></attribute>
+      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>GIS</name>
+    <server>&#x24;&#x7b;GIS_SERVER&#x7d;</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>&#x24;&#x7b;GIS_DB&#x7d;</database>
+    <port>&#x24;&#x7b;GIS_PORT&#x7d;</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;GIS_PORT&#x7d;</attribute></attribute>
       <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
@@ -99,21 +124,19 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Match Parcels</from><to>Sort Exact Matches</to><enabled>Y</enabled> </hop>
   <hop> <from>No Streetname&#x3f;</from><to>Addresses with No Street</to><enabled>Y</enabled> </hop>
   <hop> <from>No Streetname&#x3f;</from><to>Match Parcels</to><enabled>Y</enabled> </hop>
-  <hop> <from>Sort Exact Matches</from><to>Exact Match</to><enabled>Y</enabled> </hop>
-  <hop> <from>Sort Exact Matches</from><to>Clean Addresses 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>Code Database</from><to>Clean Addresses</to><enabled>Y</enabled> </hop>
+  <hop> <from>Clean Addresses</from><to>No Streetname&#x3f;</to><enabled>Y</enabled> </hop>
+  <hop> <from>Add Resource ID</from><to>CKAN Upsert</to><enabled>Y</enabled> </hop>
+  <hop> <from>Format as JSON</from><to>Add Resource ID</to><enabled>Y</enabled> </hop>
+  <hop> <from>Match Parcels</from><to>Parcel Match&#x3f;</to><enabled>Y</enabled> </hop>
+  <hop> <from>Parcel Match&#x3f;</from><to>Clean Addresses 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>Parcel Match&#x3f;</from><to>Exact Match</to><enabled>Y</enabled> </hop>
+  <hop> <from>Exact Match</from><to>Format as JSON</to><enabled>Y</enabled> </hop>
   <hop> <from>Clean Addresses 2</from><to>Geocoded</to><enabled>Y</enabled> </hop>
-  <hop> <from>ROW Permits</from><to>Match Parcels 2</to><enabled>Y</enabled> </hop>
-  <hop> <from>Match Parcels 2</from><to>No Streetname&#x3f;</to><enabled>Y</enabled> </hop>
-  <hop> <from>Add Resource ID</from><to>CKAN Upsert</to><enabled>N</enabled> </hop>
-  <hop> <from>CKAN Upsert</from><to>Write to log</to><enabled>N</enabled> </hop>
-  <hop> <from>Format as JSON</from><to>Add Resource ID</to><enabled>N</enabled> </hop>
-  <hop> <from>Geocoded</from><to>Format as JSON</to><enabled>N</enabled> </hop>
-  <hop> <from>Exact Match</from><to>Format as JSON</to><enabled>N</enabled> </hop>
-  <hop> <from>Geocoded</from><to>Write to CSV</to><enabled>Y</enabled> </hop>
-  <hop> <from>Exact Match</from><to>Write to CSV</to><enabled>Y</enabled> </hop>
+  <hop> <from>Geocoded</from><to>Format as JSON</to><enabled>Y</enabled> </hop>
+  <hop> <from>CKAN Upsert</from><to>Write to log</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Add Resource ID</name>
@@ -130,7 +153,7 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var ckanResourceId &#x3d; &#x27;f64d48f2-3d01-499e-b182-7793eb7bff7c&#x27;&#xd;&#xa;</jsScript_script>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;var ckanResourceId &#x3d; &#x27;ad346da7-ce88-4c77-a0e1-10ff09bb0622&#x27;&#xd;&#xa;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>ckanResourceId</name>
         <rename>ckanResourceId</rename>
         <type>String</type>
@@ -139,8 +162,8 @@
         <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>932</xloc>
-      <yloc>230</yloc>
+      <xloc>875</xloc>
+      <yloc>354</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -158,8 +181,8 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>439</xloc>
-      <yloc>249</yloc>
+      <xloc>307</xloc>
+      <yloc>372</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -202,14 +225,14 @@
     <allow_multiple_output>N</allow_multiple_output>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>932</xloc>
-      <yloc>314</yloc>
+      <xloc>878</xloc>
+      <yloc>443</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Clean Addresses 2</name>
+    <name>Clean Addresses</name>
     <type>SimpleMapping</type>
     <description/>
     <distribute>Y</distribute>
@@ -222,7 +245,7 @@
     <specification_method>filename</specification_method>
     <trans_object_id/>
     <trans_name/>
-    <filename>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;&#x2f;sub-transformations&#x2f;geocoder-v2.ktr</filename>
+    <filename>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;&#x2f;sub-transformations&#x2f;code-clean.ktr</filename>
     <directory_path/>
     <mappings>
       <input>
@@ -244,8 +267,76 @@
     </mappings>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>661</xloc>
-      <yloc>11</yloc>
+      <xloc>160</xloc>
+      <yloc>253</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Clean Addresses 2</name>
+    <type>SimpleMapping</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <specification_method>filename</specification_method>
+    <trans_object_id/>
+    <trans_name/>
+    <filename>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;&#x2f;sub-transformations&#x2f;geocoder.ktr</filename>
+    <directory_path/>
+    <mappings>
+      <input>
+    <mapping>    <input_step/>
+    <output_step/>
+    <main_path>Y</main_path>
+    <rename_on_output>Y</rename_on_output>
+    <description/>
+    </mapping>      </input>
+      <output>
+    <mapping>    <input_step/>
+    <output_step/>
+    <main_path>Y</main_path>
+    <rename_on_output>N</rename_on_output>
+    <description/>
+    </mapping>      </output>
+          <parameters>    <inherit_all_vars>Y</inherit_all_vars>
+    </parameters>
+    </mappings>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>564</xloc>
+      <yloc>124</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Code Database</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>CE</connection>
+    <sql>SELECT&#xd;&#xa;C.CaseNo,&#xd;&#xa;C.CaseYr,&#xd;&#xa;C.Address,&#xd;&#xa;C.DateOpened,&#xd;&#xa;S.CaseType,&#xd;&#xa;S.Description as Status,&#xd;&#xa;C.StatusDate,&#xd;&#xa;CASE WHEN S.Closed &#x3d; 0 THEN &#x27;N&#x27;ELSE &#x27;Y&#x27; END as Closed&#xd;&#xa;FROM &#xd;&#xa;Cases as C&#xd;&#xa;JOIN&#xd;&#xa;StatusCodes as S ON C.StatusCode &#x3d; S.StatusCode&#xd;&#xa;WHERE&#xd;&#xa;C.StatusDate &#x3e;&#x3d; dateadd&#x28;day,-30,getdate&#x28;&#x29;&#x29; AND C.StatusDate &#x3c;&#x3d; GETDATE&#x28;&#x29;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>39</xloc>
+      <yloc>254</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -254,7 +345,7 @@
     <name>Exact Match</name>
     <type>Dummy</type>
     <description/>
-    <distribute>N</distribute>
+    <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
@@ -263,8 +354,8 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>801</xloc>
-      <yloc>128</yloc>
+      <xloc>716</xloc>
+      <yloc>253</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -288,8 +379,8 @@
     <encoding>UTF-8</encoding>
     <addtoresult>N</addtoresult>
     <file>
-      <name/>
-      <extention>js</extention>
+      <name>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x5c;code-enforcement</name>
+      <extention>json</extention>
       <append>N</append>
       <split>N</split>
       <haspartno>N</haspartno>
@@ -301,52 +392,40 @@
       </file>
     <fields>
       <field>
-        <name>ConfirmationNo</name>
-        <element>ConfirmationNo</element>
+        <name>CaseNo</name>
+        <element>CaseNo</element>
     </field>
       <field>
-        <name>PermitNo</name>
-        <element>PermitNo</element>
-    </field>
-      <field>
-        <name>SubmitDate</name>
-        <element>SubmitDate</element>
-    </field>
-      <field>
-        <name>IssueDate</name>
-        <element>IssueDate</element>
-    </field>
-      <field>
-        <name>StartDate</name>
-        <element>StartDate</element>
-    </field>
-      <field>
-        <name>CompleteDate</name>
-        <element>CompleteDate</element>
-    </field>
-      <field>
-        <name>Name</name>
-        <element>Name</element>
-    </field>
-      <field>
-        <name>PermitType</name>
-        <element>PermitType</element>
-    </field>
-      <field>
-        <name>TypeOfWork</name>
-        <element>TypeOfWork</element>
-    </field>
-      <field>
-        <name>LaneBlockage</name>
-        <element>LaneBlockage</element>
-    </field>
-      <field>
-        <name>CleanAddress</name>
-        <element>CleanAddress</element>
+        <name>CaseYr</name>
+        <element>CaseYr</element>
     </field>
       <field>
         <name>Address</name>
         <element>Address</element>
+    </field>
+      <field>
+        <name>DateOpened</name>
+        <element>DateOpened</element>
+    </field>
+      <field>
+        <name>CaseType</name>
+        <element>CaseType</element>
+    </field>
+      <field>
+        <name>Status</name>
+        <element>Status</element>
+    </field>
+      <field>
+        <name>StatusDate</name>
+        <element>StatusDate</element>
+    </field>
+      <field>
+        <name>Closed</name>
+        <element>Closed</element>
+    </field>
+      <field>
+        <name>CleanAddress</name>
+        <element>CleanAddress</element>
     </field>
       <field>
         <name>MatchAddress</name>
@@ -371,8 +450,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>935</xloc>
-      <yloc>129</yloc>
+      <xloc>874</xloc>
+      <yloc>252</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -381,7 +460,7 @@
     <name>Geocoded</name>
     <type>Dummy</type>
     <description/>
-    <distribute>N</distribute>
+    <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
@@ -390,8 +469,8 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>798</xloc>
-      <yloc>67</yloc>
+      <xloc>718</xloc>
+      <yloc>187</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -410,7 +489,7 @@
     <specification_method>filename</specification_method>
     <trans_object_id/>
     <trans_name/>
-    <filename>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;&#x2f;sub-transformations&#x2f;parcel-match-v2.ktr</filename>
+    <filename>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;&#x2f;sub-transformations&#x2f;parcel-match.ktr</filename>
     <directory_path/>
     <mappings>
       <input>
@@ -432,50 +511,8 @@
     </mappings>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>553</xloc>
-      <yloc>128</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Match Parcels 2</name>
-    <type>SimpleMapping</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <specification_method>filename</specification_method>
-    <trans_object_id/>
-    <trans_name/>
-    <filename>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;&#x2f;sub-transformations&#x2f;row-clean.ktr</filename>
-    <directory_path/>
-    <mappings>
-      <input>
-    <mapping>    <input_step/>
-    <output_step/>
-    <main_path>Y</main_path>
-    <rename_on_output>Y</rename_on_output>
-    <description/>
-    </mapping>      </input>
-      <output>
-    <mapping>    <input_step/>
-    <output_step/>
-    <main_path>Y</main_path>
-    <rename_on_output>N</rename_on_output>
-    <description/>
-    </mapping>      </output>
-          <parameters>    <inherit_all_vars>Y</inherit_all_vars>
-    </parameters>
-    </mappings>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>320</xloc>
-      <yloc>127</yloc>
+      <xloc>425</xloc>
+      <yloc>253</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -503,40 +540,14 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>439</xloc>
-      <yloc>129</yloc>
+      <xloc>306</xloc>
+      <yloc>253</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>ROW Permits</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>ROW</connection>
-    <sql>SELECT &#xd;&#xa;p.ConfirmationNo,&#xd;&#xa;p.PermitNo, &#xd;&#xa;CASE &#xd;&#xa;WHEN p.SiteStreetNo &#x3d; &#x27;&#x27; OR p.SiteStreetNo Is Null THEN &#x27;0&#x27;&#xd;&#xa;ELSE P.SiteStreetNo &#xd;&#xa;END AS SiteStreetNo,&#xd;&#xa;p.SiteStreetName as ROADNAME, &#xd;&#xa;p.SubmitDate, &#xd;&#xa;p.IssueDate, &#xd;&#xa;p.StartDate,&#xd;&#xa;p.CompleteDate, &#xd;&#xa;u.Name, &#xd;&#xa;CASE&#xd;&#xa;WHEN p.PermitType &#x3d; &#x27;S&#x27; THEN &#x27;Street Cut&#x27;&#xd;&#xa;WHEN p.PermitType &#x3d; &#x27;I&#x27; THEN &#x27;Installation&#x27;&#xd;&#xa;WHEN p.PermitType &#x3d; &#x27;AGP&#x27; THEN &#x27;Annual General Permit&#x27;&#xd;&#xa;End as PermitType,&#xd;&#xa;CASE&#xd;&#xa;WHEN p.TypeOfWork &#x3d; &#x27;R&#x27; THEN &#x27;Repair&#x27;&#xd;&#xa;WHEN p.TypeOfWork &#x3d; &#x27;A&#x27; THEN &#x27;Add or Change Equipment&#x27;&#xd;&#xa;WHEN p.TypeOfWork &#x3d; &#x27;M&#x27; THEN &#x27;Maintenance&#x27;&#xd;&#xa;WHEN p.TypeOfWork &#x3d; &#x27;N&#x27; THEN &#x27;New Construction&#x27;&#xd;&#xa;End as TypeOfWork, &#xd;&#xa;CASE &#xd;&#xa;WHEN p.LaneBlockage &#x3d; 1 THEN &#x27;Yes&#x27;&#xd;&#xa;ELSE &#x27;No&#x27;&#xd;&#xa;END as LaneBlockage&#xd;&#xa;FROM&#xd;&#xa;Permit as p&#xd;&#xa;JOIN Utilities as U ON p.UtilityCode &#x3d; u.UtilityCode&#xd;&#xa;WHERE p.IssueDate &#x3e;&#x3d; &#x27;2015-09-01&#x27; AND p.IssueDate &#x3c;&#x3d; GETDATE&#x28;&#x29; AND p.Approved &#x3d; 1</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>199</xloc>
-      <yloc>128</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Sort Exact Matches</name>
+    <name>Parcel Match&#x3f;</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -551,271 +562,15 @@
     <compare>
 <condition>
  <negated>N</negated>
- <leftvalue>MatchAddress</leftvalue>
+ <leftvalue>MatchType</leftvalue>
  <function>IS NOT NULL</function>
  <rightvalue/>
- </condition>
+ <value><name>constant</name><type>String</type><text>No Street</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>667</xloc>
-      <yloc>128</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Write to CSV</name>
-    <type>TextFileOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <separator>,</separator>
-    <enclosure>&#x22;</enclosure>
-    <enclosure_forced>N</enclosure_forced>
-    <enclosure_fix_disabled>N</enclosure_fix_disabled>
-    <header>Y</header>
-    <footer>N</footer>
-    <format>DOS</format>
-    <compression>None</compression>
-    <encoding/>
-    <endedLine/>
-    <fileNameInField>N</fileNameInField>
-    <fileNameField/>
-    <create_parent_folder>N</create_parent_folder>
-    <file>
-      <name>C&#x3a;&#x5c;Users&#x5c;jhollinger&#x5c;Documents&#x5c;GitHub&#x5c;lexington-pentaho-etl&#x5c;civic-data-automation&#x5c;csv&#x5c;row-permits</name>
-      <is_command>N</is_command>
-      <servlet_output>N</servlet_output>
-      <do_not_open_new_file_init>N</do_not_open_new_file_init>
-      <extention>csv</extention>
-      <append>N</append>
-      <split>N</split>
-      <haspartno>N</haspartno>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <SpecifyFormat>N</SpecifyFormat>
-      <date_time_format/>
-      <add_to_result_filenames>Y</add_to_result_filenames>
-      <pad>N</pad>
-      <fast_dump>N</fast_dump>
-      <splitevery>0</splitevery>
-    </file>
-    <fields>
-      <field>
-        <name>ConfirmationNo</name>
-        <type>Integer</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>PermitNo</name>
-        <type>Integer</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>Address</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>SubmitDate</name>
-        <type>Timestamp</type>
-        <format>yyyy&#x2f;MM&#x2f;dd</format>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>IssueDate</name>
-        <type>Timestamp</type>
-        <format>yyyy&#x2f;MM&#x2f;dd</format>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>StartDate</name>
-        <type>Timestamp</type>
-        <format>yyyy&#x2f;MM&#x2f;dd</format>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>CompleteDate</name>
-        <type>Timestamp</type>
-        <format>yyyy&#x2f;MM&#x2f;dd</format>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>Name</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>PermitType</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>TypeOfWork</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>LaneBlockage</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>CleanAddress</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>MatchAddress</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>MatchType</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>parcelId</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>lat</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>lng</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>933</xloc>
-      <yloc>28</yloc>
+      <xloc>566</xloc>
+      <yloc>252</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -838,16 +593,13 @@
       <logmessage/>
     <fields>
       <field>
-        <name>upsertBody</name>
-        </field>
-      <field>
         <name>result</name>
         </field>
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>932</xloc>
-      <yloc>408</yloc>
+      <xloc>879</xloc>
+      <yloc>575</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
