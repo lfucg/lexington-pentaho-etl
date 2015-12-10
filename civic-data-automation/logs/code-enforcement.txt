@@ -1,68 +1,68 @@
-2015/12/01 01:00:03 - Code Enforcement - Loading transformation from XML file [file:///c:/Users/jhollinger/Documents/GitHub/lexington-pentaho-etl/civic-data-automation/code-enforcement-cases.ktr]
-2015/12/01 01:00:03 - code-enforcement-cases - Dispatching started for transformation [code-enforcement-cases]
-2015/12/01 01:00:03 - upsert-records-to-ckan - Dispatching started for transformation [upsert-records-to-ckan]
-2015/12/01 01:00:03 - parcel-match - Dispatching started for transformation [parcel-match]
-2015/12/01 01:00:03 - geocoder - Dispatching started for transformation [geocoder]
-2015/12/01 01:00:03 - code-clean - Dispatching started for transformation [code-clean]
-2015/12/01 01:00:04 - PVA Addresses.0 - Header row skipped in file 'file:///c:/Users/jhollinger/Documents/GitHub/lexington-pentaho-etl/civic-data-automation/sub-transformations\ParcelCenters.csv'
-2015/12/01 01:00:04 - Street Points CSV.0 - Header row skipped in file 'file:///c:/Users/jhollinger/Documents/GitHub/lexington-pentaho-etl/civic-data-automation/sub-transformations\StreetPoints.csv'
-2015/12/01 01:00:04 - Clean Addresses.0 - Optimization level set to 9.
-2015/12/01 01:00:04 - GIS Streets.0 - Finished reading query, closing connection.
-2015/12/01 01:00:04 - GIS Streets.0 - Finished processing (I=4261, O=0, R=0, W=12783, U=0, E=0)
-2015/12/01 01:00:04 - Code Database.0 - Finished reading query, closing connection.
-2015/12/01 01:00:04 - Code Database.0 - Finished processing (I=1499, O=0, R=0, W=1499, U=0, E=0)
-2015/12/01 01:00:04 - Street Points CSV.0 - Finished processing (I=13240, O=0, R=0, W=13239, U=0, E=0)
-2015/12/01 01:00:04 - Input.0 - Finished processing (I=0, O=0, R=1499, W=1499, U=0, E=0)
-2015/12/01 01:00:04 - PVA Addresses.0 - Line number : 50000
-2015/12/01 01:00:04 - Construct Clean Addresses.0 - Optimization level set to 9.
-2015/12/01 01:00:04 - Address Type?.0 - Optimization level set to 9.
-2015/12/01 01:00:04 - PVA Addresses.0 - Line number : 100000
-2015/12/01 01:00:04 - PVA Addresses.0 - Finished processing (I=109836, O=0, R=0, W=109836, U=0, E=0)
-2015/12/01 01:00:04 - Set ROADNAME 3.0 - Optimization level set to 9.
-2015/12/01 01:00:04 - Clean Addresses.0 - Finished processing (I=0, O=0, R=1499, W=1499, U=0, E=0)
-2015/12/01 01:00:04 - Get Street Name.0 - Finished processing (I=0, O=0, R=5760, W=1499, U=0, E=0)
-2015/12/01 01:00:04 - Matched SID?.0 - Finished processing (I=0, O=0, R=1499, W=1499, U=0, E=0)
-2015/12/01 01:00:04 - Jaro Winkler.0 - Finished processing (I=0, O=0, R=4267, W=6, U=0, E=0)
-2015/12/01 01:00:04 - Sort Matches 1.0 - Finished processing (I=0, O=0, R=6, W=6, U=0, E=0)
-2015/12/01 01:00:04 - Set ROADNAME 2.0 - Optimization level set to 9.
-2015/12/01 01:00:04 - Damerau Levenshtein.0 - Finished processing (I=0, O=0, R=4267, W=6, U=0, E=0)
-2015/12/01 01:00:04 - Sort Matches 2.0 - Finished processing (I=0, O=0, R=6, W=6, U=0, E=0)
-2015/12/01 01:00:04 - Set ROADNAME 2.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/12/01 01:00:04 - Set ROADNAME 3.0 - Finished processing (I=0, O=0, R=5, W=5, U=0, E=0)
-2015/12/01 01:00:04 - Match Type.0 - Optimization level set to 9.
-2015/12/01 01:00:04 - Remove Fields.0 - Finished processing (I=0, O=0, R=6, W=6, U=0, E=0)
-2015/12/01 01:00:04 - Construct Clean Addresses.0 - Finished processing (I=0, O=0, R=1499, W=1499, U=0, E=0)
-2015/12/01 01:00:04 - Address Type?.0 - Finished processing (I=0, O=0, R=1499, W=1499, U=0, E=0)
-2015/12/01 01:00:04 - Select values.0 - Finished processing (I=0, O=0, R=1499, W=1499, U=0, E=0)
-2015/12/01 01:00:04 - Output.0 - Finished processing (I=0, O=0, R=1499, W=1499, U=0, E=0)
-2015/12/01 01:00:04 - Clean Addresses.0 - Finished processing (I=0, O=0, R=1499, W=1499, U=0, E=0)
-2015/12/01 01:00:04 - No Streetname?.0 - Finished processing (I=0, O=0, R=1499, W=1499, U=0, E=0)
-2015/12/01 01:00:04 - Write Query.0 - Optimization level set to 9.
-2015/12/01 01:00:04 - Input.0 - Finished processing (I=0, O=0, R=1499, W=1499, U=0, E=0)
-2015/12/01 01:00:04 - Stream lookup.0 - Finished processing (I=0, O=0, R=111335, W=1499, U=0, E=0)
-2015/12/01 01:00:04 - Match Type.0 - Finished processing (I=0, O=0, R=1499, W=1499, U=0, E=0)
-2015/12/01 01:00:04 - Output.0 - Finished processing (I=0, O=0, R=1499, W=1499, U=0, E=0)
-2015/12/01 01:00:04 - Match Parcels.0 - Finished processing (I=0, O=0, R=1499, W=1499, U=0, E=0)
-2015/12/01 01:00:04 - Parcel Match?.0 - Finished processing (I=0, O=0, R=1499, W=1499, U=0, E=0)
-2015/12/01 01:00:04 - Exact Match.0 - Finished processing (I=0, O=0, R=1415, W=1415, U=0, E=0)
-2015/12/01 01:00:04 - Input.0 - Finished processing (I=0, O=0, R=84, W=84, U=0, E=0)
-2015/12/01 01:00:04 - Write Query.0 - Finished processing (I=0, O=0, R=84, W=84, U=0, E=0)
-2015/12/01 01:00:04 - Set MatchType/Address.0 - Optimization level set to 9.
-2015/12/01 01:00:07 - Set MatchType/Address 2.0 - Optimization level set to 9.
-2015/12/01 01:00:09 - Filter rows.0 - Finished processing (I=0, O=0, R=84, W=84, U=0, E=0)
-2015/12/01 01:00:09 - Geocoder SQL.0 - Finished processing (I=163, O=0, R=84, W=84, U=0, E=0)
-2015/12/01 01:00:09 - Stream lookup.0 - Finished processing (I=0, O=0, R=13318, W=79, U=0, E=0)
-2015/12/01 01:00:09 - Set MatchType/Address 2.0 - Finished processing (I=0, O=0, R=5, W=5, U=0, E=0)
-2015/12/01 01:00:09 - Set MatchType/Address.0 - Finished processing (I=0, O=0, R=79, W=79, U=0, E=0)
-2015/12/01 01:00:09 - Select values.0 - Finished processing (I=0, O=0, R=5, W=5, U=0, E=0)
-2015/12/01 01:00:09 - Select values 3.0 - Finished processing (I=0, O=0, R=79, W=79, U=0, E=0)
-2015/12/01 01:00:09 - Output.0 - Finished processing (I=0, O=0, R=84, W=84, U=0, E=0)
-2015/12/01 01:00:09 - Clean Addresses 2.0 - Finished processing (I=0, O=0, R=84, W=84, U=0, E=0)
-2015/12/01 01:00:09 - Geocoded.0 - Finished processing (I=0, O=0, R=84, W=84, U=0, E=0)
-2015/12/01 01:00:09 - Format as JSON.0 - Finished processing (I=0, O=1, R=1499, W=1, U=0, E=0)
-2015/12/01 01:00:09 - Add Resource ID.0 - Optimization level set to 9.
-2015/12/01 01:00:09 - Create POST body.0 - Optimization level set to 9.
-2015/12/01 01:00:09 - Add Resource ID.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/12/01 01:00:09 - jsonRecords input.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/12/01 01:00:09 - Get CKAN API variables.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
-2015/12/01 01:00:09 - Create POST body.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/12/09 18:32:03 - Code Enforcement - Loading transformation from XML file [file:///c:/Users/jhollinger/Documents/GitHub/lexington-pentaho-etl/civic-data-automation/code-enforcement-cases.ktr]
+2015/12/09 18:32:05 - code-enforcement-cases - Dispatching started for transformation [code-enforcement-cases]
+2015/12/09 18:32:05 - upsert-records-to-ckan - Dispatching started for transformation [upsert-records-to-ckan]
+2015/12/09 18:32:05 - parcel-match - Dispatching started for transformation [parcel-match]
+2015/12/09 18:32:06 - geocoder - Dispatching started for transformation [geocoder]
+2015/12/09 18:32:06 - code-clean - Dispatching started for transformation [code-clean]
+2015/12/09 18:32:08 - Code Database.0 - Finished reading query, closing connection.
+2015/12/09 18:32:08 - Input.0 - Finished processing (I=0, O=0, R=1426, W=1426, U=0, E=0)
+2015/12/09 18:32:08 - GIS Streets.0 - Finished reading query, closing connection.
+2015/12/09 18:32:08 - Code Database.0 - Finished processing (I=1426, O=0, R=0, W=1426, U=0, E=0)
+2015/12/09 18:32:08 - GIS Streets.0 - Finished processing (I=4261, O=0, R=0, W=12783, U=0, E=0)
+2015/12/09 18:32:08 - Street Points CSV.0 - Header row skipped in file 'file:///c:/Users/jhollinger/Documents/GitHub/lexington-pentaho-etl/civic-data-automation/sub-transformations\StreetPoints.csv'
+2015/12/09 18:32:08 - PVA Addresses.0 - Header row skipped in file 'file:///c:/Users/jhollinger/Documents/GitHub/lexington-pentaho-etl/civic-data-automation/sub-transformations\ParcelCenters.csv'
+2015/12/09 18:32:08 - Street Points CSV.0 - Finished processing (I=13240, O=0, R=0, W=13239, U=0, E=0)
+2015/12/09 18:32:08 - PVA Addresses.0 - Line number : 50000
+2015/12/09 18:32:08 - PVA Addresses.0 - Line number : 100000
+2015/12/09 18:32:08 - PVA Addresses.0 - Finished processing (I=109836, O=0, R=0, W=109836, U=0, E=0)
+2015/12/09 18:32:09 - Clean Addresses.0 - Optimization level set to 9.
+2015/12/09 18:32:09 - Construct Clean Addresses.0 - Optimization level set to 9.
+2015/12/09 18:32:09 - Address Type?.0 - Optimization level set to 9.
+2015/12/09 18:32:09 - Match Type.0 - Optimization level set to 9.
+2015/12/09 18:32:09 - Set ROADNAME 3.0 - Optimization level set to 9.
+2015/12/09 18:32:09 - Clean Addresses.0 - Finished processing (I=0, O=0, R=1426, W=1426, U=0, E=0)
+2015/12/09 18:32:09 - Write Query.0 - Optimization level set to 9.
+2015/12/09 18:32:10 - Get Street Name.0 - Finished processing (I=0, O=0, R=5687, W=1426, U=0, E=0)
+2015/12/09 18:32:10 - Matched SID?.0 - Finished processing (I=0, O=0, R=1426, W=1426, U=0, E=0)
+2015/12/09 18:32:10 - Set ROADNAME 2.0 - Optimization level set to 9.
+2015/12/09 18:32:10 - Jaro Winkler.0 - Finished processing (I=0, O=0, R=4267, W=6, U=0, E=0)
+2015/12/09 18:32:10 - Sort Matches 1.0 - Finished processing (I=0, O=0, R=6, W=6, U=0, E=0)
+2015/12/09 18:32:10 - Damerau Levenshtein.0 - Finished processing (I=0, O=0, R=4267, W=6, U=0, E=0)
+2015/12/09 18:32:10 - Sort Matches 2.0 - Finished processing (I=0, O=0, R=6, W=6, U=0, E=0)
+2015/12/09 18:32:10 - Set ROADNAME 3.0 - Finished processing (I=0, O=0, R=5, W=5, U=0, E=0)
+2015/12/09 18:32:10 - Set ROADNAME 2.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/12/09 18:32:10 - Set MatchType/Address.0 - Optimization level set to 9.
+2015/12/09 18:32:10 - Remove Fields.0 - Finished processing (I=0, O=0, R=6, W=6, U=0, E=0)
+2015/12/09 18:32:10 - Construct Clean Addresses.0 - Finished processing (I=0, O=0, R=1426, W=1426, U=0, E=0)
+2015/12/09 18:32:10 - Address Type?.0 - Finished processing (I=0, O=0, R=1426, W=1426, U=0, E=0)
+2015/12/09 18:32:10 - Select values.0 - Finished processing (I=0, O=0, R=1426, W=1426, U=0, E=0)
+2015/12/09 18:32:10 - Output.0 - Finished processing (I=0, O=0, R=1426, W=1426, U=0, E=0)
+2015/12/09 18:32:10 - Clean Addresses.0 - Finished processing (I=0, O=0, R=1426, W=1426, U=0, E=0)
+2015/12/09 18:32:10 - No Streetname?.0 - Finished processing (I=0, O=0, R=1426, W=1426, U=0, E=0)
+2015/12/09 18:32:10 - Input.0 - Finished processing (I=0, O=0, R=1426, W=1426, U=0, E=0)
+2015/12/09 18:32:10 - Stream lookup.0 - Finished processing (I=0, O=0, R=111262, W=1426, U=0, E=0)
+2015/12/09 18:32:10 - Match Type.0 - Finished processing (I=0, O=0, R=1426, W=1426, U=0, E=0)
+2015/12/09 18:32:10 - Output.0 - Finished processing (I=0, O=0, R=1426, W=1426, U=0, E=0)
+2015/12/09 18:32:10 - Match Parcels.0 - Finished processing (I=0, O=0, R=1426, W=1426, U=0, E=0)
+2015/12/09 18:32:10 - Parcel Match?.0 - Finished processing (I=0, O=0, R=1426, W=1426, U=0, E=0)
+2015/12/09 18:32:10 - Exact Match.0 - Finished processing (I=0, O=0, R=1341, W=1341, U=0, E=0)
+2015/12/09 18:32:10 - Input.0 - Finished processing (I=0, O=0, R=85, W=85, U=0, E=0)
+2015/12/09 18:32:10 - Write Query.0 - Finished processing (I=0, O=0, R=85, W=85, U=0, E=0)
+2015/12/09 18:32:12 - Set MatchType/Address 2.0 - Optimization level set to 9.
+2015/12/09 18:32:14 - Filter rows.0 - Finished processing (I=0, O=0, R=85, W=85, U=0, E=0)
+2015/12/09 18:32:14 - Stream lookup.0 - Finished processing (I=0, O=0, R=13319, W=80, U=0, E=0)
+2015/12/09 18:32:14 - Geocoder SQL.0 - Finished processing (I=165, O=0, R=85, W=85, U=0, E=0)
+2015/12/09 18:32:14 - Set MatchType/Address 2.0 - Finished processing (I=0, O=0, R=5, W=5, U=0, E=0)
+2015/12/09 18:32:14 - Set MatchType/Address.0 - Finished processing (I=0, O=0, R=80, W=80, U=0, E=0)
+2015/12/09 18:32:14 - Select values.0 - Finished processing (I=0, O=0, R=5, W=5, U=0, E=0)
+2015/12/09 18:32:14 - Select values 3.0 - Finished processing (I=0, O=0, R=80, W=80, U=0, E=0)
+2015/12/09 18:32:14 - Output.0 - Finished processing (I=0, O=0, R=85, W=85, U=0, E=0)
+2015/12/09 18:32:14 - Clean Addresses 2.0 - Finished processing (I=0, O=0, R=85, W=85, U=0, E=0)
+2015/12/09 18:32:14 - Geocoded.0 - Finished processing (I=0, O=0, R=85, W=85, U=0, E=0)
+2015/12/09 18:32:14 - Format as JSON.0 - Finished processing (I=0, O=1, R=1426, W=1, U=0, E=0)
+2015/12/09 18:32:14 - Add Resource ID.0 - Optimization level set to 9.
+2015/12/09 18:32:14 - Create POST body.0 - Optimization level set to 9.
+2015/12/09 18:32:14 - Add Resource ID.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/12/09 18:32:14 - jsonRecords input.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/12/09 18:32:14 - Get CKAN API variables.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2015/12/09 18:32:14 - Create POST body.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
