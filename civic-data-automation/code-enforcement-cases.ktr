@@ -70,6 +70,8 @@
   <created_date>2015&#x2f;03&#x2f;04 15&#x3a;08&#x3a;08.621</created_date>
   <modified_user>-</modified_user>
   <modified_date>2015&#x2f;03&#x2f;04 15&#x3a;08&#x3a;08.621</modified_date>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
+    <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
@@ -327,7 +329,7 @@
            <schema_name/>
            </partitioning>
     <connection>CE</connection>
-    <sql>SELECT&#xd;&#xa;C.CaseNo,&#xd;&#xa;C.CaseYr,&#xd;&#xa;C.Address,&#xd;&#xa;C.DateOpened,&#xd;&#xa;S.CaseType,&#xd;&#xa;S.Description as Status,&#xd;&#xa;C.StatusDate,&#xd;&#xa;CASE WHEN S.Closed &#x3d; 0 THEN &#x27;N&#x27;ELSE &#x27;Y&#x27; END as Closed&#xd;&#xa;FROM &#xd;&#xa;Cases as C&#xd;&#xa;JOIN&#xd;&#xa;StatusCodes as S ON C.StatusCode &#x3d; S.StatusCode&#xd;&#xa;WHERE&#xd;&#xa;C.StatusDate &#x3e;&#x3d; dateadd&#x28;day,-30,getdate&#x28;&#x29;&#x29; AND C.StatusDate &#x3c;&#x3d; GETDATE&#x28;&#x29;</sql>
+    <sql>SELECT&#xd;&#xa;C.CaseNo,&#xd;&#xa;C.CaseYr,&#xd;&#xa;C.Address,&#xd;&#xa;C.DateOpened,&#xd;&#xa;CASE&#xd;&#xa;WHEN S.CaseType &#x3d; &#x27;Housing&#x27; AND C.CaseNo LIKE &#x27;&#x25;&#x5b;0-9&#x5d;S&#x25;&#x27; THEN &#x27;Sidewalk&#x27;&#xd;&#xa;WHEN S.CaseType &#x3d; &#x27;Housing&#x27; AND C.CaseNo LIKE &#x27;&#x25;CONDEM&#x25;&#x27; THEN &#x27;Condemnation&#x27;&#xd;&#xa;WHEN S.CaseType &#x3d; &#x27;Housing&#x27; AND C.CaseNo LIKE &#x27;&#x25;DEMO&#x25;&#x27; THEN &#x27;Demolition&#x27;&#xd;&#xa;WHEN S.CaseType &#x3d; &#x27;Housing&#x27; THEN &#x27;Housing&#x27;&#xd;&#xa;WHEN S.CaseType &#x3d; &#x27;Nuisance&#x27; AND C.CaseNo LIKE &#x27;&#x25;SIGNS&#x25;&#x27; THEN &#x27;Signs&#x27;&#xd;&#xa;WHEN S.CaseType &#x3d; &#x27;Nuisance&#x27; THEN &#x27;Nuisance&#x27;&#xd;&#xa;END AS CaseType,&#xd;&#xa;S.Description as Status,&#xd;&#xa;C.StatusDate,&#xd;&#xa;CASE WHEN S.Closed &#x3d; 0 THEN &#x27;N&#x27;ELSE &#x27;Y&#x27; END as Closed&#xd;&#xa;FROM &#xd;&#xa;Cases as C&#xd;&#xa;JOIN&#xd;&#xa;StatusCodes as S ON C.StatusCode &#x3d; S.StatusCode&#xd;&#xa;WHERE&#xd;&#xa;C.StatusDate &#x3e;&#x3d; dateadd&#x28;day,-30,getdate&#x28;&#x29;&#x29; AND C.StatusDate &#x3c;&#x3d; GETDATE&#x28;&#x29;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
